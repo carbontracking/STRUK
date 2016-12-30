@@ -1,4 +1,4 @@
-# STRUK
+# UPSCRIBERS
 
 A web application that makes school better for print-challenged kids (and all the others too). By print-challenged we mean those who are unable to read, or have difficulty reading, printed materials
 * Low-vision
