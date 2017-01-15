@@ -1,9 +1,10 @@
 # UPSCRIBERS
 
-A web application that makes school better for print-challenged kids (and all the others too). By print-challenged we mean those who are unable to read, or have difficulty reading, printed materials
+A web application that makes life better for print-challenged kids (and all the others too). 
+By print-challenged we mean those who are unable to read, or have difficulty reading, printed materials
 * Low-vision
-* Learning disabilities (dyslexia)
-* Neuro-motor
+* Learning disabilities (dyslexia etc.)
+* Neuro-motor diseases
 
 Today students receive learning material in  multiple formats (printed/hand-written/pdf/docx/odt).
 
