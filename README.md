@@ -6,6 +6,9 @@ By print-challenged we mean those who are unable to read, or have difficulty rea
 * Learning disabilities (dyslexia etc.)
 * Neuro-motor diseases
 
+See [the wiki](https://github.com/carbontracking/upscribers/wiki) for further details
+
+
 Today students receive learning material in  multiple formats (printed/hand-written/pdf/docx/odt).
 
 This project/webapp will provide the following
