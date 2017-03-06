@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+<!-- Taken from http://www.adventuresinwebdesign.com/samples/anchors/blog/	
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+-->
+	<style>
+	/* ---------Single Page Website CSS by Kelly King ----------*/
+
+	*{ margin: 0 auto;}
+
+	h2 { font-size : 48px; padding-top: 90px; }
+	.content { font-size : 36px; }
+	#header { font-size : 20px; }
+
+	body {
+		background:white; 
+		margin: 0 auto; 
+		font-family:Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+		height:2000px;
+		}
+	#header {
+		position:fixed;
+		top:0px;
+		left:0px;
+		background:#666; 
+		height:70px; 
+		width:100%;
+		}
+
+	#nav { margin-left:50px; margin-top:45px; }
+
+	#nav a { margin-left:20px; }
+
+	#page1,#page2,#page3,#page4,#page5 { height:1100px; width:1000px;}
+
+	#page2,#page3,#page4 { padding-top:150px; }
+
+	#page1 { background:#afc9ff; padding-top:110px;	}
+		
+	#page2 { background-image: url(/images/background_01_code.jpg);	}
+		
+	#page3 { background:#9b70c0;	}
+
+	#page4 { background:#afc9ff;	}
+
+	#page5 { background:#9b70c0;	}
+
+	a { color:white; text-decoration:none;}
+		
+	a:hover { text-decoration:underline;}
+	</style>
+	</head>
+<body>
+<div id="header">
+	<div id="nav">
+		<span id="title">CodeFest-TLS</span>
+		<a href="#CestQuoi">C'est quoi ?</a>
+		<a href="#CommentCaMarche">Comment ça marche ?</a>
+		<a href="#PourquoiMoi">Pourquoi Jouer ?</a>
+		<a href="#Sponsors">Sponsors</a>
+		<a href="#Contact">Contact</a>
+	</div>
+</div>
+
+	<div id="page1">
+		<h2 id="CestQuoi">C'est Quoi ?</h2>
+		<div class="content">
+			<ul>
+				<li>Une compétition pour codeurs JavaScript qui aura lieu le weekend du 23/24/25 juin 2017.</li>
+				<li>Une compétition par équipe, chaque équipe compte entre 2 et 6 codeurs</li>
+			</ul>
+		</div>
+	</div> <!--END page1-->
+	
+	<div id="page2">
+		<h2 id="CommentCaMarche">Comment Ca Marche ?</h2>
+		<div class="content">
+			<ul>
+				<li>Le vendredi, des défis (du Projet UpScribers) autour de 4 sujets prédéfinis sont distribués aux équipes et ils ont 48 heures pour coder leur solution</li>
+				<li>Dimanche soir, le pitch final de chaque équipe et l'annonce des gagnants, un gagnant par défi et un "Prix Du Jury"</li>
+			</ul>	
+		 </div>
+	</div> <!--END page2-->
+
+	<div id="page3">
+		<h2 id="PourquoiMoi">Pourquoi Jouer ?</h2>
+		<div class="content">
+			<ul>
+				<li>Parce qu'il y a €2500 pour chaque équipe gagnante</li>
+				<li>Parce que toi, gagnant, deviendras un demi-dieu/déesse de JS pour l'éternité</li>
+				<li>Parce ça sera un grand moment de partage avec ton équipe, d'autres codeurs, les parténaires, les sponsors</li>
+				<li>Parce que ça donnera naissance au Projet Upscribers #Code4Good</li>
+				<li>..des cadeaux, des cadeaux #Code4Goodies</li>
+			</ul>
+		 </div>
+	</div> <!--END page3-->
+	
+	<div id="page4">
+		<h2 id="Sponsors">Nos Sponsors/Partenaires</h2>
+		<div class="content">
+			<ul>
+				<li>Insérer image Infotel + formulaire pour nous contacter</li>
+				<li><img src="images/Infotel_logo.jpg" alt="Logo et lien vers Infotel Conseil"></li>
+			</ul>
+		 </div>
+	</div>
+	
+	<div id="page5">
+		<h2 id="Contact">Contact</h2>
+		<div class="content">
+			<ul>
+				<li>This is what you see on the Contact page.</li>
+			</ul>
+		 </div>
+	</div> <!--END page5-->	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+  function filterPath(string) {
+    return string
+      .replace(/^\//,'')  
+      .replace(/(index|default).[a-zA-Z]{3,4}$/,'')  
+      .replace(/\/$/,'');
+  }
+
+  $('a[href*=#]').each(function() {
+    if ( filterPath(location.pathname) == filterPath(this.pathname)
+    && location.hostname == this.hostname
+    && this.hash.replace(/#/,'') ) {
+      var $targetId = $(this.hash), $targetAnchor = $('[name=' + this.hash.slice(1) +']');
+      var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
+       if ($target) {
+         var targetOffset = $target.offset().top;
+         $(this).click(function() {
+           $('html, body').animate({scrollTop: targetOffset}, 1000);
+           return false;
+         });
+      }
+    }
+  });
+});
+</script>
+
+</body></html>
