@@ -1,0 +1,19 @@
+.Arrows img {
+  width: 4em;
+  margin: 0.2em;
+  cursor: pointer;
+}
+
+.Arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DownArrows {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

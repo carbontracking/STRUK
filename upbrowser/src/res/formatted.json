@@ -1,0 +1,53 @@
+{
+  "@Type": "h1",
+  "text": "Lecture cursive",
+  "Childrens": [
+    {
+      "@Type": "h2",
+      "text": "Lire l'œuvre II.2",
+      "Childrens": [
+        {
+          "@Type": "h3",
+          "text": "1er rendez-vous de lecture",
+          "Childrens": [
+            {
+              "@Type": "p",
+              "text": "Lisez le roman jusqu'à ce que Gocéné et Minoé soient séparés.",
+              "Childrens": [
+                {
+                  "@Type": "ol",
+                  "Childrens": [
+                    {
+                      "@Type": "li",
+                      "text": "Pourquoi Gocéné et les autres Kanak sont-ils envoyés à Paris ? Comment les convainc-t-on d'y aller ?",
+                      "Childrens": []
+                    },{
+                      "@Type": "li",
+                      "text": "Comment les Kanak sont-ils traités à Paris ?",
+                      "Childrens": []
+                    },{
+                      "@Type": "li",
+                      "text": "Selon vous, à quelle époque se déroule la nouvelle ? Ce quan impose aux Kanak vous semble-t-il correspondre à cette époque ?",
+                      "Childrens": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "@Type": "h3",
+          "text": "2e rendez-vous",
+          "Childrens": [
+            {
+              "@Type": "p",
+              "text": "Continuez votre lecture, jusqu'à ce que Gocéné et Badimoin aient appris de la part du gardien- chef Où se trouve Minoé.",
+              "Childrens": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

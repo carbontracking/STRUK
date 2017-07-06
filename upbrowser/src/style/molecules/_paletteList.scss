@@ -1,0 +1,19 @@
+.PaletteTop {
+  margin: 2em;
+  border-top: solid 2px #c9c9c9;
+}
+
+.PaletteList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.Palette {
+  cursor: pointer;
+}
+
+.Active {
+  border: solid 0.3em black;
+}

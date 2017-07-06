@@ -1,0 +1,17 @@
+@import "../variables.scss";
+
+#MenuRight {
+  width: 15vw;
+  background: $secundaryColor;
+  height: 100%;
+  padding: 0.5em;
+  position: fixed;
+  top:0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5em;
+  z-index: -1;
+}

@@ -1,0 +1,125 @@
+#MenuTop img {
+  width: 5em;
+  cursor: pointer; }
+
+.Zoom {
+  display: flex;
+  flex-direction: row; }
+
+#MenuLeft {
+  width: 100%;
+  background: #0000;
+  height: 100%;
+  padding-top: 10em;
+  position: fixed;
+  font-size: 1em !important;
+  top: 0;
+  left: 0;
+  z-index: -1; }
+
+.Parameters {
+  background: #a39c9c;
+  position: fixed;
+  z-index: 5;
+  padding: 2em;
+  width: 50%;
+  top: 15%;
+  left: 25%;
+  margin: 0 auto;
+  text-align: center; }
+
+.Parameters .Online {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around; }
+
+.Document {
+  width: 90vw;
+  height: 100%;
+  margin-right: 17vw;
+  margin-left: 17vw;
+  padding: 1em; }
+
+.Document #selected {
+    background-color: #c0c0c0;
+    color: #ff0000; }
+
+.Arrows img {
+  width: 4em;
+  margin: 0.2em;
+  cursor: pointer; }
+
+.Arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.DownArrows {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center; }
+
+.Toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; }
+
+.Toolbar img {
+  width: 6em;
+  padding: 1em;
+  cursor: pointer; }
+
+.DisabilityList select {
+  padding: 1em;
+  background: white; }
+
+.SizeList select {
+  padding: 1em;
+  background: white; }
+
+.PaletteTop {
+  margin: 2em;
+  border-top: solid 2px #c9c9c9; }
+
+.PaletteList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around; }
+
+.Palette {
+  cursor: pointer; }
+
+.Active {
+  border: solid 0.3em black; }
+
+.FontList select {
+  padding: 1em;
+  background: white; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+.HiddenApp {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  cursor: pointer; }
+
+.Container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%; }
+
+/*# sourceMappingURL=index.css.map */

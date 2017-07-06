@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+#MenuTop {
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2em;
+  padding-top: 0em;
+  background: $primaryColor;
+}
+
+#MenuTop img {
+  width: 5em;
+  cursor: pointer;
+}
+.Zoom {
+  display: flex;
+  flex-direction: row;
+}

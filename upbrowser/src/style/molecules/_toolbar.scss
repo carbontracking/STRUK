@@ -1,0 +1,12 @@
+.Toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Toolbar img {
+  width: 6em;
+  padding: 1em;
+  cursor: pointer;
+}
