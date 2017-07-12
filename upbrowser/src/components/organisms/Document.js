@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import jsonPage from '../../res/formatted.json'
 import Mousetrap from 'mousetrap'
 import {htmlTemplate} from '../../res/html.js'
 import htmlparser from 'htmlparser2'
 import ReactHtmlParser from 'react-html-parser';
+import keyboard     from '../../keyboard.js';
 
 class Document extends Component {
   constructor(props){
@@ -16,10 +16,10 @@ class Document extends Component {
     this.synth = ""
     this.state = {
       loading: true,
-      json: jsonPage,
       selected: 0,
+      selectAlled: 1,
       typeSelected: "",
-      htmlRender: ""
+	htmlRender: "",
     }
   }
 
@@ -28,7 +28,6 @@ class Document extends Component {
   }
 
   getSelectedVoice(){
-    console.log("InGEtSelectedVoice", this.props.selectedVoice)
     let voices = []
     voices = this.synth.getVoices();
     let result = ""
@@ -41,6 +40,25 @@ class Document extends Component {
     return result;
   }
 
+  selectAll(){
+    let context = this
+    let end = false
+    let i = 1
+      let priorityOrder = ["p", "li"]
+    for(i; (context.state.selected+i < context.maxElements+1)&&(end===false);i++){
+      for(let j=0;j<2;j++){
+          for(let k=0;(k<context.elements[priorityOrder[j]].length)&&(end===false);k++){
+              if((context.elements[priorityOrder[j]][k] === context.state.selected + i)&&(end===false)){
+	    end = true
+          }
+        }
+      }
+      end = !end;
+    }
+    this.setState({selectAlled: context.state.selected+i-1})
+      // console.log(context.state.selectAlled)
+      // console.log(context.elements[priorityOrder[1]])
+  }
 
   speak(){
     var utterThis = new SpeechSynthesisUtterance(this.selectedText);
@@ -48,7 +66,7 @@ class Document extends Component {
     utterThis.voice = this.getSelectedVoice()
     utterThis.pitch = 1
     utterThis.rate = 0.80
-    this.synth.speak(utterThis)
+      this.synth.speak(utterThis)
 
     utterThis.onpause = function(event) {
      var char = event.utterance.text.charAt(event.charIndex);
@@ -57,12 +75,20 @@ class Document extends Component {
     }
   }
 
+    updateSpeak(){
+	if (this.synth.speaking === true){
+	  this.synth.cancel()
+	}
+	if (this.voice === true)
+	  this.voice = false
+    }
+
   componentDidMount(){
     //Set all the key listenners
     let context = this
-    this.synth = window.speechSynthesis
+      this.synth = window.speechSynthesis
 
-    Mousetrap.bind('left', () => {
+    Mousetrap.bind(keyboard[3], () => {
       let priorityOrder = ["h1", "h2", "h3", "h4", "h5", "p", "li"]
         let found = false
             for(let j=0;(j<5)&&(found===false);j++){
@@ -74,11 +100,13 @@ class Document extends Component {
             }
         if(found===false){
             this.setState({selected: context.state.selected - 1})
-	    	      context.speak()
+            this.setState({selectAlled: context.state.selected + 1})
+	    context.updateSpeak()
+	    context.speak()
         }
     })
 
-    Mousetrap.bind('right', () => {
+      Mousetrap.bind(keyboard[4], () => {
       let priorityOrder = ["h1", "h2", "h3", "h4", "h5", "p", "li"]
         let found = false
             for(let j=0;(j<5)&&(found===false);j++){
@@ -90,11 +118,13 @@ class Document extends Component {
             }
         if(found===false){
             this.setState({selected: context.state.selected + 1})
-	    	      context.speak()
+            this.setState({selectAlled: context.state.selected + 1})
+	    context.updateSpeak()
+	    context.speak()
         }
     })
 
-      Mousetrap.bind('space', () => {
+      Mousetrap.bind(keyboard[5], () => {
 	  if (this.voice === true)
 	  {
 	      context.speak()
@@ -102,11 +132,12 @@ class Document extends Component {
 	  }
 	  else
 	  {
+	      this.synth.cancel()
 	      this.voice = true
 	  }
     })
 
-    Mousetrap.bind('down', () => {
+      Mousetrap.bind(keyboard[2], () => {
       let priorityOrder = ["h1", "h2", "h3", "h4", "h5", "p", "li"]
       let currentElement = -1
         let found = false
@@ -122,11 +153,13 @@ class Document extends Component {
         }
         if(found===true){
             this.setState({selected: currentElement})
-	    	      context.speak()
+	    context.selectAll()
+	    context.updateSpeak()
+	    context.speak()
         }
     })
 
-      Mousetrap.bind('up', () => {
+      Mousetrap.bind(keyboard[1], () => {
       let priorityOrder = ["h1", "h2", "h3", "h4", "h5", "p", "li"]
       let currentElement = -1
         let found = false
@@ -142,7 +175,9 @@ class Document extends Component {
         }
         if(found===true){
             this.setState({selected: currentElement})
-	    	      context.speak()
+	    context.selectAll()
+	    context.updateSpeak()
+	    context.speak()
         }
     })
   }
@@ -176,16 +211,16 @@ class Document extends Component {
         if(name in context.elements && name !== "ul" && name !== "ol"){
           context.elements[name].push(i)
           finalHtml += "<"+name
-          if(context.state.selected === i && name !== "ul" && name !== "ol" ){
+            if((i >= context.state.selected && i <= context.state.selectAlled-1) && name !== "ul" && name !== "ol" ){
             finalHtml += " id='selected'"
             context.typeSelected = name
           }
             finalHtml += ">"
 	    let found = false
-	    nb_link += 1
 	    for(let j=0;(j<5)&&(found===false);j++){
 		for(let k=0;(k<context.elements[title[j]].length)&&(found===false);k++){
-		    if(context.elements[title[j]][k] === context.state.selected){
+		    if(context.elements[title[j]][k] === i){
+			nb_link += 1
 			finalHtml += "<div id='section_"+nb_link+"'>"
 			found = true
 		    }
@@ -203,8 +238,15 @@ class Document extends Component {
         }
         if(i > 0){
           finalHtml += text
-          if(context.state.selected === i-1 && text.match(/^\s+$/) === null){
-            context.selectedText = text
+            if(context.state.selected === i-1 && text.match(/^\s+$/) === null){
+		if (context.typeSelected[0] === 'h')
+		    context.selectedText = keyboard[6]+context.typeSelected[1]+".                "+text
+		else if ((context.typeSelected === "li"))
+		    context.selectedText = "list.                "+text
+		else if ((context.typeSelected === 'p'))
+		    context.selectedText = "paragraphe.             "+text
+		else
+		    context.selectedText = text
           }
         }
       },

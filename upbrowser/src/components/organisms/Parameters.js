@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DisabilityList from "../molecules/DisabilityList"
 import SizeList from "../molecules/SizeList"
 import FontList from "../molecules/FontList"
 import PaletteList from "../molecules/PaletteList"
@@ -27,14 +26,12 @@ class Parameters extends Component {
   render() {
     return (
       <div className="Parameters">
-         Préférences
-        <DisabilityList onChange={this.onChange} />
         <div className="Online">
           <SizeList disease={this.state.disease}/>
           <FontList disease={this.state.disease}/>
-        </div>
-        <PaletteList disease={this.state.disease}/>
-        <VoiceList setSelectedVoice={this.props.setSelectedVoice}/>
+            </div>
+	    	    <PaletteList disease={this.state.disease}/>
+            <VoiceList setSelectedVoice={this.props.setSelectedVoice}/>
       </div>
     );
   }

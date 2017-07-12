@@ -19,20 +19,18 @@ class SizeList extends Component {
     voices = synth.getVoices()
     var selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex
     voiceSelect.innerHTML = ''
-      for(let i = 0; i < voices.length ; i++) {
-      var option = document.createElement('option')
-      option.textContent = voices[i].name + ' (' + voices[i].lang + ')'
-
+      for(let i = 1; i < voices.length ; i++) {
+	  var option = document.createElement('option')
+	      option.textContent = voices[i].name + ' (' + voices[i].lang + ')'
       if(voices[i].default) {
         option.textContent += ' -- DEFAULT'
       }
-
 	  option.setAttribute('data-lang', voices[i].lang)
       option.setAttribute('data-name', voices[i].name)
       option.setAttribute('value', voices[i].name)
-      voiceSelect.appendChild(option);
+	  voiceSelect.appendChild(option);
     }
-    voiceSelect.selectedIndex = selectedIndex;
+      voiceSelect.selectedIndex = selectedIndex;
   }
 
   render() {
@@ -42,7 +40,7 @@ class SizeList extends Component {
     }
     return (
       <div className="Voice">
-            Voix
+            Voice
 	<div></div>
         <select id="voiceSelect"
           ref={(select) => { this.voiceSelect = select; }}

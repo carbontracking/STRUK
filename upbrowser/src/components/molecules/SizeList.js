@@ -41,36 +41,35 @@ class SizeList extends Component {
        for (let i = 0; i < paragraphs.length; i++) {　　　　
        paragraphs[i].style.fontSize =  e.target.value + "px";
     }
- 
+
     paragraphs = document.getElementsByTagName("h1");　　　　
        for (let i = 0; i < paragraphs.length; i++) {　　　　
-       paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+25) + "px";　　　　
+       paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+28) + "px";　　　　
     }
 
     paragraphs = document.getElementsByTagName("h2");　　　　
       for (let i = 0; i < paragraphs.length; i++) {　　　　
-      paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+22) + "px";　　　　
+      paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+23) + "px";　　　　
    }
 
   paragraphs = document.getElementsByTagName("h3");　　　　
      for (let i = 0; i < paragraphs.length; i++) {　　　　
-     paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+9) + "px";　　　　
+     paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+18) + "px";　　　　
   }
 
   paragraphs = document.getElementsByTagName("h4");　　　　
     for (let i = 0; i < paragraphs.length; i++) {　　　　
-    paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+7) + "px";　　　　
+    paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+13) + "px";　　　　
    }
   paragraphs = document.getElementsByTagName("h5");　　　　
     for (let i = 0; i < paragraphs.length; i++) {　　　　
-    paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+5) + "px";　　　　
+    paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+8) + "px";　　　　
    }
 
   paragraphs = document.getElementsByTagName("h6");　　　　
      for (let i = 0; i < paragraphs.length; i++) {　　　　
      paragraphs[i].style.fontSize = (parseInt(e.target.value, 10)+3) + "px";　　　　
-  }
-
+						 }
   }
 
   render() {
@@ -80,7 +79,7 @@ class SizeList extends Component {
     }
     return (
       <div className="SizeList">
-            Taille
+            Size
 	<div></div>
         <select name="sizes" onChange={(e) => this.changeSize(e)}>
         {array.map((i, key) => {

@@ -18,22 +18,14 @@ class PaletteList extends Component {
   componentDidUpdate(){
     console.log(this.state.active)
     switch(this.state.active) {
-    default:
-        document.getElementById("MenuTop").style.background = '#0'
+      default :
         document.getElementById("MenuLeft").style.background = '#FFFFFF'
-        document.getElementById("MenuRight").style.background = '#0'
         break;
       case 2:
-        document.getElementById("MenuTop").style.background = '#0'
-        document.getElementById("MenuRight").style.background = '#0'
         document.getElementById("MenuLeft").style.background = '#E0CDA9'
-
         break;
       case 3:
-        document.getElementById("MenuTop").style.background = '#0'
-        document.getElementById("MenuRight").style.background = '#0'
         document.getElementById("MenuLeft").style.background = '#D2CAEC'
-
         break;
     }
   }
@@ -45,7 +37,6 @@ class PaletteList extends Component {
   render() {
     return (
       <div className="PaletteTop">
-        Choisir sa palette
         <div className="PaletteList">
           {this.state.active === 1
             ? <div className="Palette Active" onClick={() => this.toggleActive(1)}>
@@ -60,7 +51,7 @@ class PaletteList extends Component {
               <div style={{width: "4em", height: "4em", background: '#E0CDA9'}}></div>
             </div>
             : <div className="Palette" onClick={() => this.toggleActive(2)}>
-              <div style={{width: "4em", height: "4em", background: '#E0CDA9'}}></div>
+              <div style={{width: "4em", height: "4em", background:  '#E0CDA9'}}></div>
             </div>
           }
           {this.state.active === 3
