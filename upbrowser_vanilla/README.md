@@ -4,7 +4,10 @@ This application aims to help visually impaired people to read and navigate a we
 The application is as simple and complete as possible.
 
 To use the application, you just have to integrate the following line in the "body" of your file in html
+```
 <sript src = Upbrowser / App.js> </ script>
+```
+
 This will allow your website to access the following features:
 
 - Assisted reading with a synthesized voice (several languages available)
