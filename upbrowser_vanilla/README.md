@@ -1,37 +1,27 @@
-Welcome to the application "UPBROWSER"
+# Welcome to the application "UPBROWSER"
 
-This application aims to help blind and visually impaired people to read and navigate a web page.
+This application aims to help visually impaired people to read and navigate a web page.
 The application is as simple and complete as possible.
-
-If you encounter problems related to this application please inform us at the following address:
-thibaud.salsa@upscribers.org
-thank you.
 
 To use the application, you just have to integrate the following line in the "body" of your file in html
 <sript src = Upbrowser / App.js> </ script>
 This will allow your website to access the following features:
 
 - Assisted reading with a synthesized voice (several languages available)
-
 - Changes to font size
-
 - Modification of the theme in the background (for a better visibility of the document)
-
 - Creation of a summary which presents all the titles of the page (possibility to navigate in)
-
 - Navigation in the HTML page by selecting elements of the latter via the keyboard (see <~keyboard~>)
 
+## Keyboard Control
 
-
-<~Keyboard~>
-                                                                   ______
- ~ Top arrow	= move to previous title                                   |
- ~ Down arrow	= move to next title                                      |____ A displacement causes the element to be read by the synthesized voice
- ~ Left arrow	= move in title to previous item                          |
- ~ Right arrow	= move in title to next item                        _____|
- ~ Space	= reading of the element selected by the synthesized voice
- ~ end/start	= change the size of the selected element
- ~ enter	= change background
+- Top arrow	= move to previous title
+- Down arrow	= move to next title
+- Left arrow	= move in title to previous item
+- Right arrow	= move in title to next item
+- Space	= reading of the element selected by the synthesized voice
+- end/start	= change the size of the selected element
+- enter	= change background
  
  <--francais-->
 
