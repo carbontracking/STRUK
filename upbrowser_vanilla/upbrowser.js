@@ -1,12 +1,12 @@
 /**
- * Created by Dondeo on 7/13/17.
+ * Created by Robin Chatain on 7/13/17.
  */
 
 //Eléments gérés par le script
 var checkElem = ['BODY', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'OL', 'UL','LI', 'A', 'IMG'];
-var mySynth = window.speechSynthesis;
 
 document.body.onload = f1();
+window.onclick = setSelectionTOC();
 
 // Parsing général du fichier HTML
 function f1() {
@@ -17,7 +17,7 @@ function f1() {
     var myToc = document.createElement("DIV");
 
     //Parcours du body actuel
-    for(var i = 2; i < childLength; i++) { // Auto: i = 0 ; Button: i = 2
+    for(var i = 0; i < childLength; i++) { // Auto: i = 0 ; Button: i = 2
         //Le node ciblée est un élément -> parsing
         if(childNode[i].nodeType === 1) {
             childPart = f2(childNode[i], newBody, newBody);
@@ -26,15 +26,28 @@ function f1() {
                 newBody.appendChild(childPart);
             }
         }
+        //La node est un texte -> suppression des espaces inutiles, ajout
+        else if (childNode[i].nodeType === 3) {
+            childPart = document.createTextNode(myTrim(childNode[i].nodeValue));
+            if (childPart.length > 0) {
+                newBody.appendChild(document.createElement("P")).appendChild(childPart);
+            }
+        }
     }
     //remplace le body atuel par le nouveau body
     newBody.firstElementChild.setAttribute("class", "selected");
+    newBody.setAttribute("onclick", "setSelectionTOC()");
     document.documentElement.removeChild(document.body);
     document.documentElement.appendChild(newBody);
     f5();
     generateTOC(myToc);
     myToc.setAttribute("class", "TOC");
     document.body.insertBefore(myToc, document.body.firstElementChild);
+}
+
+//Fonction de suppression des espaces inutiles
+function myTrim(x) {
+    return x.replace(/^\s+|\s+$/gm,'');
 }
 
 //Parsing de l'élément actuel
@@ -98,10 +111,16 @@ function f4(bodyPart, myNode, newBody) {
                 bodyPart.appendChild(childPart);
             }
         }
-        //La node est un texte -> ajout
+        //La node est un texte -> suppression des espaces inutiles (?), ajout
         else if (childNode[i].nodeType === 3) {
-            childPart = document.createTextNode(childNode[i].nodeValue);
-            bodyPart.appendChild(childPart);
+            childPart = document.createTextNode(/*myTrim(*/childNode[i].nodeValue/*)*/);
+            //console.log(bodyPart);
+            if (bodyPart.nodeName === "BODY") {
+                bodyPart.appendChild(document.createElement("P")).appendChild(childPart);
+            }
+            else {
+                bodyPart.appendChild(childPart);
+            }
         }
     }
     return (bodyPart);
@@ -125,11 +144,6 @@ function f5() {
     document.body.appendChild(my_script);
 }
 
-function back()
-{
-    console.log('poulet');
-}
-
 /*
  * Dynamic Table of Contents script
  * by Matt Whitlock <http://www.whitsoftdev.com/>
@@ -143,6 +157,7 @@ function createLink(href, innerHTML) {
 
 function generateTOC(toc) {
     var i1 = 0, i2 = 0, i3 = 0, i4 = 0;
+    var section;
     toc = toc.appendChild(document.createElement("ul"));
     for (var i = 0; i < document.body.childNodes.length; ++i) {
         var node = document.body.childNodes[i];
@@ -150,7 +165,7 @@ function generateTOC(toc) {
         if (tagName == "h4") {
             ++i4;
             if (i4 == 1) toc.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(document.createElement("ul"));
-            var section = i1 + "." + i2 + "." + i3 + "." + i4;
+            section = i1 + "." + i2 + "." + i3 + "." + i4;
             node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
             node.id = "section" + section;
             toc.lastChild.lastChild.lastChild.lastChild.lastChild.lastChild.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
@@ -158,7 +173,7 @@ function generateTOC(toc) {
         else if (tagName == "h3") {
             ++i3, i4 = 0;
             if (i3 == 1) toc.lastChild.lastChild.lastChild.appendChild(document.createElement("ul"));
-            var section = i1 + "." + i2 + "." + i3;
+            section = i1 + "." + i2 + "." + i3;
             node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
             node.id = "section" + section;
             toc.lastChild.lastChild.lastChild.lastChild.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
@@ -167,19 +182,36 @@ function generateTOC(toc) {
         {
             ++i2, i3 = 0, i4 = 0;
             if (i2 == 1) toc.lastChild.appendChild(document.createElement("ul"));
-            var section = i1 + "." + i2;
+            section = i1 + "." + i2;
             node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
             node.id = "section" + section;
             toc.lastChild.lastChild.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
         }
         else if (tagName == "h1") {
             ++i1, i2 = 0, i3 = 0, i4 = 0;
-            var section = i1;
+            section = i1;
             node.insertBefore(document.createTextNode(section + ". "), node.firstChild);
             node.id = "section" + section;
             toc.appendChild(document.createElement("li")).appendChild(createLink("#section" + section, node.innerHTML));
         }
-
     }
 }
-//h2item
+
+//Selection du titre via le TOC
+function setSelectionTOC() {
+    if (typeof document.activeElement.href == 'undefined')
+        return;
+    var myClick = document.activeElement.href;
+    var searchId = myClick.slice(myClick.search(/html#section1/gi) + 5, myClick.length);
+    var mySelect = document.getElementById(searchId);
+    var childNode = document.body.childNodes;
+
+    for(var i = 0; childNode[i].className != 'selected' && i < childNode.length; i++);
+    if (childNode[i].id === 'selected') {
+        childNode[i].id = '';
+    }
+    for(; childNode[i].className === 'selected' && i < childNode.length; i++) {
+        childNode[i].className = 'nop';
+    }
+    mySelect.className = 'selected';
+}

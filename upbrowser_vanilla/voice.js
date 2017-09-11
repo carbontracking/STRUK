@@ -9,6 +9,7 @@ for(var i = 0; i < myVoices.length; i++) {
         break;
     }
 }
+console.log(navigator.userAgent);
 for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
 {
     if (navigator.userAgent[poulet] == "F" && navigator.userAgent[poulet+1] == "i"&&
@@ -23,8 +24,6 @@ for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
 if (currentVoice === undefined && nav === 1) {
     document.location.reload(true);
 }
-//else
-    //alert("Recharge la page ou utilise un VRAI navigateur pour le TTS, bataw.");
 
 function speakElement(myText) {
     var tts = arrangeTextElement(myText);
@@ -50,4 +49,18 @@ function arrangeTextElement(myText) {
     tts += ' ' + myText[i].innerText;
   }
   return (tts);
+}
+
+// lecture par phrase
+
+function speakPhrase(tts) {
+    var myUtterance = new SpeechSynthesisUtterance(tts);
+
+    if (mySynth.speaking === true) {
+	mySynth.cancel();
+    }
+    myUtterance.voice = myVoices[currentVoice];
+    myUtterance.lang = myVoices[currentVoice].lang;
+    myUtterance.rate = 0.8;
+    mySynth.speak(myUtterance);
 }

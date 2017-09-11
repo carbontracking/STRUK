@@ -56,6 +56,9 @@ REMAP_KEY_T	= 5019;
 
 var size = 0;
 var glob = 0;
+var glob_phrase = 1;
+var g_pos = 1;
+
 function checkEventObj ( _event_ ){
 	// verifions si le navigateur est IE
 	if ( window.event )
@@ -74,6 +77,7 @@ function applyKey (_event_){
 
     if (intKeyCode == KEY_END)
     {
+	glob_phrase = 1;
 	var x = document.getElementsByClassName("selected");
 	size = size - 1;
 	for (var i = 0; i < x.length; i++)
@@ -100,6 +104,7 @@ function applyKey (_event_){
     }
         if (intKeyCode == KEY_BEGIN)
     {
+	glob_phrase = 1;
 	var x = document.getElementsByClassName("selected");
 	size = size + 1;
 	for (var i = 0; i < x.length; i++)
@@ -146,59 +151,131 @@ function applyKey (_event_){
 	    else
 		x[i].style.fontSize=16+size+"px";
 	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 	if ( intKeyCode == KEY_RIGHT)
 	{
+	    glob_phrase = 1;
 	var childNode = document.body.childNodes;
 	for (var i = 0; 'selected' != childNode[i].className; i++)
 	{
 	}
-        if (i+1 < childNode.length-1 && childNode[i + 1].nodeName[0] !== 'H')
-        {
+	    if (childNode[i].id === 'selected')
+	    {
+		childNode[i] = '';
+	    }
+        if (i+1 < childNode.length-2 && childNode[i + 1].nodeName[0] !== 'H')
+            {
+	    if (childNode[i].id === 'selected')
+	    {
+		childNode[i].id = '';
+	    }
 	    childNode[i].className = '';
+	    childNode[i + 1].id = 'selected';
             childNode[i + 1].className = 'selected';
 	    i = i + 2;
-	    while (i < childNode.length && childNode[i].className === 'selected')
+		while (i < childNode.length && childNode[i].className === 'selected')
 	    {
 		childNode[i].className = ''
 		i = i + 1;
 	    }
         }
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-        speakElement(document.getElementsByClassName('selected'));
-        return false;
+	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	    winObj.returnValue = false;
+	    let view = document.getElementById('selected');
+	    if (view != null)
+	    {
+		view.scrollIntoView();
+	    }
+            speakElement(document.getElementsByClassName('selected'));
+
+	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++)
+	    {
+	    }
+	    if (g_pos === pos)
+	    {
+		speakPhrase("fin de l'element");
+	    }
+	    else
+	    {
+		speakElement(document.getElementsByClassName('selected'));
+	    }
+	    g_pos = pos;
+	return false;
+	    
     }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
     if (intKeyCode == KEY_LEFT )
-    {
+	{
+	    glob_phrase = 1;
 	var childNode = document.body.childNodes;
         for (var i = 0; 'selected' != childNode[i].className; i++)
         {
         }
+		if (childNode[i].id === 'selected')
+	    {
+		childNode[i] = '';
+	    }
         if (i-1 >= 0 && childNode[i-1].nodeName[0] !== 'H' && childNode[i].nodeName[0] !== 'H')
         {
-	    childNode[i].className = '';
+	    if (childNode[i].id === 'selected')
+	    {
+		childNode[i].id = '';
+	    }
+		childNode[i].className = '';
             childNode[i - 1].className = 'selected';
+	    childNode[i - 1].id = 'selected';
 	    while (childNode[i].className === 'selected')
 	    {
 		childNode[i].className = ''
 		i = i + 1;
 	    }
         }
+	    let view = document.getElementById('selected');
+	    if (view != null)
+	    {
+		view.scrollIntoView();
+	    }
 	winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	winObj.returnValue = false;
-        speakElement(document.getElementsByClassName('selected'));
+            speakElement(document.getElementsByClassName('selected'));
+
+	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++)
+	    {
+	    }
+	    if (g_pos === pos)
+	    {
+		speakPhrase("debut de l'element");
+	    }
+	    else
+	    {
+		speakElement(document.getElementsByClassName('selected'));
+	    }
+	    g_pos = pos;
 	return false;
     }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
     if ( intKeyCode == KEY_UP)
-    {
+	{
+	    glob_phrase = 1;
 	var temp = 1;
+	var poulet = 0;
 	var childNode = document.body.childNodes;
 	for (var i = 1; 'selected' != childNode[i].className; i++)
 	{
         }
         temp = i;
+	if (childNode[i].id === 'selected')
+	    {
+		childNode[i].id = '';
+	    }
 	if (i != 1)
 	{
 	    i--;
@@ -212,6 +289,7 @@ function applyKey (_event_){
         {
             if (childNode[i].nodeName[0] === 'H')
             {
+		document.getElementById(childNode[i].id).scrollIntoView();
 		childNode[temp].className = 'nop';
 		temp = temp + 1;
 		while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
@@ -233,24 +311,46 @@ function applyKey (_event_){
         }
 	winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	winObj.returnValue = false;
-        speakElement(document.getElementsByClassName('selected'));
+
+	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++)
+	    {
+	    }
+	    if (g_pos === pos)
+	    {
+		speakPhrase("debut de l'element");
+	    }
+	    else
+	    {
+		speakElement(document.getElementsByClassName('selected'));
+	    }
+	    g_pos = pos;
 	return false;
     }
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
     if ( intKeyCode == KEY_DOWN)
-    {
+	{
+	    glob_phrase = 1;
 	var found = false
         var temp = 0;
+	var poulet;
         var childNode = document.body.childNodes;
         for (var i = 0; 'selected' != childNode[i].className; i++)
         {
         }
 	temp = i;
+	if (childNode[i].id === 'selected')
+	    {
+		childNode[i].id = '';
+	    }
         i++;
         for (;i < childNode.length; i++)
         {
             if (childNode[i].nodeName[0] === 'H')
             {
+		document.getElementById(childNode[i].id).scrollIntoView();
 		childNode[temp].className = 'nop';
 		temp = temp + 1;
 		while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
@@ -270,19 +370,39 @@ function applyKey (_event_){
                 break;
             }
         }
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-        speakElement(document.getElementsByClassName('selected'));
+	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	    winObj.returnValue = false;
+
+	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++)
+	    {
+	    }
+	    if (g_pos === pos)
+	    {
+		speakPhrase("fin de l'element");
+	    }
+	    else
+	    {
+		speakElement(document.getElementsByClassName('selected'));
+	    }
+	    g_pos = pos;
 	return false;
     }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
     if ( intKeyCode == KEY_L)
-    {
+	{
+	    glob_phrase = 1;
 	var temp = 1;
 	var childNode = document.body.childNodes;
 	for (var i = 1; 'selected' != childNode[i].className; i++)
 	{
         }
+	if (childNode[i].id === 'selected')
+	    {
+		childNode[i].id = '';
+	    }
 	if (i != 0 && i != 1)
 	{
         temp = i;
@@ -309,6 +429,7 @@ function applyKey (_event_){
 		    temp = temp + 1;
 		}
                 childNode[i].className = 'selected';
+		document.getElementById(childNode[i].id).scrollIntoView();
 		i = i + 1;
 		while (i < childNode.length && childNode[i].nodeName[0] !== 'H')
 		{
@@ -322,18 +443,35 @@ function applyKey (_event_){
 	}
 	winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	winObj.returnValue = false;
-        speakElement(document.getElementsByClassName('selected'));
+	    	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++)
+	    {
+	    }
+	    if (g_pos === pos)
+	    {
+		speakPhrase("debut de l'element");
+	    }
+	    else
+	    {
+		speakElement(document.getElementsByClassName('selected'));
+	    }
+	    g_pos = pos;
 	return false;
     }
 
     if (intKeyCode == KEY_M)
-    {
+	{
+	    glob_phrase = 1;
 	var found = false
         var temp = 0;
         var childNode = document.body.childNodes;
         for (var i = 0; 'selected' != childNode[i].className; i++)
         {
         }
+	if (childNode[i].id === 'selected')
+	    {
+		childNode[i].id = '';
+	    }
 	temp = i;
 	var current_title = childNode[i].nodeName[1];
         i++;
@@ -350,6 +488,7 @@ function applyKey (_event_){
 		    temp = temp + 1;
 		}
                 childNode[i].className = 'selected';
+		document.getElementById(childNode[i].id).scrollIntoView();
 		i = i + 1;
 		while (i < childNode.length && childNode[i].nodeName[0] !== 'H')
 		{
@@ -365,8 +504,20 @@ function applyKey (_event_){
 	    }
         }
 	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-        speakElement(document.getElementsByClassName('selected'));
+	    winObj.returnValue = false;
+	    	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++)
+	    {
+	    }
+	    if (g_pos === pos)
+	    {
+		speakPhrase("fin de l'element");
+	    }
+	    else
+	    {
+		speakElement(document.getElementsByClassName('selected'));
+	    }
+	    g_pos = pos;
 	return false;
     }
     }
@@ -399,4 +550,93 @@ function applyKey (_event_){
 	winObj.returnValue = false;
 	return false;
     }
+
+    if (intKeyCode == KEY_SPACE)
+    {
+	winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	winObj.returnValue = false;
+	speakElement(document.getElementsByClassName('selected'));
+	return false;
+    }
+
+    if (intKeyCode == KEY_P)
+    {
+	var tmp = phrase(document.getElementsByClassName('selected'));
+	var txt = "";
+	if (glob_phrase >= tmp.length)
+	{
+	    glob_phrase = 1;
+	}
+	if (glob_phrase === 1 && (tmp[glob_phrase] <= '9' && tmp[glob_phrase] >= '0'))
+	{
+	    while (((tmp[glob_phrase-1] != '.' && tmp[glob_phrase-1] != '!' && tmp[glob_phrase-1] != '?') || tmp[glob_phrase] != ' ') && glob_phrase < tmp.length)
+	{
+	    console.log(tmp[glob_phrase]);
+	    txt += tmp[glob_phrase];
+	    glob_phrase = glob_phrase + 1;	    
+	}
+	}
+	else
+	{
+	while (tmp[glob_phrase-1] != '.' && tmp[glob_phrase-1] != '!' && tmp[glob_phrase-1] != '?' && glob_phrase < tmp.length)
+	{
+	    console.log(tmp[glob_phrase]);
+	    txt += tmp[glob_phrase];
+	    glob_phrase = glob_phrase + 1;	    
+	}
+	}
+	glob_phrase = glob_phrase + 1;
+	winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	winObj.returnValue = false;
+	speakPhrase(txt);
+	return false;
+    }
+
+        if (intKeyCode == KEY_W)
+    {
+	var tmp = phrase(document.getElementsByClassName('selected'));
+	var txt = "";
+	if (glob_phrase >= tmp.length)
+	{
+	    glob_phrase = 1;
+	}
+	if (glob_phrase === 1 && (tmp[glob_phrase] <= '9' && tmp[glob_phrase] >= '0'))
+	{
+	    while ((tmp[glob_phrase-1] != '.' || tmp[glob_phrase] != ' ') && glob_phrase < tmp.length)
+	{
+	    console.log(tmp[glob_phrase]);
+	    txt += tmp[glob_phrase];
+	    glob_phrase = glob_phrase + 1;	    
+	}
+	    glob_phrase++;
+	}
+	else
+	{
+	while (tmp[glob_phrase-1] != ','&& tmp[glob_phrase-1] != ';' && tmp[glob_phrase-1] != ' ' && glob_phrase < tmp.length)
+	{
+	    console.log(tmp[glob_phrase]);
+	    txt += tmp[glob_phrase];
+	    glob_phrase = glob_phrase + 1;	    
+	}
+	}
+	glob_phrase = glob_phrase + 1;
+	winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	winObj.returnValue = false;
+	speakPhrase(txt);
+	return false;
+    }
+	
+}
+
+function phrase(myText) {
+    var tts = "";
+    var textLength = myText.length;
+
+    for(var i = 0; i < textLength; i++) {
+	if (i !== 0) {
+	    tts += '.';
+	}
+	tts += ' ' + myText[i].innerText;
+    }
+    return (tts);
 }
