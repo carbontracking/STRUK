@@ -1,3 +1,6 @@
 - 
-- David Brown etc. Défi 1 : https://github.com/BDav24/codefest_defi_1
-- https://github.com/DarkLicornor/unicode-codefest-defi3
+- Los Lobos : Défi 1 : https://github.com/BDav24/codefest_defi_1
+- DecaTeam : Défi 3 : https://github.com/decateam/upreader
+- UNICODE : Défi 3 : https://github.com/DarkLicornor/unicode-codefest-defi3
+- LETOFNI : Defi 2 : https://github.com/same31/upeditor
+- Rainbox : Défi 2 : https://github.com/esteban-em/react-boilerplate
