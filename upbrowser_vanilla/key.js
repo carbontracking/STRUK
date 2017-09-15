@@ -708,7 +708,7 @@ function applyKey (_event_){
 	    var parse = glob_phrase;
 	    var parse2= 0;
 	    var new_txt = "";
-	    while (glob_phrase+1 < tmp.length && ((tmp[glob_phrase] != '.' && tmp[glob_phrase] != '!' && tmp[glob_phrase] != '?') || tmp[glob_phrase+1] != ' '))
+	    while (glob_phrase+1 < tmp.length && ((tmp[glob_phrase] != '.' && tmp[glob_phrase] != '!' && tmp[glob_phrase] != '?') || tmp[glob_phrase+1] != ' ' && tmp[glob_phrase+1] != '<'))
 	    {
 		txt += tmp[glob_phrase];
 		glob_phrase = glob_phrase + 1;
