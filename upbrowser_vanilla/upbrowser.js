@@ -6,7 +6,7 @@
 var checkElem = ['BODY', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'OL', 'UL','LI', 'A', 'IMG'];
 
 document.body.onload = f1();
-window.onclick = setSelectionTOC();
+document.onclick = setSelectionTOC();
 
 // Parsing général du fichier HTML
 function f1() {
@@ -42,6 +42,9 @@ function f1() {
     f5();
     generateTOC(myToc);
     myToc.setAttribute("class", "TOC");
+    for (var i = 1; i < document.body.childNodes.length; i++) {
+        document.body.childNodes[i].className = 'nope';
+    }
     document.body.insertBefore(myToc, document.body.firstElementChild);
 }
 
@@ -71,7 +74,8 @@ function f3(myNode, newBody, parentBody) {
         bodyPart = document.createElement(myNode.nodeName);
         // Rajout d'attributs pour <a>
         if (tempNode.nodeName.localeCompare("A") === 0 && tempNode.hasAttribute("href")){
-            bodyPart.setAttribute("href", tempNode.getAttribute("href"))
+            bodyPart.setAttribute("href", tempNode.getAttribute("href"));
+            bodyPart.setAttribute("target", "_blank");
         }
         // Rajout d'attributs pour <img>
         else if (tempNode.nodeName.localeCompare("IMG") === 0){
@@ -113,7 +117,7 @@ function f4(bodyPart, myNode, newBody) {
         }
         //La node est un texte -> suppression des espaces inutiles (?), ajout
         else if (childNode[i].nodeType === 3) {
-            childPart = document.createTextNode(/*myTrim(*/childNode[i].nodeValue/*)*/);
+            childPart = document.createTextNode(/*myTrim(*/childNode[i].nodeValue);//));
             //console.log(bodyPart);
             if (bodyPart.nodeName === "BODY") {
                 bodyPart.appendChild(document.createElement("P")).appendChild(childPart);
@@ -133,7 +137,6 @@ function f5() {
     my_css.setAttribute("type", "text/css");
     my_css.setAttribute("href", "./index.css");
     document.head.appendChild(my_css);
-
 
     var my_script = document.createElement("SCRIPT");
     my_script.setAttribute("src", "./key.js");
@@ -199,19 +202,23 @@ function generateTOC(toc) {
 
 //Selection du titre via le TOC
 function setSelectionTOC() {
-    if (typeof document.activeElement.href == 'undefined')
+    if (typeof document.activeElement.href == 'undefined') {
         return;
+    }
+    if (document.activeElement.hostname != document.location.hostname) {
+        return;
+    }
     var myClick = document.activeElement.href;
-    var searchId = myClick.slice(myClick.search(/html#section1/gi) + 5, myClick.length);
+    var searchId = myClick.slice(myClick.lastIndexOf("#section1") + 1, myClick.length);
     var mySelect = document.getElementById(searchId);
     var childNode = document.body.childNodes;
 
-    for(var i = 0; childNode[i].className != 'selected' && i < childNode.length; i++);
+    for(var i = 1; childNode[i].className != 'selected' && i < childNode.length; i++);
     if (childNode[i].id === 'selected') {
         childNode[i].id = '';
     }
     for(; childNode[i].className === 'selected' && i < childNode.length; i++) {
-        childNode[i].className = 'nop';
+        childNode[i].className = 'nope';
     }
     mySelect.className = 'selected';
 }

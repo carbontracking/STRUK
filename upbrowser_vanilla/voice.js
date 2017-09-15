@@ -9,7 +9,6 @@ for(var i = 0; i < myVoices.length; i++) {
         break;
     }
 }
-console.log(navigator.userAgent);
 for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
 {
     if (navigator.userAgent[poulet] == "F" && navigator.userAgent[poulet+1] == "i"&&
