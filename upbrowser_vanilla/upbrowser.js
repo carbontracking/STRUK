@@ -135,7 +135,7 @@ function f5() {
     var my_css = document.createElement("LINK");
     my_css.setAttribute("rel", "stylesheet");
     my_css.setAttribute("type", "text/css");
-    my_css.setAttribute("href", "./index.css");
+    my_css.setAttribute("href", "selection/index.css");
     document.head.appendChild(my_css);
 
     var my_script = document.createElement("SCRIPT");
