@@ -222,3 +222,61 @@ function setSelectionTOC() {
     }
     mySelect.className = 'selected';
 }
+
+/*
+function parse_phrase()
+{
+    var	i = 1;
+    var k = 0;
+    var num = 0;
+    var txt = "";
+    var tmp = "";
+    var childNode = document.body.childNodes;
+    while (i < childNode.length)
+    {
+	tmp = childNode[i].innerHTML;
+	if (childNode[i].TagName === "OL")
+	{
+	    txt = "<span id="+num+">";
+	    num++;
+	    while (tmp[k] === '\n' || tmp[k] === ' ')
+		    k++;
+	    while (k < tmp.length)
+	    {
+		if (tmp[k] === '<' && tmp[k+1] === 'l' && tmp[k+2] === 'i' && tmp[k+3] === '>')
+		    k = k + 4;
+		if (tmp[k] === '<' && tmp[k+1] === '/' && tmp[k+2] === 'l' && tmp[k+3] === 'i' && tmp[k+4] === '>')
+		{
+		    k = k + 5;
+		}
+		txt += tmp[k];
+		if (tmp[k] === '.' ||tmp[k] === '?' || tmp[k] === '.')
+		{
+		    txt += "</span><span id="+num+">"
+		    num++;
+		}
+		k = k + 1;
+	    }
+	}
+	else
+	{
+	    txt = "<span id="+num+">";
+	    num++;
+	    while (k < tmp.length)
+	    {
+		txt += tmp[k];
+		if (tmp[k] === '.' tmp[k] === '?' tmp[k] === '.')
+		{
+		    txt += "</span><span id="+num+">"
+		    num++;
+		}
+		k = k + 1;
+	    }
+
+	}
+	childNode[i].innerHTML = txt;
+	k = 0;
+	i = i + 1;
+    }
+}
+*/
