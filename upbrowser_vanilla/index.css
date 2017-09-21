@@ -36,6 +36,12 @@ z-index: -1; }
   margin-left: 12%;
   padding: 2em; }
 
+.selected2
+{
+    background-color: #c0c0c0;
+    color: #ff0000;
+}
+
 .selected
 {
     background-color: #c0c0c0;

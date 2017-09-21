@@ -46,6 +46,7 @@ function f1() {
         document.body.childNodes[i].className = 'nope';
     }
     document.body.insertBefore(myToc, document.body.firstElementChild);
+    parse_phrase();
 }
 
 //Fonction de suppression des espaces inutiles
@@ -135,7 +136,7 @@ function f5() {
     var my_css = document.createElement("LINK");
     my_css.setAttribute("rel", "stylesheet");
     my_css.setAttribute("type", "text/css");
-    my_css.setAttribute("href", "selection/index.css");
+    my_css.setAttribute("href", "index.css");
     document.head.appendChild(my_css);
 
     var my_script = document.createElement("SCRIPT");
@@ -223,7 +224,7 @@ function setSelectionTOC() {
     mySelect.className = 'selected';
 }
 
-/*
+
 function parse_phrase()
 {
     var	i = 1;
@@ -235,27 +236,26 @@ function parse_phrase()
     while (i < childNode.length)
     {
 	tmp = childNode[i].innerHTML;
-	if (childNode[i].TagName === "OL")
+	if (childNode[i].nodeName === "OL")
 	{
-	    txt = "<span id="+num+">";
-	    num++;
-	    while (tmp[k] === '\n' || tmp[k] === ' ')
-		    k++;
 	    while (k < tmp.length)
 	    {
 		if (tmp[k] === '<' && tmp[k+1] === 'l' && tmp[k+2] === 'i' && tmp[k+3] === '>')
-		    k = k + 4;
-		if (tmp[k] === '<' && tmp[k+1] === '/' && tmp[k+2] === 'l' && tmp[k+3] === 'i' && tmp[k+4] === '>')
 		{
+		    txt += "<li><span id="+num+">";
+		    num++;
+		    k = k + 4;
+		}
+		else if (tmp[k] === '<' && tmp[k+1] === 'l' && tmp[k+2] === 'l' && tmp[k+3] === 'i' && tmp[k+4] === '>')
+		{
+		    txt += "</span></li>"
 		    k = k + 5;
 		}
-		txt += tmp[k];
-		if (tmp[k] === '.' ||tmp[k] === '?' || tmp[k] === '.')
+		else
 		{
-		    txt += "</span><span id="+num+">"
-		    num++;
+		    txt += tmp[k];
+		    k++;
 		}
-		k = k + 1;
 	    }
 	}
 	else
@@ -265,18 +265,23 @@ function parse_phrase()
 	    while (k < tmp.length)
 	    {
 		txt += tmp[k];
-		if (tmp[k] === '.' tmp[k] === '?' tmp[k] === '.')
+		if ((tmp[k] === '.' || tmp[k] === '?' || tmp[k] === '.') && tmp[k+1] === ' ')
 		{
-		    txt += "</span><span id="+num+">"
-		    num++;
+		    txt += "</span>";
+		    if (k + 2 < tmp.length)
+		    {
+			txt += "<span id="+num+">";	
+			num++;
+		    }
 		}
 		k = k + 1;
 	    }
 
 	}
 	childNode[i].innerHTML = txt;
+	txt = "";
 	k = 0;
 	i = i + 1;
     }
+    //document.getElementById("0").className = "selected";
 }
-*/
