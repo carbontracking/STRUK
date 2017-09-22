@@ -84,9 +84,7 @@ function back()
     var ii=0;
     var childNode = document.body.childNodes;
     while ('phrase' != childNode[ii].className && ii < childNode.length-1)
-    {
 	ii = ii + 1;
-    }
     while ('phrase' === childNode[ii].className && ii < childNode.length-1)
     {
 	childNode[ii].className = 'selected';
@@ -103,6 +101,10 @@ function applyKey (_event_){
     var intCtrlKey = winObj.ctrlKey;
 
     back();
+
+
+
+
     if (intKeyCode == KEY_END)
     {
 	var x = document.getElementsByClassName("selected");
@@ -129,7 +131,11 @@ function applyKey (_event_){
 	winObj.returnValue = false;
 	return false;
     }
-        if (intKeyCode == KEY_BEGIN)
+
+
+    
+    
+    if (intKeyCode == KEY_BEGIN)
     {
 	var x = document.getElementsByClassName("selected");
 	size = size + 1;
@@ -155,6 +161,12 @@ function applyKey (_event_){
 	winObj.returnValue = false;
 	return false;
     }
+
+
+
+
+
+    
     else
     {
 	if (nav_block === 1)
@@ -181,139 +193,121 @@ function applyKey (_event_){
 	    }
 	}
 
-	//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+
+	
 	if (nav_block === 1)
 	{
-	if ( intKeyCode == KEY_RIGHT)
+
+
+
+
+
+	    
+	    if ( intKeyCode == KEY_RIGHT)
 	    {
+		document.getElementById(phrase).className = "";
 		test = 1;
 	    	glob_phrase = 0;
-	    var childNode = document.body.childNodes;
-	for (var i = 0; 'selected' != childNode[i].className; i++)
-	{
-	}
-	    if (childNode[i].id === 'selected')
-	    {
-		childNode[i] = '';
-	    }
-        if (i+1 < childNode.length-2 && childNode[i + 1].nodeName[0] !== 'H')
-            {
-	    if (childNode[i].id === 'selected')
-	    {
-		childNode[i].id = '';
-	    }
-	    childNode[i].className = '';
-	    childNode[i + 1].id = 'selected';
-            childNode[i + 1].className = 'selected';
-	    i = i + 2;
-		while (i < childNode.length && childNode[i].className === 'selected')
-	    {
-		childNode[i].className = ''
-		i = i + 1;
-	    }
-        }
-	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	    winObj.returnValue = false;
-	    let view = document.getElementById('selected');
-	    if (view != null)
-	    {
-		view.scrollIntoView();
-	    }
-            speakElement(document.getElementsByClassName('selected'));
-
-	    let pos = 0;
-	    for (; 'selected' != childNode[pos].className; pos++)
-	    {
-	    }
-	    if (g_pos === pos)
-	    {
-		speakPhrase("fin de l'élément");
-	    }
-	    else
-	    {
+		var childNode = document.body.childNodes;
+		for (var i = 0; 'selected' != childNode[i].className; i++);
+		if (childNode[i].id === 'selected')
+		    childNode[i] = '';
+		if (i+1 < childNode.length-2 && childNode[i + 1].nodeName[0] !== 'H')
+		{
+		    if (childNode[i].id === 'selected')
+			childNode[i].id = '';
+		    childNode[i].className = '';
+		    childNode[i + 1].id = 'selected';
+		    childNode[i + 1].className = 'selected';
+		    i = i + 2;
+		    while (i < childNode.length && childNode[i].className === 'selected')
+		    {
+			childNode[i].className = ''
+			i = i + 1;
+		    }
+		}
+		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
+		let view = document.getElementById('selected');
+		if (view != null)
+		    view.scrollIntoView();
 		speakElement(document.getElementsByClassName('selected'));
-	    }
-	    g_pos = pos;
-	return false;
+		let pos = 0;
+		for (; 'selected' != childNode[pos].className; pos++);
+		if (g_pos === pos)
+		    speakPhrase("fin de l'élément");
+		else
+		    speakElement(document.getElementsByClassName('selected'));
+		g_pos = pos;
+		return false;
 	    
     }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+	    
 	
     if (intKeyCode == KEY_LEFT )
 	    {
+		document.getElementById(phrase).className = "";
 		test = 1;
-	    	glob_phrase = 0;
-	    var childNode = document.body.childNodes;
-        for (var i = 0; 'selected' != childNode[i].className; i++)
-        {
-        }
+		glob_phrase = 0;
+		var childNode = document.body.childNodes;
+		for (var i = 0; 'selected' != childNode[i].className; i++);
 		if (childNode[i].id === 'selected')
-	    {
-		childNode[i] = '';
-	    }
-        if (i-1 >= 0 && childNode[i-1].nodeName[0] !== 'H' && childNode[i].nodeName[0] !== 'H')
-        {
-	    if (childNode[i].id === 'selected')
-	    {
-		childNode[i].id = '';
-	    }
-		childNode[i].className = '';
-            childNode[i - 1].className = 'selected';
-	    childNode[i - 1].id = 'selected';
-	    while (childNode[i].className === 'selected')
-	    {
-		childNode[i].className = ''
-		i = i + 1;
-	    }
-        }
-	    let view = document.getElementById('selected');
-	    if (view != null)
-	    {
-		view.scrollIntoView();
-	    }
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-            speakElement(document.getElementsByClassName('selected'));
-
-	    let pos = 0;
-	    for (; 'selected' != childNode[pos].className; pos++)
-	    {
-	    }
-	    if (g_pos === pos)
-	    {
-		speakPhrase("debut de l'élément");
-	    }
-	    else
-	    {
+		    childNode[i] = '';
+		if (i-1 >= 0 && childNode[i-1].nodeName[0] !== 'H' && childNode[i].nodeName[0] !== 'H')
+		{
+		    if (childNode[i].id === 'selected')
+			childNode[i].id = '';
+		    childNode[i].className = '';
+		    childNode[i - 1].className = 'selected';
+		    childNode[i - 1].id = 'selected';
+		    while (childNode[i].className === 'selected')
+		    {
+			childNode[i].className = ''
+			i = i + 1;
+		    }
+		}
+		let view = document.getElementById('selected');
+		if (view != null)
+		    view.scrollIntoView();
+		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
 		speakElement(document.getElementsByClassName('selected'));
+		let pos = 0;
+		for (; 'selected' != childNode[pos].className; pos++);
+		if (g_pos === pos)
+		    speakPhrase("début de l'élément");
+		else
+		    speakElement(document.getElementsByClassName('selected'));
+		g_pos = pos;
+		return false;
 	    }
-	    g_pos = pos;
-	return false;
 	}
-    }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+	
 	
     if ( intKeyCode == KEY_UP)
 	{
+	    document.getElementById(phrase).className = "";
 	    test = 1;
 	    glob_phrase = 0;
 	    var temp = 1;
 	    var poulet = 0;
 	    var childNode = document.body.childNodes;
-	    for (var i = 1; 'selected' != childNode[i].className; i++)
-	    {
-	    }
+	    for (var i = 1; 'selected' != childNode[i].className; i++);
             temp = i;
 	    if (childNode[i].id === 'selected')
-	    {
 		childNode[i].id = '';
-	    }
 	    if (i != 1)
-	    {
 		i--;
-	    }
 	    for(let tmp2=1; tmp2<childNode.length; tmp2++)
 	    {
 		if (childNode[i].className === 'selected')
@@ -334,204 +328,209 @@ function applyKey (_event_){
 	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
 	    let pos = 0;
-	    for (; 'selected' != childNode[pos].className; pos++)
-	    {
-	    }
+	    for (; 'selected' != childNode[pos].className; pos++);
 	    if (g_pos === pos)
-	    {
 		speakPhrase("debut de l'élément");
-	    }
 	    else
-	    {
 		speakElement(document.getElementsByClassName('selected'));
-	    }
 	    g_pos = pos;
 	    return false;
 	}
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+	
 	
     if ( intKeyCode == KEY_DOWN)
 	{
+	    document.getElementById(phrase).className = "";
 	    test = 1;
-	    	glob_phrase = 0;
-	var found = false
-        var temp = 0;
-	var poulet;
-            var childNode = document.body.childNodes;
-	    for (var i = 0; 'selected' != childNode[i].className; i++)
-        {
-        }
-	temp = i;
-	if (childNode[i].id === 'selected')
-	    {
+	    glob_phrase = 0;
+	    var found = false
+	    var temp = 0;
+	    var poulet;
+	    var childNode = document.body.childNodes;
+	    for (var i = 0; 'selected' != childNode[i].className; i++);
+	    temp = i;
+	    if (childNode[i].id === 'selected')
 		childNode[i].id = '';
+	    i++;
+            for (;i < childNode.length; i++)
+	    {
+		if (childNode[i].nodeName[0] === 'H')
+		{
+		    document.getElementById(childNode[i].id).scrollIntoView();
+		    childNode[temp].className = '';
+		    temp = temp + 1;
+		    childNode[i].className = 'selected';
+		    i = i + 1;
+		    break;
+		}
 	    }
-        i++;
-        for (;i < childNode.length; i++)
-        {
-            if (childNode[i].nodeName[0] === 'H')
-            {
-		document.getElementById(childNode[i].id).scrollIntoView();
-		childNode[temp].className = '';
-		temp = temp + 1;
-                childNode[i].className = 'selected';
-		i = i + 1;
-                break;
-            }
-        }
 	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
-
 	    let pos = 0;
-	    for (; 'selected' != childNode[pos].className; pos++)
-	    {
-	    }
+	    for (; 'selected' != childNode[pos].className; pos++);
 	    if (g_pos === pos)
-	    {
 		speakPhrase("fin de l'élément");
-	    }
 	    else
-	    {
 		speakElement(document.getElementsByClassName('selected'));
-	    }
 	    g_pos = pos;
-	return false;
+	    return false;
     }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+	
 	
     if ( intKeyCode == KEY_L)
 	{
+	    document.getElementById(phrase).className = "";
 	    test = 1;
-	    	glob_phrase = 0;
-	var temp = 1;
-	var childNode = document.body.childNodes;
-	for (var i = 1; 'selected' != childNode[i].className; i++)
-	{
-        }
-	if (childNode[i].id === 'selected')
-	    {
+	    glob_phrase = 0;
+	    var temp = 1;
+	    var childNode = document.body.childNodes;
+	    for (var i = 1; 'selected' != childNode[i].className; i++);
+	    if (childNode[i].id === 'selected')
 		childNode[i].id = '';
-	    }
-	if (i != 0 && i != 1)
-	{
-        temp = i;
-	var current_title = childNode[i].nodeName[1];
-	if (i != 1)
-	{
-	    i--;
-	}
-	for(let tmp2=1; tmp2<childNode.length; tmp2++)
-	{
-	    if (childNode[i].className === 'selected')
-		childNode[i].className = '';
-	}
-        for (;i < childNode.length; i--)
-            {
-            if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
-            {
-		childNode[temp].className = '';
-		temp = temp + 1;
-		while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
+	    if (i != 0 && i != 1)
+	    {
+		temp = i;
+		var current_title = childNode[i].nodeName[1];
+		if (i != 1)
 		{
-		//for (;childNode[temp].nodeName[0] !== 'H'; temp++)
-		    childNode[temp].className = '';
-		    temp = temp + 1;
+		    i--;
+		    for(let tmp2=1; tmp2<childNode.length; tmp2++)
+		    {
+			if (childNode[i].className === 'selected')
+			    childNode[i].className = '';
+		    }
+		    for (;i < childNode.length; i--)
+		    {
+			if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
+			{
+			    childNode[temp].className = '';
+			    temp = temp + 1;
+			    while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
+			    {
+				childNode[temp].className = '';
+				temp = temp + 1;
+			    }
+			    childNode[i].className = 'selected';
+			    document.getElementById(childNode[i].id).scrollIntoView();
+			    i = i + 1;
+			    while (i < childNode.length && childNode[i].nodeName[0] !== 'H')
+			    {
+				childNode[i].className = 'selected';
+				i = i + 1;
+			    }
+			    break;
+			}
+		    }
 		}
-                childNode[i].className = 'selected';
-		document.getElementById(childNode[i].id).scrollIntoView();
-		i = i + 1;
-		while (i < childNode.length && childNode[i].nodeName[0] !== 'H')
-		{
-		    //for (;childNode[i].nodeName[0] !== 'H'; i++)
-		    childNode[i].className = 'selected';
-		    i = i + 1;
-		}
-                break;
-            }
-        }
+		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
+		let pos = 0;
+		for (; 'selected' != childNode[pos].className; pos++);
+		if (g_pos === pos)
+		    speakPhrase("début de l'élément");
+		else
+		    speakElement(document.getElementsByClassName('selected'));
+		g_pos = pos;
+		return false;
+	    }
 	}
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-	    	    let pos = 0;
-	    for (; 'selected' != childNode[pos].className; pos++)
-	    {
-	    }
-	    if (g_pos === pos)
-	    {
-		speakPhrase("debut de l'élément");
-	    }
-	    else
-	    {
-		speakElement(document.getElementsByClassName('selected'));
-	    }
-	    g_pos = pos;
-	return false;
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
     if (intKeyCode == KEY_M)
 	{
+	    document.getElementById(phrase).className = "";
 	    test = 1;
-	    	glob_phrase = 0;
-	var found = false
-        var temp = 0;
-        var childNode = document.body.childNodes;
-        for (var i = 0; 'selected' != childNode[i].className; i++)
-        {
-        }
-	if (childNode[i].id === 'selected')
-	    {
+	    glob_phrase = 0;
+	    var found = false
+            var temp = 0;
+	    var childNode = document.body.childNodes;
+            for (var i = 0; 'selected' != childNode[i].className; i++);
+	    if (childNode[i].id === 'selected')
 		childNode[i].id = '';
-	    }
-	temp = i;
-	var current_title = childNode[i].nodeName[1];
-        i++;
-        for (;i < childNode.length; i++)
-        {
-            if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] > current_title)
-            {
-		childNode[temp].className = '';
-		temp = temp + 1;
-		while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
+	    temp = i;
+	    var current_title = childNode[i].nodeName[1];
+	    i++;
+            for (;i < childNode.length; i++)
+	    {
+		if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] > current_title)
 		{
 		    childNode[temp].className = '';
 		    temp = temp + 1;
-		}
-                childNode[i].className = 'selected';
-		document.getElementById(childNode[i].id).scrollIntoView();
-		i = i + 1;
-		while (i < childNode.length && childNode[i].nodeName[0] !== 'H')
-		{
-		    childNode[i].className = 'selected';
+		    while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
+		    {
+			childNode[temp].className = '';
+			temp = temp + 1;
+		    }
+                    childNode[i].className = 'selected';
+		    document.getElementById(childNode[i].id).scrollIntoView();
 		    i = i + 1;
+		    while (i < childNode.length && childNode[i].nodeName[0] !== 'H')
+		    {
+			childNode[i].className = 'selected';
+			i = i + 1;
+		    }
+                    break;
 		}
-                break;
+		if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
+		    break;
             }
-	    if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
-	    {
-		break;
-	    }
-        }
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
-	    	    let pos = 0;
-	    for (; 'selected' != childNode[pos].className; pos++)
-	    {
-	    }
+	    let pos = 0;
+	    for (; 'selected' != childNode[pos].className; pos++);
 	    if (g_pos === pos)
-	    {
 		speakPhrase("fin de l'élément");
-	    }
 	    else
-	    {
 		speakElement(document.getElementsByClassName('selected'));
-	    }
 	    g_pos = pos;
-	return false;
-    }
+	    return false;
+	}
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     if (intKeyCode == KEY_ENTER)
     {
 	if (glob === 0)
@@ -561,6 +560,21 @@ function applyKey (_event_){
 	return false;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     if (intKeyCode == KEY_SPACE)
     {
 	winObj.keyCode = intKeyCode = REMAP_KEY_T;
@@ -569,15 +583,38 @@ function applyKey (_event_){
 	return false;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
     if (intKeyCode == KEY_P)
     {
 	if (nav_block === 1)
 	    nav_block = 0;
 	else
-	{
 	    nav_block = 1;
-	}
     }
+
+
+
+
+
+
+
+
+
+    
 
         if (intKeyCode == KEY_W)
     {
@@ -585,25 +622,23 @@ function applyKey (_event_){
 	var tmp = phrase(document.getElementsByClassName('selected'));
 	var txt = "";
 	if (glob_phrase >= tmp.length)
-	{
 	    glob_phrase = 1;
-	}
 	if (glob_phrase === 1 && (tmp[glob_phrase] <= '9' && tmp[glob_phrase] >= '0'))
 	{
 	    while ((tmp[glob_phrase-1] != '.' || tmp[glob_phrase] != ' ') && glob_phrase < tmp.length)
-	{
-	    txt += tmp[glob_phrase];
-	    glob_phrase = glob_phrase + 1;	    
-	}
+	    {
+		txt += tmp[glob_phrase];
+		glob_phrase = glob_phrase + 1;
+	    }
 	    glob_phrase++;
 	}
 	else
 	{
-	while (tmp[glob_phrase-1] != ','&& tmp[glob_phrase-1] != ';' && tmp[glob_phrase-1] != ' ' && glob_phrase < tmp.length)
-	{
-	    txt += tmp[glob_phrase];
-	    glob_phrase = glob_phrase + 1;	    
-	}
+	    while (tmp[glob_phrase-1] != ','&& tmp[glob_phrase-1] != ';' && tmp[glob_phrase-1] != ' ' && glob_phrase < tmp.length)
+	    {
+		txt += tmp[glob_phrase];
+		glob_phrase = glob_phrase + 1;
+	    }
 	}
 	glob_phrase = glob_phrase + 1;
 	winObj.keyCode = intKeyCode = REMAP_KEY_T;
@@ -616,6 +651,19 @@ function applyKey (_event_){
 
     if (nav_block === 0)
     {
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	if ( intKeyCode == KEY_RIGHT)
 	{
 	    if (phrase < document.getElementsByTagName("span").length - 1)
@@ -626,29 +674,31 @@ function applyKey (_event_){
 	    }
 	    let view = document.getElementById(phrase);
 	    if (view != null)
-	    {
 		view.scrollIntoView();
-	    }
 	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
 	    var txt = document.getElementById(phrase).innerHTML
 	    speakPhrase(txt);
 	    return false;
 	}
+
+
+
+
+
+
 	
     if (intKeyCode == KEY_LEFT )
 	{
 	    if (phrase > 0) 
 	    {
-		    document.getElementById(phrase).className = "";
+		document.getElementById(phrase).className = "";
 		phrase--;
 		document.getElementById(phrase).className = "selected2";
 	    }
 	    let view = document.getElementById(phrase);
 	    if (view != null)
-	    {
 		view.scrollIntoView();
-	    }
 	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
 	    var txt = document.getElementById(phrase).innerHTML;
@@ -658,6 +708,16 @@ function applyKey (_event_){
     }
     
 }
+
+
+
+
+
+
+
+
+
+
 
 function phrase_spe(myText) {
     var tts = "";
