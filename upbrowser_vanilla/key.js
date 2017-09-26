@@ -67,6 +67,9 @@ var test = 1;
 var first = 0;
 var phrase = 0;
 var title = 1;
+var mem_scroll = window.innerHeight;
+var mem_scroll2 = 0;
+var sup_TOC = document.getElementsByClassName('selected')[0].offsetTop;
 
 
 function checkEventObj ( _event_ )
@@ -101,9 +104,6 @@ function applyKey (_event_){
     var intCtrlKey = winObj.ctrlKey;
 
     back();
-
-
-
 
     if (intKeyCode == KEY_END)
     {
@@ -163,10 +163,6 @@ function applyKey (_event_){
     }
 
 
-
-
-
-    
     else
     {
 	if (nav_block === 1)
@@ -193,15 +189,9 @@ function applyKey (_event_){
 	    }
 	}
 
-	
-
-	
+		
 	if (nav_block === 1)
 	{
-
-
-
-
 
 	    
 	    if ( intKeyCode == KEY_RIGHT)
@@ -231,7 +221,13 @@ function applyKey (_event_){
 		winObj.returnValue = false;
 		let view = document.getElementById('selected');
 		if (view != null)
-		    view.scrollIntoView();
+		{
+		    if (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC >= mem_scroll)
+		    {
+			view.scrollIntoView();
+			mem_scroll = mem_scroll + document.getElementsByClassName('selected')[0].offsetTop+sup_TOC;
+		    }
+		}
 		speakElement(document.getElementsByClassName('selected'));
 		let pos = 0;
 		for (; 'selected' != childNode[pos].className; pos++);
@@ -245,10 +241,6 @@ function applyKey (_event_){
     }
 
 
-
-
-	    
-	
     if (intKeyCode == KEY_LEFT )
 	    {
 		document.getElementById(phrase).className = "";
@@ -288,11 +280,6 @@ function applyKey (_event_){
 	    }
 	}
 
-
-
-
-
-	
 	
     if ( intKeyCode == KEY_UP)
 	{
@@ -317,7 +304,15 @@ function applyKey (_event_){
             {
 		if (childNode[i].nodeName[0] === 'H')
 		{
-		    document.getElementById(childNode[i].id).scrollIntoView();
+		    if (childNode[i].offsetTop+sup_TOC <= mem_scroll2)
+		    {
+			var scroll_top = i;
+			mem_scroll = mem_scroll - (mem_scroll - childNode[i].offsetTop+sup_TOC);
+			mem_scroll2 = mem_scroll2 - (mem_scroll2 - childNode[i].offsetTop+sup_TOC);
+			while (childNode[scroll_top].offsetTop+sup_TOC > mem_scroll2 && scroll_top > 0)
+			    scroll_top--;
+			childNode[scroll_top].scrollIntoView();
+		    }
 		    childNode[temp].className = '';
 		    temp = temp + 1;
                     childNode[i].className = 'selected';
@@ -337,12 +332,6 @@ function applyKey (_event_){
 	    return false;
 	}
 
-
-
-
-
-
-	
 	
     if ( intKeyCode == KEY_DOWN)
 	{
@@ -362,7 +351,12 @@ function applyKey (_event_){
 	    {
 		if (childNode[i].nodeName[0] === 'H')
 		{
-		    document.getElementById(childNode[i].id).scrollIntoView();
+		    if (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC >= mem_scroll)
+		    {
+			document.getElementById(childNode[i].id).scrollIntoView();
+			mem_scroll = mem_scroll + (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC);
+			mem_scroll2 = mem_scroll2 + (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC);
+		    }
 		    childNode[temp].className = '';
 		    temp = temp + 1;
 		    childNode[i].className = 'selected';
@@ -382,12 +376,6 @@ function applyKey (_event_){
 	    return false;
     }
 
-
-
-
-
-
-	
 	
     if ( intKeyCode == KEY_L)
 	{
@@ -448,18 +436,6 @@ function applyKey (_event_){
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 	
     if (intKeyCode == KEY_M)
 	{
@@ -512,24 +488,6 @@ function applyKey (_event_){
 	}
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     if (intKeyCode == KEY_ENTER)
     {
@@ -560,20 +518,6 @@ function applyKey (_event_){
 	return false;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     if (intKeyCode == KEY_SPACE)
     {
@@ -583,21 +527,7 @@ function applyKey (_event_){
 	return false;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     
-
     if (intKeyCode == KEY_P)
     {
 	if (nav_block === 1)
@@ -606,15 +536,6 @@ function applyKey (_event_){
 	    nav_block = 1;
     }
 
-
-
-
-
-
-
-
-
-    
 
         if (intKeyCode == KEY_W)
     {
@@ -652,17 +573,6 @@ function applyKey (_event_){
     if (nav_block === 0)
     {
 
-
-
-
-
-
-
-
-
-
-
-
 	
 	if ( intKeyCode == KEY_RIGHT)
 	{
@@ -683,12 +593,7 @@ function applyKey (_event_){
 	}
 
 
-
-
-
-
-	
-    if (intKeyCode == KEY_LEFT )
+	if (intKeyCode == KEY_LEFT )
 	{
 	    if (phrase > 0) 
 	    {
@@ -708,15 +613,6 @@ function applyKey (_event_){
     }
     
 }
-
-
-
-
-
-
-
-
-
 
 
 function phrase_spe(myText) {

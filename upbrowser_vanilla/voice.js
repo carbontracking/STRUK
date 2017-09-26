@@ -1,14 +1,11 @@
-var mySynth = window.speechSynthesis;
-var myVoices = mySynth.getVoices();
+var mySynth;
+var myVoices;
 var currentVoice;
 var nav = 0;
-for(var i = 0; i < myVoices.length; i++) {
-    if (myVoices[i].lang === "fr-FR") {
-        currentVoice = i;
-        speakElement(document.getElementsByClassName('selected'));
-        break;
-    }
-}
+var start = 0;
+
+speakElement(document.getElementsByClassName('selected'));
+start = 1;
 for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
 {
     if (navigator.userAgent[poulet] == "F" && navigator.userAgent[poulet+1] == "i"&&
@@ -25,14 +22,18 @@ if (currentVoice === undefined && nav === 1) {
 }
 
 function speakElement(myText) {
-    var tts = arrangeTextElement(myText);
+    mySynth = window.speechSynthesis;
+    myVoices = mySynth.getVoices();
+    currentVoice = 1;
+    tts = arrangeTextElement(myText);
     var myUtterance = new SpeechSynthesisUtterance(tts);
-
     if (mySynth.speaking === true) {
         mySynth.cancel();
     }
-    myUtterance.voice = myVoices[currentVoice];
-    myUtterance.lang = myVoices[currentVoice].lang;
+    myUtterance.voice = myVoices[1];
+    if (myUtterance.voice === null || myUtterance.voice.name === "Google US English")
+	    myUtterance.voice = myVoices[6];
+    myUtterance.lang = "fr-FR";
     myUtterance.rate = 0.8;
     mySynth.speak(myUtterance);
 }
@@ -58,8 +59,10 @@ function speakPhrase(tts) {
     if (mySynth.speaking === true) {
 	mySynth.cancel();
     }
-    myUtterance.voice = myVoices[currentVoice];
-    myUtterance.lang = myVoices[currentVoice].lang;
+    myUtterance.voice = myVoices[1];
+    if (myUtterance.voice === null || myUtterance.voice.name === "Google US English")
+	    myUtterance.voice = myVoices[6];
+    myUtterance.lang = "fr-FR",
     myUtterance.rate = 0.8;
     mySynth.speak(myUtterance);
 }
