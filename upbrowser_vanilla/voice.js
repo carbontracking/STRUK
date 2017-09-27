@@ -31,8 +31,15 @@ function speakElement(myText) {
         mySynth.cancel();
     }
     myUtterance.voice = myVoices[1];
-    if (myUtterance.voice === null || myUtterance.voice.name === "Google US English")
-	    myUtterance.voice = myVoices[6];
+	    if (myUtterance.voice != null)
+	    {
+	        var i = 0;
+	        while (myVoices[i].lang != "fr-FR")
+	        {
+	            i++;
+	        }
+	        myUtterance.voice = myVoices[i];
+	    }
     myUtterance.lang = "fr-FR";
     myUtterance.rate = 0.8;
     mySynth.speak(myUtterance);
@@ -60,8 +67,16 @@ function speakPhrase(tts) {
 	mySynth.cancel();
     }
     myUtterance.voice = myVoices[1];
-    if (myUtterance.voice === null || myUtterance.voice.name === "Google US English")
-	    myUtterance.voice = myVoices[6];
+    if (myUtterance.voice != null)
+    {
+        var i = 0;
+        while (myVoices[i].lang != "fr-FR")
+        {
+            i++;
+            
+        }
+        myUtterance.voice = myVoices[i];
+    }
     myUtterance.lang = "fr-FR",
     myUtterance.rate = 0.8;
     mySynth.speak(myUtterance);
