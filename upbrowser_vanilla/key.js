@@ -67,8 +67,9 @@ var test = 1;
 var first = 0;
 var phrase = 0;
 var title = 1;
-var mem_scroll = window.innerHeight;
-var mem_scroll2 = 0;
+var winup = 0;
+var windown = window.innerHeight;
+var window_height = window.innerHeight;
 var sup_TOC = document.getElementsByClassName('selected')[0].offsetTop;
 
 
@@ -219,15 +220,12 @@ function applyKey (_event_){
 		}
 		winObj.keyCode = intKeyCode = REMAP_KEY_T;
 		winObj.returnValue = false;
-		let view = document.getElementById('selected');
-		if (view != null)
-		{
-		    if (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC >= mem_scroll)
+		if (document.getElementById(childNode[i].id).offsetTop >= windown)
 		    {
-			view.scrollIntoView();
-			mem_scroll = mem_scroll + document.getElementsByClassName('selected')[0].offsetTop+sup_TOC;
+			winup = winup + window_height;
+			windown = windown + window_height;
+			document.getElementById(childNode[i].id).scrollIntoView();
 		    }
-		}
 		speakElement(document.getElementsByClassName('selected'));
 		let pos = 0;
 		for (; 'selected' != childNode[pos].className; pos++);
@@ -263,9 +261,18 @@ function applyKey (_event_){
 			i = i + 1;
 		    }
 		}
-		let view = document.getElementById('selected');
+		/*let view = document.getElementById('selected');
 		if (view != null)
-		    view.scrollIntoView();
+		    view.scrollIntoView();*/
+		if (document.getElementsByClassName('selected')[0].offsetTop <= winup)
+		    {
+			var scroll_top = i;
+			winup = winup - window_height;
+			windown = windown - window_height;
+			while (childNode[scroll_top].offsetTop > winup)
+			    scroll_top--;
+			childNode[scroll_top].scrollIntoView();
+		    }
 		winObj.keyCode = intKeyCode = REMAP_KEY_T;
 		winObj.returnValue = false;
 		speakElement(document.getElementsByClassName('selected'));
@@ -304,12 +311,12 @@ function applyKey (_event_){
             {
 		if (childNode[i].nodeName[0] === 'H')
 		{
-		    if (childNode[i].offsetTop+sup_TOC <= mem_scroll2)
+		    if (childNode[i].offsetTop <= winup)
 		    {
 			var scroll_top = i;
-			mem_scroll = mem_scroll - (mem_scroll - childNode[i].offsetTop+sup_TOC);
-			mem_scroll2 = mem_scroll2 - (mem_scroll2 - childNode[i].offsetTop+sup_TOC);
-			while (childNode[scroll_top].offsetTop+sup_TOC > mem_scroll2 && scroll_top > 0)
+			winup = winup - window_height;
+			windown = windown - window_height;
+			while (childNode[scroll_top].offsetTop > winup)
 			    scroll_top--;
 			childNode[scroll_top].scrollIntoView();
 		    }
@@ -351,11 +358,11 @@ function applyKey (_event_){
 	    {
 		if (childNode[i].nodeName[0] === 'H')
 		{
-		    if (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC >= mem_scroll)
+		    if (document.getElementById(childNode[i].id).offsetTop >= windown)
 		    {
+			winup = winup + window_height;
+			windown = windown + window_height;
 			document.getElementById(childNode[i].id).scrollIntoView();
-			mem_scroll = mem_scroll + (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC);
-			mem_scroll2 = mem_scroll2 + (document.getElementsByClassName('selected')[0].offsetTop+sup_TOC);
 		    }
 		    childNode[temp].className = '';
 		    temp = temp + 1;
@@ -582,9 +589,12 @@ function applyKey (_event_){
 		phrase++;
 		document.getElementById(phrase).className = "selected2";
 	    }
-	    let view = document.getElementById(phrase);
-	    if (view != null)
-		view.scrollIntoView();
+	    if (document.getElementById(phrase).offsetTop >= windown)
+	    {
+		winup = winup + window_height;
+		windown = windown + window_height;
+		document.getElementById(phrase).scrollIntoView();
+	    }
 	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
 	    var txt = document.getElementById(phrase).innerHTML
@@ -601,9 +611,15 @@ function applyKey (_event_){
 		phrase--;
 		document.getElementById(phrase).className = "selected2";
 	    }
-	    let view = document.getElementById(phrase);
-	    if (view != null)
-		view.scrollIntoView();
+	    if (document.getElementById(phrase).offsetTop <= winup)
+	    {
+		var scroll_top = phrase;
+		winup = winup - window_height;
+		windown = windown - window_height;
+		while (document.getElementById(scroll_top).offsetTop > winup)
+		    scroll_top--;
+		document.getElementById(scroll_top).scrollIntoView();
+	    }
 	    winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    winObj.returnValue = false;
 	    var txt = document.getElementById(phrase).innerHTML;
