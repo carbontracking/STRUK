@@ -2,7 +2,6 @@ var mySynth;
 var myVoices;
 var currentVoice;
 var nav = 0;
-var start = 0;
 
 speakElement(document.getElementsByClassName('selected'));
 start = 1;
@@ -61,7 +60,49 @@ function arrangeTextElement(myText) {
 // lecture par phrase
 
 function speakPhrase(tts) {
-    var myUtterance = new SpeechSynthesisUtterance(tts);
+    var i = 0;
+    var tmp = "";
+    while (i < tts.length)
+    {
+        if (tts[i] === '<' && tts[i+1] === 'i' && tts[i+2] === 'm' && tts[i+3] === 'g')
+        {
+            while (i < tts.length)
+            {
+                if (tts[i] === 'a' && tts[i+1] === 'l' && tts[i+2] === 't' && tts[i+3] === '=' && tts[i+4] === '\"')
+                {
+                    i = i + 5;
+                    while (tts[i] != '\"')
+                    {
+                        tmp += tts[i];
+                        i++;
+                    }
+                    while (tts[i] != '/' && tts[i+1] != '>')
+                    i++;
+                    i = i + 2;
+                    break;
+                }
+                else
+                    i++;
+            }
+        }
+        else if (tts[i] === '<' && tts[i+1] === 'a')
+        {
+            while (tts[i] != '>')
+            i++;
+            tmp += "lien, ";
+        }
+        else if(tts[i] === '<' && tts[i+1] === '/' && tts[i+2] === 'a' && tts[i+3] === '>')
+        {
+            tmp += ", fin de lien";
+            i = i + 4;
+        }
+        else
+        {
+            tmp += tts[i];
+            i++;
+        }
+    }
+    var myUtterance = new SpeechSynthesisUtterance(tmp);
 
     if (mySynth.speaking === true) {
 	mySynth.cancel();

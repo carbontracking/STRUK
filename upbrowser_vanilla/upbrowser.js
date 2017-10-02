@@ -136,15 +136,15 @@ function f5() {
     var my_css = document.createElement("LINK");
     my_css.setAttribute("rel", "stylesheet");
     my_css.setAttribute("type", "text/css");
-    my_css.setAttribute("href", "index.css");
+    my_css.setAttribute("href", "/js/Upbrowser/index.css");
     document.head.appendChild(my_css);
 
     var my_script = document.createElement("SCRIPT");
-    my_script.setAttribute("src", "./key.js");
+    my_script.setAttribute("src", "/js/Upbrowser/key.js");
     document.body.appendChild(my_script);
 
     my_script = document.createElement("SCRIPT");
-    my_script.setAttribute("src", "./voice.js");
+    my_script.setAttribute("src", "/js/Upbrowser/voice.js");
     document.body.appendChild(my_script);
 }
 
@@ -213,15 +213,13 @@ function setSelectionTOC() {
     var searchId = myClick.slice(myClick.lastIndexOf("#section1") + 1, myClick.length);
     var mySelect = document.getElementById(searchId);
     var childNode = document.body.childNodes;
-
-    for(var i = 1; childNode[i].className != 'selected' && i < childNode.length; i++);
-    if (childNode[i].id === 'selected') {
-        childNode[i].id = '';
-    }
-    for(; childNode[i].className === 'selected' && i < childNode.length; i++) {
-        childNode[i].className = 'nope';
-    }
+    if (document.getElementsByClassName('selected').length != 0)
+        document.getElementsByClassName('selected')[0].className = "";
+    else
+        document.getElementsByClassName('selected2')[0].className = "";
+    memory_node = 0;
     mySelect.className = 'selected';
+    speakPhrase(document.getElementsByClassName('selected')[0].textContent);
 }
 
 
@@ -236,26 +234,33 @@ function parse_phrase()
     while (i < childNode.length)
     {
 	tmp = childNode[i].innerHTML;
-	if (childNode[i].nodeName === "OL")
+	if (childNode[i].nodeName === "OL" ||childNode[i].nodeName === "UL" )
 	{
 	    while (k < tmp.length)
 	    {
-		if (tmp[k] === '<' && tmp[k+1] === 'l' && tmp[k+2] === 'i' && tmp[k+3] === '>')
-		{
-		    txt += "<li><span id="+num+">";
-		    num++;
-		    k = k + 4;
-		}
-		else if (tmp[k] === '<' && tmp[k+1] === 'l' && tmp[k+2] === 'l' && tmp[k+3] === 'i' && tmp[k+4] === '>')
-		{
-		    txt += "</span></li>"
-		    k = k + 5;
-		}
-		else
-		{
-		    txt += tmp[k];
-		    k++;
-		}
+	        if (tmp[k] === '<' && tmp[k+1] === 'l' && tmp[k+2] === 'i' && tmp[k+3] === '>')
+	        {
+	            txt += "<li><span id="+num+">";
+	            num++;
+	            k = k + 4;
+	        }
+	        else if (tmp[k] === '<' && tmp[k+1] === '/' && tmp[k+2] === 'l' && tmp[k+3] === 'i' && tmp[k+4] === '>')
+	        {
+	            txt += "</span></li>"
+	            k = k + 5;
+	        }
+	        else if ((tmp[k] === '.' || tmp[k] === '!' || tmp[k] === '?') && tmp[k+1] === ' ' && ((tmp[k+2] <= 'Z' && tmp[k+2] >= 'A') |- (tmp[k+2] <= 'z' && tmp[k+2] >= 'a') || (tmp[k+2] <= '1' && tmp[k+2] >= '0')))
+	        {
+	            txt += tmp[k],
+	            txt += "</span><span id="+num+">";
+	            num++;
+	            k++;
+	        }
+	        else
+	        {
+	            txt += tmp[k];
+	            k++;
+	        }
 	    }
 	}
 	else
@@ -283,5 +288,4 @@ function parse_phrase()
 	k = 0;
 	i = i + 1;
     }
-    //document.getElementById("0").className = "selected";
 }
