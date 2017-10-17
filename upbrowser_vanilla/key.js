@@ -1,67 +1,82 @@
+//evenement: quand on utilise le clavier dans le document
 document.onkeydown = applyKey;
- 
-KEY_DOWN	= 40;
-KEY_UP		= 38;
-KEY_LEFT	= 37;
-KEY_RIGHT	= 39;
 
-KEY_END		= 35;
-KEY_BEGIN	= 36;
+//clavier
+{
+//touches utilisées
+{
+var KEY_DOWN	= 40;
+var KEY_UP		= 38;
+var KEY_LEFT	= 37;
+var KEY_RIGHT	= 39;
+var KEY_END		= 35;
+var KEY_BEGIN	= 36;
+var KEY_ENTER	= 13;
+var KEY_SPACE	= 32;
+var KEY_K		= 75;
+var KEY_L		= 76;
+var KEY_M		= 77;
+var KEY_C		= 67;
+var REMAP_KEY_T	= 5019;
+}
 
-KEY_BACK_TAB 	= 8;
-KEY_TAB		= 9;
-KEY_SH_TAB  	= 16;
-KEY_ENTER	= 13;
-KEY_ESC		= 27;
-KEY_SPACE	= 32;
-KEY_DEL		= 46;
-KEY_A		= 65;
-KEY_B		= 66;
-KEY_C		= 67;
-KEY_D		= 68;
-KEY_E		= 69;
-KEY_F		= 70;
-KEY_G		= 71;
-KEY_H		= 72;
-KEY_I		= 73;
-KEY_J		= 74;
-KEY_K		= 75;
-KEY_L		= 76;
-KEY_M		= 77;
-KEY_N		= 78;
-KEY_O		= 79;
-KEY_P		= 80;
-KEY_Q		= 81;
-KEY_R		= 82;
-KEY_S		= 83;
-KEY_T		= 84;
-KEY_U		= 85;
-KEY_V		= 86;
-KEY_W		= 87;
-KEY_X		= 88;
-KEY_Y		= 89;
-KEY_Z		= 90;
-KEY_PF1		= 112;
-KEY_PF2		= 113;
-KEY_PF3		= 114;
-KEY_PF4		= 115;
-KEY_PF5		= 116;
-KEY_PF6		= 117;
-KEY_PF7		= 118;
-KEY_PF8		= 119;
-REMAP_KEY_T	= 5019;
+//touches libres
+/*
+{
+var KEY_BACK_TAB 	= 8;
+var KEY_TAB		= 9;
+var KEY_SH_TAB  	= 16;*/
+//var KEY_ESC		= 27;
+/*var KEY_DEL		= 46;
+var KEY_A		= 65;
+var KEY_B		= 66;
+var KEY_D		= 68;
+var KEY_E		= 69;
+var KEY_F		= 70;
+var KEY_G		= 71;
+var KEY_H		= 72;
+var KEY_I		= 73;
+var KEY_J		= 74;*/
+/*var KEY_N		= 78;
+var KEY_O		= 79;
+var KEY_P		= 80;
+var KEY_Q		= 81;
+var KEY_R		= 82;
+var KEY_S		= 83;
+var KEY_T		= 84;
+var KEY_U		= 85;
+var KEY_V		= 86;
+var KEY_W		= 87;
+var KEY_X		= 88;
+var KEY_Y		= 89;
+var KEY_Z		= 90;
+var KEY_PF1		= 112;
+var KEY_PF2		= 113;
+var KEY_PF3		= 114;
+var KEY_PF4		= 115;
+var KEY_PF5		= 116;
+var KEY_PF6		= 117;
+var KEY_PF7		= 118;
+var KEY_PF8		= 119;
+}
+*/
+}
 
+//initialisation des globales
+{
 var size = 0;
 var glob = 0;
 var g_pos = 1;
 var memory_node = 0;
-var nav_block = 0;
 var phrase = 0;
-var winup = 0;
-var windown = window.innerHeight - 100;
-var window_height = window.innerHeight - 100;
+var length = 0;
 
+while (document.getElementById(length))
+	length++;
+length--;
+}
 
+//initialisation de l'evenement en fonction du naviguateur
 function checkEventObj ( _event_ )
 {
     // verifions si le navigateur est IE
@@ -72,13 +87,46 @@ function checkEventObj ( _event_ )
 	return _event_;
 }
 
-function applyKey (_event_){
+function applyKey (_event_)
+{
+	//different message en fonction des langues
+	{
+	var msg1;
+	var msg2;
+	var msg3;
+	if (lang_value === "en-US")
+	{
+		msg1 = "end of the element";
+		msg2 = "start of the element";
+		msg3 = "wrong selection";
+	}
+	else if (lang_value === "fr-FR")
+	{
+		msg1 = "fin de l'élément";
+		msg2 = "Début de l'élément";
+		msg3 = "sélection incorrecte";
+	}
+	else
+	{
+		msg1 = "final del elemento";
+		msg2 = "inicio del elemento";
+		msg3 = "seleccion incorrecta";
+	}
+	}
+	
+	//initialisation des variables tel que la fenetre node keyCode..
+	{
+	var windown = window.innerHeight/2;
     // initialisation en fonction du navigateur
     var winObj = checkEventObj(_event_);
     var intKeyCode = winObj.keyCode;
-    var intAltKey = winObj.altKey;
-    var intCtrlKey = winObj.ctrlKey;
-
+    var childNode = document.body.childNodes;
+    }
+    
+	//differente touches pour controller l'appli
+	{
+	//modifier la taille --
+	
     if (intKeyCode == KEY_END)
     {
 	var x = document.getElementsByClassName("selected");
@@ -106,9 +154,7 @@ function applyKey (_event_){
 	return false;
     }
 
-
-    
-    
+    //modifier la taille ++
     if (intKeyCode == KEY_BEGIN)
     {
 	var x = document.getElementsByClassName("selected");
@@ -136,398 +182,8 @@ function applyKey (_event_){
 	return false;
     }
 
-
-    else
-    {
-	if (nav_block === 1)
-	{
-	    var x = document.getElementsByClassName("selected");
-	    size = 0;
-	    for (var i = 0; i < x.length; i++)
-	    {
-		if (x[i].nodeName[0] === "H")
-		{
-		    if (x[i].nodeName[1] === "1")
-			x[i].style.fontSize=36+size+"px";
-		    else if (x[i].nodeName[1] === "2")
-			x[i].style.fontSize=24+size+"px";
-		    else if (x[i].nodeName[1] === "3")
-			x[i].style.fontSize=21+size+"px";
-		    else if (x[i].nodeName[1] === "4")
-			x[i].style.fontSize=18+size+"px";
-		    else
-			x[i].style.fontSize=16+size+"px";
-		}
-		else
-		    x[i].style.fontSize=16+size+"px";
-	    }
-	}
-
-	if (nav_block === 1)
-	{
-
-	    
-	    if ( intKeyCode == KEY_RIGHT)
-	    {
-		document.getElementById(phrase).className = "";
-		test = 1;
-	    	glob_phrase = 0;
-		var childNode = document.body.childNodes;
-		for (var i = 0; 'selected' != childNode[i].className; i++);
-		if (childNode[i].id === 'selected')
-		    childNode[i] = '';
-		if (i+1 < childNode.length-2 && childNode[i + 1].nodeName[0] !== 'H')
-		{
-		    if (childNode[i].id === 'selected')
-			childNode[i].id = '';
-		    childNode[i].className = '';
-		    childNode[i + 1].id = 'selected';
-		    childNode[i + 1].className = 'selected';
-		    i = i + 2;
-		    while (i < childNode.length && childNode[i].className === 'selected')
-		    {
-			childNode[i].className = '';
-			i = i + 1;
-		    }
-		}
-		winObj.keyCode = intKeyCode = REMAP_KEY_T;
-		winObj.returnValue = false;
-		if (document.getElementById(childNode[i].id).offsetTop >= windown)
-		    {
-			winup = winup + window_height;
-			windown = windown + window_height;
-			document.getElementById(childNode[i].id).scrollIntoView();
-		    }
-		speakElement(document.getElementsByClassName('selected'));
-		let pos = 0;
-		for (; 'selected' != childNode[pos].className; pos++);
-		if (g_pos === pos)
-		    speakPhrase("fin de l'élément");
-		else
-		    speakElement(document.getElementsByClassName('selected'));
-		g_pos = pos;
-		return false;
-	    
-    }
-
-
-    if (intKeyCode == KEY_LEFT )
-	    {
-		document.getElementById(phrase).className = "";
-		test = 1;
-		glob_phrase = 0;
-		var childNode = document.body.childNodes;
-		for (var i = 0; 'selected' != childNode[i].className; i++);
-		if (childNode[i].id === 'selected')
-		    childNode[i] = '';
-		if (i-1 >= 0 && childNode[i-1].nodeName[0] !== 'H' && childNode[i].nodeName[0] !== 'H')
-		{
-		    if (childNode[i].id === 'selected')
-			childNode[i].id = '';
-		    childNode[i].className = '';
-		    childNode[i - 1].className = 'selected';
-		    childNode[i - 1].id = 'selected';
-		    while (childNode[i].className === 'selected')
-		    {
-			childNode[i].className = '';
-			i = i + 1;
-		    }
-		}
-		/*let view = document.getElementById('selected');
-		if (view != null)
-		    view.scrollIntoView();*/
-		if (document.getElementsByClassName('selected')[0].offsetTop <= winup)
-		    {
-			var scroll_top = i;
-			winup = winup - window_height;
-			windown = windown - window_height;
-			while (childNode[scroll_top].offsetTop > winup)
-			    scroll_top--;
-			childNode[scroll_top].scrollIntoView();
-		    }
-		winObj.keyCode = intKeyCode = REMAP_KEY_T;
-		winObj.returnValue = false;
-		speakElement(document.getElementsByClassName('selected'));
-		let pos = 0;
-		for (; 'selected' != childNode[pos].className; pos++);
-		if (g_pos === pos)
-		    speakPhrase("début de l'élément");
-		else
-		    speakElement(document.getElementsByClassName('selected'));
-		g_pos = pos;
-		return false;
-	    }
-	}
-	
-    if ( intKeyCode == KEY_UP)
-	{
-		var childNode = document.body.childNodes;
-		if (memory_node === 0)
-		{
-			document.getElementById(phrase).className = "";
-			test = 1;
-			glob_phrase = 0;
-			var temp = 1;
-			var poulet = 0;
-			for (var i = 1; 'selected' != childNode[i].className; i++);
-			temp = i;
-			if (childNode[i].id === 'selected')
-			childNode[i].id = '';
-			if (i != 1)
-			i--;
-			for(let tmp2=1; tmp2<childNode.length; tmp2++)
-			{
-				if (childNode[i].className === 'selected')
-				childNode[i].className = '';
-			}
-			for (;i < childNode.length; i--)
-            {
-            	if (childNode[i].nodeName[0] === 'H')
-            	{
-            		if (childNode[i].offsetTop <= winup)
-            		{
-            			var scroll_top = i;
-            			winup = winup - window_height;
-            			windown = windown - window_height;
-            			while (childNode[scroll_top].offsetTop > winup)
-            			scroll_top--;
-            			childNode[scroll_top].scrollIntoView();
-            		}
-            		childNode[temp].className = '';
-            		temp = temp + 1;
-                    childNode[i].className = 'selected';
-                    i = i + 1;
-                    break;
-            	}
-            }
-            winObj.keyCode = intKeyCode = REMAP_KEY_T;
-            winObj.returnValue = false;
-            let pos = 0;
-            for (; 'selected' != childNode[pos].className; pos++);
-            if (g_pos === pos)
-            speakPhrase("début de l'élément");
-            else
-            speakElement(document.getElementsByClassName('selected'));
-            g_pos = pos;
-            return false;
-		}
-		else
-		{
-			var pos_phrase = document.getElementsByClassName('selected2')[0].offsetTop;
-			var test_node = 0;
-			while (childNode[test_node].offsetTop < pos_phrase && test_node < childNode.length-1)
-			test_node++;
-			test_node--;
-			while (childNode[test_node].nodeName[0] != 'H' && test_node > 0)
-			test_node--;
-			if (childNode[test_node].nodeName[0] === 'H')
-			{
-				document.getElementsByClassName('selected2')[0].className = "";
-				childNode[test_node].className = "selected";
-				if (childNode[test_node].offsetTop <= winup)
-				{
-            		var scroll_top = test_node;
-            		winup = winup - window_height;
-            		windown = windown - window_height;
-            		while (childNode[scroll_top].offsetTop > winup)
-            		scroll_top--;
-            		childNode[scroll_top].scrollIntoView();
-            	}
-				speakElement(document.getElementsByClassName('selected'));
-				memory_node = 0;
-			}
-			else
-			speakPhrase("début de l'élément");
-			winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	    	winObj.returnValue = false; 
-	    	return false;
-		}
-	}
-
-	
-    if ( intKeyCode == KEY_DOWN)
-	{
-		var childNode = document.body.childNodes;
-		if (memory_node === 0)
-		{
-			document.getElementById(phrase).className = "";
-			test = 1;
-			glob_phrase = 0;
-			var found = false;
-			var temp = 0;
-			var poulet;
-			for (var i = 0; 'selected' != childNode[i].className; i++);
-			temp = i;
-			if (childNode[i].id === 'selected')
-			childNode[i].id = '';
-			i++;
-            for (;i < childNode.length; i++)
-            {
-            	if (childNode[i].nodeName[0] === 'H')
-            	{
-            		if (document.getElementById(childNode[i].id).offsetTop >= windown)
-            		{
-            			winup = winup + window_height;
-            			windown = windown + window_height;
-            			document.getElementById(childNode[i].id).scrollIntoView();
-            		}
-            		childNode[temp].className = '';
-            		temp = temp + 1;
-            		childNode[i].className = 'selected';
-            		i = i + 1;
-            		break;
-            	}
-            }
-            winObj.keyCode = intKeyCode = REMAP_KEY_T;
-            winObj.returnValue = false;
-            let pos = 0;
-            for (; 'selected' != childNode[pos].className; pos++);
-            if (g_pos === pos)
-            speakPhrase("fin de l'élément");
-            else
-            speakElement(document.getElementsByClassName('selected'));
-            g_pos = pos;
-            return false;
-		}
-		else
-		{
-			var pos_phrase = document.getElementsByClassName('selected2')[0].offsetTop;
-			var test_node = 0;
-			while (childNode[test_node].offsetTop < pos_phrase && test_node < childNode.length-1)
-			test_node++;
-			while (childNode[test_node].nodeName[0] != 'H' && test_node < childNode.length-1)
-			test_node++;
-			if (childNode[test_node].nodeName[0] === 'H')
-			{
-				document.getElementsByClassName('selected2')[0].className = "";
-				childNode[test_node].className = "selected";
-				if (document.getElementsByClassName('selected')[0].offsetTop >= windown)
-				{
-					winup = winup + window_height;
-            		windown = windown + window_height;
-            		document.getElementsByClassName('selected')[0].scrollIntoView();
-				}
-				speakElement(document.getElementsByClassName('selected'));
-				memory_node = 0;
-			}
-			else
-			speakPhrase("fin de l'élément");
-			winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	    	winObj.returnValue = false; 
-	    	return false;
-		}
-    }
-
-	
-    if ( intKeyCode == KEY_L)
-	{
-		var childNode = document.body.childNodes;
-		if (memory_node === 0)
-		{
-			document.getElementById(phrase).className = "";
-			test = 1;
-			glob_phrase = 0;
-			var temp = 1;
-			for (var i = 1; 'selected' != childNode[i].className; i++);
-			if (childNode[i].id === 'selected')
-			childNode[i].id = '';
-			if (i != 0 && i != 1)
-			{
-				temp = i;
-				var current_title = childNode[i].nodeName[1];
-				if (i != 1)
-				{
-					i--;
-					for(let tmp2=1; tmp2<childNode.length; tmp2++)
-					{
-						if (childNode[i].className === 'selected')
-						childNode[i].className = '';
-					}
-					for (;i < childNode.length; i--)
-					{
-						if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
-						{
-							childNode[temp].className = '';
-							temp = temp + 1;
-							while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
-							{
-								childNode[temp].className = '';
-								temp = temp + 1;
-							}
-							childNode[i].className = 'selected';
-							document.getElementById(childNode[i].id).scrollIntoView();
-							i = i + 1;
-							break;
-						}
-					}
-				}
-				winObj.keyCode = intKeyCode = REMAP_KEY_T;
-				winObj.returnValue = false;
-				let pos = 0;
-				for (; 'selected' != childNode[pos].className; pos++);
-				if (g_pos === pos)
-				speakPhrase("début de l'élément");
-				else
-				speakElement(document.getElementsByClassName('selected'));
-				g_pos = pos;
-				return false;
-			}
-		}
-	}
-
-
-	
-    if (intKeyCode == KEY_M)
-	{
-		if (memory_node === 0)
-		{
-			document.getElementById(phrase).className = "";
-	    	test = 1;
-	    	glob_phrase = 0;
-	    	var found = false;
-        	var temp = 0;
-	    	var childNode = document.body.childNodes;
-            for (var i = 0; 'selected' != childNode[i].className; i++);
-            if (childNode[i].id === 'selected')
-            childNode[i].id = '';
-            temp = i;
-            var current_title = childNode[i].nodeName[1];
-            i++;
-            for (;i < childNode.length; i++)
-            {
-            	if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] > current_title)
-            	{
-            		childNode[temp].className = '';
-            		temp = temp + 1;
-            		while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
-            		{
-            			childNode[temp].className = '';
-            			temp = temp + 1;
-            		}
-            		childNode[i].className = 'selected';
-            		document.getElementById(childNode[i].id).scrollIntoView();
-            		i = i + 1;
-                    break;
-            	} 
-            	if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
-            	break;
-            }
-            winObj.keyCode = intKeyCode = REMAP_KEY_T;
-            winObj.returnValue = false;
-            let pos = 0;
-            for (; 'selected' != childNode[pos].className; pos++);
-            if (g_pos === pos)
-            speakPhrase("fin de l'élément");
-            else
-            speakElement(document.getElementsByClassName('selected'));
-            g_pos = pos;
-            return false;
-		}
-	}
-    }
-
-    
-    if (intKeyCode == KEY_ENTER)
+    //changer la couleur de fond
+    if (intKeyCode == KEY_C)
     {
 	if (glob === 0)
 	{
@@ -556,198 +212,542 @@ function applyKey (_event_){
 	return false;
     }
 
-    
+    //changer la langue
+    if (intKeyCode == KEY_L)
+	{
+		if (lang_value === "es-US")
+		{
+			lang_value = "en-US";
+			speakPhrase("english");
+		}
+		else if (lang_value === "en-US")
+		{
+			lang_value = "fr-FR";
+			speakPhrase("français");
+		}
+		else
+		{
+			lang_value = "es-US";
+			speakPhrase("Espanol");
+		}
+		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
+		return false;
+	}
+
+	//recuprerer la selection actuelle
     if (intKeyCode == KEY_SPACE)
     {
-    	/*var txt = "";
-    	while (phrase < document.getElementsByTagName("span").length)
+    	var selection;
+    	//si le navigateur ne reconnai pas window on utilise document.get
+    	if (window.getSelection())
+    		selection = window.getSelection().anchorNode;
+    	else
+    		selection = document.getSelection().anchorNode;
+    	if (selection != null)
     	{
-    		txt += document.getElementById(phrase).innerHTML;
-    		phrase++;
+    		//si on a trouvé une selection on supprime la selection actuel pour la remplacer
+    		if (document.getElementsByClassName('selected')[0])
+    			document.getElementsByClassName('selected')[0].className = "";
+    		else if (document.getElementsByClassName('selected2')[0])
+    			document.getElementsByClassName('selected2')[0].className = "";
+    		selection.parentElement.className = "selected2";
+    		document.getElementsByClassName("selected2")[0].focus();
+    		phrase = document.getElementsByClassName('selected2')[0].id;
+    		var tmp_scroll = phrase;
+    		//affichage element en haut
+    		if (document.body.clientHeight - windown*2 < document.getElementById(phrase).offsetTop)
+            	document.getElementById(phrase).scrollIntoView();
+            //affichage element centré
+            else
+            {
+    			while (document.getElementById(tmp_scroll).offsetTop > document.getElementById(phrase).offsetTop - windown && tmp_scroll > 0)
+    				tmp_scroll--;
+    			if (document.getElementById(tmp_scroll).offsetTop < document.getElementById(phrase).offsetTop - windown)
+    				tmp_scroll++;
+    			document.getElementById(tmp_scroll).scrollIntoView();
+            }
+    		memory_node = 2;
+    		//on vien de passer en phrase par phrase
+    		speakPhrase(document.getElementById(phrase).innerHTML);
+    		// on demarre la lecture de la phrase
     	}
-    	memory_node = 2;
-    	*/
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-	return false;
+    	else
+    		speakPhrase(msg3);
+    		//message d'erreur
+		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
+		return false;
     }
 
-// CHANGER DE MODE DE NAVIGUATION AVEC P
-    /* 
-    if (intKeyCode == KEY_P)
-    {
-	if (nav_block === 1)
-	    nav_block = 0;
-	else
-	    nav_block = 1;
-    }*/
-
-
-/*
-        if (intKeyCode == KEY_W)
-    {
-	test = 1;
-	var tmp = phrase(document.getElementsByClassName('selected'));
-	var txt = "";
-	if (glob_phrase >= tmp.length)
-	    glob_phrase = 1;
-	if (glob_phrase === 1 && (tmp[glob_phrase] <= '9' && tmp[glob_phrase] >= '0'))
+    //titre precedant
+    if ( intKeyCode == KEY_UP)
 	{
-	    while ((tmp[glob_phrase-1] != '.' || tmp[glob_phrase] != ' ') && glob_phrase < tmp.length)
-	    {
-		txt += tmp[glob_phrase];
-		glob_phrase = glob_phrase + 1;
-	    }
-	    glob_phrase++;
+		//on est dans une lecture titre par titre
+		if (memory_node === 0)
+		{
+			//on purge la classe des phrase
+			document.getElementById(phrase).className = "";
+			var temp = 1;
+			//on purge la selection des titres
+			for (var i = 1; 'selected' != childNode[i].className; i++);
+			temp = i;
+			if (childNode[i].id === 'selected')
+			childNode[i].id = '';
+			if (i != 1)
+			i--;
+			//on cherche les titres
+			for (;i < childNode.length; i--)
+            {
+            	if (childNode[i].nodeName[0] === 'H')
+            	{
+            		var scroll = 0;
+            		//element en haut
+            		if (document.body.clientHeight - windown*2 < childNode[i].offsetTop)
+            			childNode[i].scrollIntoView();
+            		//element centré
+            		else
+            		{
+            			while(document.getElementById(scroll).offsetTop != childNode[i].offsetTop)
+            				scroll++;
+            			while (document.getElementById(scroll).offsetTop > childNode[i].offsetTop - windown && scroll > 0)
+    						scroll--;
+    					while (document.getElementById(scroll).offsetTop < childNode[i].offsetTop - windown)
+    						scroll++;
+    					document.getElementById(scroll).scrollIntoView();
+            		}
+            		//switch de class
+            		childNode[temp].className = '';
+            		temp = temp + 1;
+                    childNode[i].className = 'selected';
+                    i = i + 1;
+                    break;
+            	}
+            }
+            winObj.keyCode = intKeyCode = REMAP_KEY_T;
+            winObj.returnValue = false;
+            let pos = 0;
+            for (; 'selected' != childNode[pos].className; pos++);
+            //deplacement invalide donc message d'errreur
+            if (g_pos === pos)
+            speakPhrase(msg2);
+            //lecture de l'élément séléctionné
+            else
+            speakElement(document.getElementsByClassName('selected'));
+            g_pos = pos;
+            return false;
+		}
+		//on passe dans une lecture titre par titre
+		else
+		{
+			var pos_phrase = document.getElementsByClassName('selected2')[0].offsetTop;
+			var test_node = 0;
+			//on recupere la node la plus proche du titre
+			while (childNode[test_node].offsetTop < pos_phrase && test_node < childNode.length-1)
+			test_node++;
+			test_node--;
+			//on parcoure les node afin de trouver un titre
+			while (childNode[test_node].nodeName[0] != 'H' && test_node > 0)
+			test_node--;
+			if (childNode[test_node].nodeName[0] === 'H')
+			{
+				//switch de class
+				document.getElementsByClassName('selected2')[0].className = "";
+				childNode[test_node].className = "selected";
+				var scroll = 0;
+				//element en haut
+				if (document.body.clientHeight - windown*2 < document.getElementsByClassName('selected')[0].offsetTop)
+            			document.getElementsByClassName('selected')[0].scrollIntoView();
+            	//element centré
+				else
+				{
+            		while(document.getElementById(scroll).offsetTop != document.getElementsByClassName('selected')[0].offsetTop)
+            				scroll++;
+    				while (document.getElementById(scroll).offsetTop > document.getElementsByClassName('selected')[0].offsetTop - windown && scroll > 0)
+    					scroll--;
+    				if (document.getElementById(scroll).offsetTop < document.getElementsByClassName('selected')[0].offsetTop - windown)
+    					scroll++;
+    				document.getElementById(scroll).scrollIntoView();
+				}
+				//lecture de l'élément selectionné
+				speakElement(document.getElementsByClassName('selected'));
+				memory_node = 0;
+			}
+			//deplacement invalide donc message d'erreur
+			else
+			speakPhrase(msg2);
+			winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	    	winObj.returnValue = false; 
+	    	return false;
+		}
 	}
-	else
+
+	//titre suivant
+    if ( intKeyCode == KEY_DOWN)
 	{
-	    while (tmp[glob_phrase-1] != ','&& tmp[glob_phrase-1] != ';' && tmp[glob_phrase-1] != ' ' && glob_phrase < tmp.length)
-	    {
-		txt += tmp[glob_phrase];
-		glob_phrase = glob_phrase + 1;
-	    }
-	}
-	glob_phrase = glob_phrase + 1;
-	winObj.keyCode = intKeyCode = REMAP_KEY_T;
-	winObj.returnValue = false;
-	speakPhrase(txt);
-	return false;
+		//si on est dans une lecture titre par titre
+		if (memory_node === 0)
+		{
+			//on purge la selection des phrase
+			document.getElementById(phrase).className = "";
+			var temp = 0;
+			//on purge la selection des titre
+			for (var i = 0; 'selected' != childNode[i].className; i++);
+			temp = i;
+			if (childNode[i].id === 'selected')
+			childNode[i].id = '';
+			i++;
+            for (;i < childNode.length; i++)
+            {
+            	//quand on trouve un titre un switch les classe
+            	if (childNode[i].nodeName[0] === 'H')
+            	{
+            		var scroll = 0;
+            		childNode[temp].className = '';
+            		temp = temp + 1;
+            		childNode[i].className = 'selected';
+            		//element en haut
+            		if (document.body.clientHeight - windown*2 < childNode[i].offsetTop)
+            			childNode[i].scrollIntoView();
+            		//element centré
+            		else
+            		{
+            			while(document.getElementById(scroll).offsetTop != childNode[i].offsetTop)
+            				scroll++;
+            			while (document.getElementById(scroll).offsetTop > childNode[i].offsetTop - windown && scroll > 0)
+    						scroll--;
+    					while (document.getElementById(scroll).offsetTop < childNode[i].offsetTop - windown)
+    						scroll++;
+    					document.getElementById(scroll).scrollIntoView();
+            		}
+            		i = i + 1;
+            		break;
+            	}
+            }
+            winObj.keyCode = intKeyCode = REMAP_KEY_T;
+            winObj.returnValue = false;
+            let pos = 0;
+            for (; 'selected' != childNode[pos].className; pos++);
+            //deplacement non valide donc message d'erreur
+            if (g_pos === pos)
+            speakPhrase(msg1);
+            //sinon on lance la lecture de l'element selectionnné
+            else
+            speakElement(document.getElementsByClassName('selected'));
+            g_pos = pos;
+            return false;
+		}
+		//on passe dans une lecture titre par titre
+		else
+		{
+			var pos_phrase = document.getElementsByClassName('selected2')[0].offsetTop;
+			var test_node = 0;
+			//on recupere la node la plus proche de la phrase actuelle
+			while (childNode[test_node].offsetTop < pos_phrase && test_node < childNode.length-1)
+			test_node++;
+			//on parcour les nodes afin de trouver un titre
+			while (childNode[test_node].nodeName[0] != 'H' && test_node < childNode.length-1)
+			test_node++;
+			//si on trouve un titre un switch les classes
+			if (childNode[test_node].nodeName[0] === 'H')
+			{
+				document.getElementsByClassName('selected2')[0].className = "";
+				childNode[test_node].className = "selected";
+				var scroll = 0;
+				//element en haut
+				if (document.body.clientHeight - windown*2 < document.getElementsByClassName('selected')[0].offsetTop)
+            			document.getElementsByClassName('selected')[0].scrollIntoView();
+            	//element centré
+            	else
+            	{
+            		while(document.getElementById(scroll).offsetTop != document.getElementsByClassName('selected')[0].offsetTop)
+            			scroll++;
+    				while (document.getElementById(scroll).offsetTop > document.getElementsByClassName('selected')[0].offsetTop - windown && scroll > 0)
+    					scroll--;
+    				if (document.getElementById(scroll).offsetTop < document.getElementsByClassName('selected')[0].offsetTop - windown)
+    					scroll++;
+    				document.getElementById(scroll).scrollIntoView();
+            	}
+				speakElement(document.getElementsByClassName('selected'));
+				memory_node = 0;
+			}
+			//si on ne trouve pas de titre on envoi un messaged'erreur
+			else
+			speakPhrase(msg1);
+			winObj.keyCode = intKeyCode = REMAP_KEY_T;
+	    	winObj.returnValue = false; 
+	    	return false;
+		}
     }
- */
 
-
-
-    if (nav_block === 0)
-    {
-
-	
+    //phrase suivante
 	if ( intKeyCode == KEY_RIGHT)
 	{
+		//si on est en lecture phrase par phrase
 		if (memory_node === 2)
 		{
-			if (phrase < document.getElementsByTagName("span").length - 1)
+			//on va a la phrase suivante en changeant de span
+			if (phrase < length)
 			{
 				document.getElementById(phrase).className = "";
 				phrase++;
 				document.getElementById(phrase).className = "selected2";
 	    	}
-	    	if (document.getElementById(phrase).offsetTop >= windown)
-	    	{
-				winup = winup + window_height;
-				windown = windown + window_height;
-				document.getElementById(phrase).scrollIntoView();
-	    	}
+	    	var tmp_scroll = phrase;
+	    	//element en haut
+	    	if (document.body.clientHeight - windown*2 < document.getElementById(phrase).offsetTop)
+            	document.getElementById(phrase).scrollIntoView();
+            //element centré
+            else
+            {
+    			while (document.getElementById(tmp_scroll).offsetTop > document.getElementById(phrase).offsetTop - windown && tmp_scroll > 0)
+    				tmp_scroll--;
+    			if (document.getElementById(tmp_scroll).offsetTop < document.getElementById(phrase).offsetTop - windown)
+    				tmp_scroll++;
+    			document.getElementById(tmp_scroll).scrollIntoView();
+            }
 	    	winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    	winObj.returnValue = false; 
+	    	//lecture de la phrase
 	    	var txt = document.getElementById(phrase).innerHTML;
 	    	speakPhrase(txt);
+	    	document.getElementsByClassName("selected2")[0].focus();
 	    	return false;
 		}
+		//on est en titre par titre mais on passe en phrase par phrase
 		else
 		{
 			var pos_title = document.getElementsByClassName('selected')[0].offsetTop;
 			var test_phrase = 0;
-			while (document.getElementById(test_phrase).offsetTop <= pos_title && test_phrase < document.getElementsByTagName("span").length - 1)
+			//on prend la phrase la plus proche du titre 
+			while (document.getElementById(test_phrase).offsetTop <= pos_title && test_phrase < length)
 			{
 				test_phrase++;
 			}
 			phrase = test_phrase;
 			document.getElementById(phrase).className = "selected2";
+			//la phrase devien l'element selectioné et la classe de l'élément precedant devient nul
 			document.getElementsByClassName("selected")[0].className = "";
-			if (document.getElementById(phrase).offsetTop >= windown)
-	    	{
-				winup = winup + window_height;
-				windown = windown + window_height;
-				document.getElementById(phrase).scrollIntoView();
-	    	}
+			var tmp_scroll = phrase;
+			//element en haut
+			if (document.body.clientHeight - windown*2 < document.getElementById(phrase).offsetTop)
+            	document.getElementById(phrase).scrollIntoView();
+            //element centré
+			else
+			{
+    			while (document.getElementById(tmp_scroll).offsetTop > document.getElementById(phrase).offsetTop - windown && tmp_scroll > 0)
+    				tmp_scroll--;
+    			if (document.getElementById(tmp_scroll).offsetTop < document.getElementById(phrase).offsetTop - windown)
+    				tmp_scroll++;
+    			document.getElementById(tmp_scroll).scrollIntoView();
+			}
 			winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    	winObj.returnValue = false; 
 	    	var txt = document.getElementById(phrase).innerHTML;
 	    	speakPhrase(txt);
+	    	//lecture de la phrase
 	    	memory_node = 2;
+	    	//passage en phrase par phrase
+	    	document.getElementsByClassName("selected2")[0].focus();
 	    	return false;
 		}
 	}
 
-
+	//phrase precedante
 	if (intKeyCode == KEY_LEFT )
 	{
-
+		//si on est dans une lecture phrase par phrase
 		if (memory_node === 2)
 		{
+			//on change de phrase en passant au span precendant
 			if (phrase > 0) 
 			{
 				document.getElementById(phrase).className = "";
 				phrase--;
 				document.getElementById(phrase).className = "selected2";
 			}
-			if (document.getElementById(phrase).offsetTop <= winup)
-			{
-				var scroll_top = phrase;
-				winup = winup - window_height;
-				windown = windown - window_height;
-				while (document.getElementById(scroll_top).offsetTop > winup && scroll_top > 0)
-				scroll_top--;
-				document.getElementById(scroll_top).scrollIntoView();
-			}
+			var tmp_scroll = phrase;
+			//element en haut 
+			if (document.body.clientHeight - windown*2 < document.getElementById(phrase).offsetTop)
+            	document.getElementById(phrase).scrollIntoView();
+            //element centré
+            else
+            {
+    			while (document.getElementById(tmp_scroll).offsetTop > document.getElementById(phrase).offsetTop - windown && tmp_scroll > 0)
+    				tmp_scroll--;
+    			if (document.getElementById(tmp_scroll).offsetTop < document.getElementById(phrase).offsetTop - windown)
+    				tmp_scroll++;
+    			document.getElementById(tmp_scroll).scrollIntoView();
+            }
 			winObj.keyCode = intKeyCode = REMAP_KEY_T;
 			winObj.returnValue = false;
+			//lecture de la phrase
 			var txt = document.getElementById(phrase).innerHTML;
 			speakPhrase(txt);
+			document.getElementsByClassName("selected2")[0].focus();
 			return false;
 		}
+		//on rentre dans une lecture phrase par phrase
 		else
 		{
 			var pos_title = document.getElementsByClassName('selected')[0].offsetTop;
 			var test_phrase = 0;
-			while (document.getElementById(test_phrase).offsetTop < pos_title && test_phrase < document.getElementsByTagName("span").length - 1)
+			//on prend la phrase la plus proche di titre actuel
+			while (document.getElementById(test_phrase).offsetTop < pos_title && test_phrase < length)
 			{
 				test_phrase++;
 			}
 			phrase = test_phrase;
+			//switch de class
 			document.getElementById(phrase).className = "selected2";
 			document.getElementsByClassName("selected")[0].className = "";
-			if (document.getElementById(phrase).offsetTop <= winup)
-			{
-				var scroll_top = phrase;
-				winup = winup - window_height;
-				windown = windown - window_height;
-				while (document.getElementById(scroll_top).offsetTop > winup && scroll_top > 0)
-				scroll_top--;
-				document.getElementById(scroll_top).scrollIntoView();
-			}
+			var tmp_scroll = phrase;
+			//element en haut
+			if (document.body.clientHeight - windown*2 < document.getElementById(phrase).offsetTop)
+            	document.getElementById(phrase).scrollIntoView();
+            //element centré
+            else
+            {
+    			while (document.getElementById(tmp_scroll).offsetTop > document.getElementById(phrase).offsetTop - windown && tmp_scroll > 0)
+    				tmp_scroll--;
+    			if (document.getElementById(tmp_scroll).offsetTop < document.getElementById(phrase).offsetTop - windown)
+    				tmp_scroll++;
+    			document.getElementById(tmp_scroll).scrollIntoView();
+            }
 			winObj.keyCode = intKeyCode = REMAP_KEY_T;
 	    	winObj.returnValue = false; 
+	    	//lecture de la phrase
 	    	var txt = document.getElementById(phrase).innerHTML;
 	    	speakPhrase(txt);
 	    	memory_node = 2;
+	    	document.getElementsByClassName("selected2")[0].focus();
 	    	return false;
 		}
     }
-    }
-}
 
+    //titre de niveau plus bas
+    if ( intKeyCode == KEY_K)
+	{
+		//si on est en lecture titre par titre uniquement
+		if (memory_node === 0)
+		{
+			//on purge la classe des phrases
+			document.getElementById(phrase).className = "";
+			var temp = 1;
+			//on purge les classes des titres
+			for (var i = 1; 'selected' != childNode[i].className; i++);
+			if (childNode[i].id === 'selected')
+				childNode[i].id = '';
+			if (i != 0 && i != 1)
+			{
+				temp = i;
+				//on recupere le niveau de titre actuel
+				var current_title = childNode[i].nodeName[1];
+				if (i != 1)
+				{
+					i--;
+					//nouvelle purge
+					for(let tmp2=1; tmp2<childNode.length; tmp2++)
+					{
+						if (childNode[i].className === 'selected')
+						childNode[i].className = '';
+					}
+					for (;i < childNode.length; i--)
+					{
+						if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
+						{
+							childNode[temp].className = '';
+							temp = temp + 1;
+							while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
+							{
+								childNode[temp].className = '';
+								temp = temp + 1;
+							}
+							childNode[i].className = 'selected';
+							//element en haut
+							document.getElementById(childNode[i].id).scrollIntoView();
+							i = i + 1;
+							break;
+						}
+					}
+				}
+				winObj.keyCode = intKeyCode = REMAP_KEY_T;
+				winObj.returnValue = false;
+				let pos = 0;
+				for (; 'selected' != childNode[pos].className; pos++);
+				//deplacement invalide donc message d'erreur
+				if (g_pos === pos)
+				speakPhrase(msg2);
+				//lecture de l'élément
+				else
+				speakElement(document.getElementsByClassName('selected'));
+				g_pos = pos;
+				return false;
+			}
+		}
+	}
 
-function phrase_spe(myText)
-{
-    var tts = "";
-    tts += ' ' + myText[0].innerText;
-    return (tts);
-}
-
-
-function phrase(myText)
-{
-    var tts = "";
-    var textLength = myText.length;
-    for(var i = 0; i < textLength; i++)
-    {
-    	if (i !== 0)
-    	{
-    		tts += '.';
-    	}
-    	tts += ' ' + myText[i].innerText;
-    }
-    return (tts);
+	//titre de niveau plus bas
+    if (intKeyCode == KEY_M)
+	{
+		//si on est en lecture titre par titre uniquement
+		if (memory_node === 0)
+		{
+			document.getElementById(phrase).className = "";
+	    	var found = false;
+        	var temp = 0;
+	    	var childNode = document.body.childNodes;
+	    	//purge de la selection des titres
+            for (var i = 0; 'selected' != childNode[i].className; i++);
+            if (childNode[i].id === 'selected')
+            childNode[i].id = '';
+            temp = i;
+            //niveau de titre actuel
+            var current_title = childNode[i].nodeName[1];
+            i++;
+            //on recherche le prochain titre avec un autre niveau
+            for (;i < childNode.length; i++)
+            {
+            	if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] > current_title)
+            	{
+            		childNode[temp].className = '';
+            		temp = temp + 1;
+            		while (temp < childNode.length && childNode[temp].nodeName[0] !== 'H')
+            		{
+            			childNode[temp].className = '';
+            			temp = temp + 1;
+            		}
+            		//element en haut
+            		childNode[i].className = 'selected';
+            		document.getElementById(childNode[i].id).scrollIntoView();
+            		i = i + 1;
+                    break;
+            	} 
+            	if (childNode[i].nodeName[0] === 'H' && childNode[i].nodeName[1] < current_title)
+            	break;
+            }
+            winObj.keyCode = intKeyCode = REMAP_KEY_T;
+            winObj.returnValue = false;
+            let pos = 0;
+            for (; 'selected' != childNode[pos].className; pos++);
+            //deplacement invalide donc message d'erreur
+            if (g_pos === pos)
+            	speakPhrase(msg1);
+            //lecture de l'élément selectionné
+            else
+            	speakElement(document.getElementsByClassName('selected'));
+            g_pos = pos;
+            return false;
+		}
+	}
+	
+	if (intKeyCode == KEY_ENTER)
+	{
+		if (document.getElementById(phrase).href)
+			window.open(document.getElementById(phrase).href);
+		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
+		return false;
+	}
+	}
 }

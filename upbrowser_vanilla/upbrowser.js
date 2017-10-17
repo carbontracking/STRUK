@@ -1,7 +1,3 @@
-/**
- * Created by Robin Chatain on 7/13/17.
- */
-
 //Eléments gérés par le script
 var checkElem = ['BODY', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'OL', 'UL','LI', 'A', 'IMG'];
 
@@ -17,7 +13,7 @@ function f1() {
     var myToc = document.createElement("DIV");
 
     //Parcours du body actuel
-    for(var i = 0; i < childLength; i++) { // Auto: i = 0 ; Button: i = 2
+    for(var i = 0; i < childLength; i++) {
         //Le node ciblée est un élément -> parsing
         if(childNode[i].nodeType === 1) {
             childPart = f2(childNode[i], newBody, newBody);
@@ -26,15 +22,18 @@ function f1() {
                 newBody.appendChild(childPart);
             }
         }
-        //La node est un texte -> suppression des espaces inutiles, ajout
-        else if (childNode[i].nodeType === 3) {
-            childPart = document.createTextNode(myTrim(childNode[i].nodeValue));
-            if (childPart.length > 0) {
+        //La node ciblée est un texte -> Si il n'est pas vide, mise en paragraphe
+        else if(childNode[i].nodeType === 3) {
+            if (childNode[i].length > 0 && !is_all_ws(childNode[i])) {
+                childPart = document.createTextNode(childNode[i].nodeValue);
                 newBody.appendChild(document.createElement("P")).appendChild(childPart);
             }
         }
     }
     //remplace le body atuel par le nouveau body
+    for(var j = 0; j < newBody.children.length && newBody.firstElementChild.tagName != "H1"; j++) {
+        newBody.firstElementChild.outerHTML = "";
+    }
     newBody.firstElementChild.setAttribute("class", "selected");
     newBody.setAttribute("onclick", "setSelectionTOC()");
     document.documentElement.removeChild(document.body);
@@ -42,16 +41,13 @@ function f1() {
     f5();
     generateTOC(myToc);
     myToc.setAttribute("class", "TOC");
-    for (var i = 1; i < document.body.childNodes.length; i++) {
-        document.body.childNodes[i].className = 'nope';
-    }
     document.body.insertBefore(myToc, document.body.firstElementChild);
     parse_phrase();
 }
 
-//Fonction de suppression des espaces inutiles
-function myTrim(x) {
-    return x.replace(/^\s+|\s+$/gm,'');
+function is_all_ws(nod) {
+  // Use ECMA-262 Edition 3 String and RegExp features
+  return !(/[^\t\n\r ]/.test(nod.nodeValue));
 }
 
 //Parsing de l'élément actuel
@@ -81,10 +77,10 @@ function f3(myNode, newBody, parentBody) {
         // Rajout d'attributs pour <img>
         else if (tempNode.nodeName.localeCompare("IMG") === 0){
             if (tempNode.hasAttribute("src")) {
-                bodyPart.setAttribute("src", tempNode.getAttribute("src"))
+                bodyPart.setAttribute("src", tempNode.getAttribute("src"));
             }
             if (tempNode.hasAttribute("alt")) {
-                bodyPart.setAttribute("alt", tempNode.getAttribute("alt"))
+                bodyPart.setAttribute("alt", tempNode.getAttribute("alt"));
             }
         }
     }
@@ -115,16 +111,15 @@ function f4(bodyPart, myNode, newBody) {
             if (bodyPart !== childPart) {
                 bodyPart.appendChild(childPart);
             }
-        }
-        //La node est un texte -> suppression des espaces inutiles (?), ajout
-        else if (childNode[i].nodeType === 3) {
-            childPart = document.createTextNode(/*myTrim(*/childNode[i].nodeValue);//));
-            //console.log(bodyPart);
-            if (bodyPart.nodeName === "BODY") {
-                bodyPart.appendChild(document.createElement("P")).appendChild(childPart);
-            }
-            else {
-                bodyPart.appendChild(childPart);
+        } else if(childNode[i].nodeType === 3) {
+            if (childNode[i].length > 0 && !is_all_ws(childNode[i])) {
+                childPart = document.createTextNode(childNode[i].nodeValue);
+                if (bodyPart.nodeName === "BODY") {
+                    bodyPart.appendChild(document.createElement("P")).appendChild(childPart);
+                }
+                else {
+                    bodyPart.appendChild(childPart);
+                }
             }
         }
     }
@@ -203,16 +198,17 @@ function generateTOC(toc) {
 
 //Selection du titre via le TOC
 function setSelectionTOC() {
-    if (typeof document.activeElement.href == 'undefined') {
+    if (typeof document.activeElement.href == 'undefined')
+    {
         return;
     }
-    if (document.activeElement.hostname != document.location.hostname) {
+    if (document.activeElement.hostname != document.location.hostname)
+    {
         return;
     }
     var myClick = document.activeElement.href;
     var searchId = myClick.slice(myClick.lastIndexOf("#section1") + 1, myClick.length);
     var mySelect = document.getElementById(searchId);
-    var childNode = document.body.childNodes;
     if (document.getElementsByClassName('selected').length != 0)
         document.getElementsByClassName('selected')[0].className = "";
     else
@@ -244,9 +240,14 @@ function parse_phrase()
 	            num++;
 	            k = k + 4;
 	        }
+	        else if (tmp[k] === '<' && tmp[k+1] === 'u' && tmp[k+2] === 'l' && tmp[k+3] === '>')
+	        {
+	            txt += "</span><ul>";
+	            k = k + 4;
+	        }
 	        else if (tmp[k] === '<' && tmp[k+1] === '/' && tmp[k+2] === 'l' && tmp[k+3] === 'i' && tmp[k+4] === '>')
 	        {
-	            txt += "</span></li>"
+	            txt += "</span></li>";
 	            k = k + 5;
 	        }
 	        else if ((tmp[k] === '.' || tmp[k] === '!' || tmp[k] === '?') && tmp[k+1] === ' ' && ((tmp[k+2] <= 'Z' && tmp[k+2] >= 'A') |- (tmp[k+2] <= 'z' && tmp[k+2] >= 'a') || (tmp[k+2] <= '1' && tmp[k+2] >= '0')))
@@ -255,6 +256,23 @@ function parse_phrase()
 	            txt += "</span><span id="+num+">";
 	            num++;
 	            k++;
+	        }
+	         else if (tmp[k] === '<' && tmp[k+1] === 'a' && tmp[k+2] === ' ')
+	        {
+	            txt += "<a id="+num+" ";
+	            num++;
+	            k = k + 3;
+	            while (tmp[k] != '<' || tmp[k+1] != '/' || tmp[k+2] != 'a' || tmp[k+3] != '>')
+	            {
+	                txt += tmp[k];
+	                k++;   
+	            }
+	            k = k + 4;
+	            txt += "</a>";
+	            //mettre une condition
+	            /*
+	            txt += "<span id="+num+" >";
+	            num++;*/
 	        }
 	        else
 	        {
@@ -265,27 +283,56 @@ function parse_phrase()
 	}
 	else
 	{
-	    txt = "<span id="+num+">";
-	    num++;
+	    while (tmp[k] == ' '  || tmp[k] == '\n' || tmp[k] == '')
+	    {
+	        k++;
+	    }
+	    if (k < tmp.length)
+	    {
+	        txt = "<span id="+num+">";
+	        num++;
+	    }
+	    else
+	    {
+	        txt = "";
+	    }
 	    while (k < tmp.length)
 	    {
-		txt += tmp[k];
-		if ((tmp[k] === '.' || tmp[k] === '?' || tmp[k] === '.') && tmp[k+1] === ' ')
-		{
-		    txt += "</span>";
-		    if (k + 2 < tmp.length)
+	        if (tmp[k] === '<' && tmp[k+1] === 'a' && tmp[k+2] === ' ')
+	        {
+	            txt += "</span><a id="+num+" ";
+	            num++;
+	            k = k + 3;
+	            while (tmp[k] != '<' || tmp[k+1] != '/' || tmp[k+2] != 'a' || tmp[k+3] != '>')
+	            {
+	                txt += tmp[k];
+	                k++;   
+	            }
+	            k = k + 3;
+	            txt += "</a>";
+	            if (k + 2 < tmp.length && tmp[k] && tmp[k+1] != '<')
+		        {
+			        txt += "<span id="+num+">";	
+			        num++;
+		        }
+	        }
+	        else
+	            txt += tmp[k];
+		    if ((tmp[k] === '.' || tmp[k] === '?' || tmp[k] === '.') && tmp[k+1] === ' ')
 		    {
-			txt += "<span id="+num+">";	
-			num++;
+		        txt += "</span>";
+		        if (k + 2 < tmp.length)
+		        {
+			        txt += "<span id="+num+">";	
+			        num++;
+		        }
 		    }
-		}
-		k = k + 1;
+		    k = k + 1;
 	    }
-
 	}
 	childNode[i].innerHTML = txt;
 	txt = "";
 	k = 0;
 	i = i + 1;
-    }
+	}
 }

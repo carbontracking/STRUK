@@ -1,10 +1,12 @@
+
+//on defini les globale pour modifier la langue
+{
 var mySynth;
 var myVoices;
-var currentVoice;
-var nav = 0;
+var lang_value = "fr-FR";
+}
 
-speakElement(document.getElementsByClassName('selected'));
-start = 1;
+// on regard si le navigateur est firefox
 for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
 {
     if (navigator.userAgent[poulet] == "F" && navigator.userAgent[poulet+1] == "i"&&
@@ -12,39 +14,67 @@ for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
 	navigator.userAgent[poulet+4] == "f"&& navigator.userAgent[poulet+5] == "o"&&
 	navigator.userAgent[poulet+6] == "x")
     {
-	nav = 1;
+        //si c'est firefox alors on lit le premier element selectionné    
+        speakElement(document.getElementsByClassName("selected"));
+        break;
+    }
+}
+
+// google ne renvoi les voix qu'après le script donc chrome ne pourra pas parler au lancement de l'appli
+//Cependant vous pouvez remplacer speakphrase par speake element(document.getElementsbyClassName("selected")) pour utiliser la voix de l'os
+//Mais depuis les mise a jours de chrome utiliser les voix windows n'est pas recommandé.
+for (let poulet = 0; poulet < navigator.userAgent.length; poulet++)
+{
+    if (navigator.userAgent[poulet] == 'C' && navigator.userAgent[poulet+1] == 'h'&&
+	navigator.userAgent[poulet+2] == 'r' && navigator.userAgent[poulet+3] == 'o' &&
+	navigator.userAgent[poulet+4] == 'm' && navigator.userAgent[poulet+5] == 'e')
+    {
+    //parle dans le vide pour mettre fin au script et recuperer les voix de google
+    speakPhrase("");
 	break;
     }
 }
-if (currentVoice === undefined && nav === 1) {
-    document.location.reload(true);
-}
 
-function speakElement(myText) {
+//lance la voix de synthese
+function speakElement(myText)
+{
     mySynth = window.speechSynthesis;
     myVoices = mySynth.getVoices();
     currentVoice = 1;
     tts = arrangeTextElement(myText);
     var myUtterance = new SpeechSynthesisUtterance(tts);
-    if (mySynth.speaking === true) {
+    if (mySynth.speaking === true)
+    {
         mySynth.cancel();
     }
     myUtterance.voice = myVoices[1];
 	    if (myUtterance.voice != null)
 	    {
 	        var i = 0;
-	        while (myVoices[i].lang != "fr-FR")
+	        var cpt = "";
+	        while (i < myVoices.length)
 	        {
+	            if (myVoices[i].lang === lang_value)
+	                cpt += i;
 	            i++;
 	        }
+	        if (cpt.length === 1)
+	            i = cpt[0];
+	       else if (cpt.length === 2)
+	            i = cpt[1];
+	       else
+	            i = 0;
 	        myUtterance.voice = myVoices[i];
 	    }
-    myUtterance.lang = "fr-FR";
-    myUtterance.rate = 0.8;
+    myUtterance.lang = lang_value;
+    myUtterance.rate = 1;
     mySynth.speak(myUtterance);
 }
 
-function arrangeTextElement(myText) {
+
+//parse les elements recuperé par getElementsbyClassName
+function arrangeTextElement(myText)
+{
   var tts = "";
   var textLength = myText.length;
 
@@ -57,9 +87,9 @@ function arrangeTextElement(myText) {
   return (tts);
 }
 
-// lecture par phrase
-
-function speakPhrase(tts) {
+// lecture phrase par phrase
+function speakPhrase(tts)
+{
     var i = 0;
     var tmp = "";
     while (i < tts.length)
@@ -88,6 +118,7 @@ function speakPhrase(tts) {
         else if (tts[i] === '<' && tts[i+1] === 'a')
         {
             while (tts[i] != '>')
+                i++;
             i++;
             tmp += "lien, ";
         }
@@ -102,23 +133,35 @@ function speakPhrase(tts) {
             i++;
         }
     }
+    mySynth = window.speechSynthesis;
+    myVoices = mySynth.getVoices();
+    currentVoice = 1;
     var myUtterance = new SpeechSynthesisUtterance(tmp);
 
-    if (mySynth.speaking === true) {
-	mySynth.cancel();
+    if (mySynth.speaking === true)
+    {
+        mySynth.cancel();
     }
     myUtterance.voice = myVoices[1];
     if (myUtterance.voice != null)
     {
         var i = 0;
-        while (myVoices[i].lang != "fr-FR")
-        {
-            i++;
-            
-        }
+        var cpt = "";
+        while (i < myVoices.length)
+	        {
+	            if (myVoices[i].lang === lang_value)
+	                cpt += i;
+	            i++;
+	        }
+	        if (cpt.length === 1)
+	            i = cpt[0];
+	       else if (cpt.length === 2)
+	            i = cpt[1];
+	       else
+	            i = 0;
         myUtterance.voice = myVoices[i];
     }
-    myUtterance.lang = "fr-FR",
-    myUtterance.rate = 0.8;
+    myUtterance.lang = lang_value,
+    myUtterance.rate = 1;
     mySynth.speak(myUtterance);
 }
