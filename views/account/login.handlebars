@@ -1,0 +1,31 @@
+<div class="container">
+  {{#if messages.error}}
+    <div class="text-danger">
+      {{#each messages.error}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <h4 class="3" type="titre de la page">Se connecter</h4>
+
+  <form method="POST">
+    <label for="email" type="text" class="4">Email</label>
+    <input type="email" name="email" class="4" id="email" placeholder="Email" autofocus>
+    <label for="password" type="text" class="5">Mot de passe</label>
+    <input type="password" name="password" class="5" id="password" placeholder="Mot de passe">
+    <p><a href="/forgot" class="6" type="lien vers page">Mot de passe oublié ?</a></p>
+    <button type="submit" class="7">Se connecter</button>
+  </form>
+
+  <hr>
+
+  <a href="/auth/facebook" class="8" type="lien vers page">Se connecter avec Facebook</a>
+  <br>
+  <a href="/auth/twitter" class="9" type="lien vers page">Se connecter avec Twitter</a>
+  <br>
+  <a href="/auth/google" class="10" type="lien vers page">Se connecter avec Google</a>
+  <br>
+
+  <p>Pas de compte ? <a href="/signup" class="11" type="lien vers page">S'inscrire</a></p>
+</div>

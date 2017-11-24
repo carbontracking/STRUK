@@ -1,0 +1,30 @@
+<div class="container">
+  <ul class="list-inline">
+    {{#if user}}
+    <li><h2><a href="/" class="selected" type="lien vers page">Menu</a></h2></li>
+    <li><a href="/contact" class="1" type="lien vers page">Nous contacter</a></li>
+    {{/if}}
+  </ul>
+  <ul class="list-inline">
+  {{#if user}}
+    <li>
+      {{#if user.picture}}
+        <img class="avatar" src="{{user.picture}}">
+      {{else}}
+        <img class="avatar" src="{{user.gravatar}}">
+      {{/if}}
+      {{#if user.name}}
+        {{user.name}}
+      {{else}}
+        {{user.email}}
+      {{/if}}
+    </li>
+    <li><a href="/account" class="2" type="lien vers page">Mon Profil</a></li>
+    <li><a href="/logout" class="3" type="lien vers page">Déconnexion</a></li>
+  {{else}}
+  <li><a href="/contact" class="selected" type="lien vers page">Nous contacter</a></li>
+    <li><a href="/login" class="1" type="lien vers page">Connexion</a></li>
+    <li><a href="/signup" class="2" type="lien vers page">Inscription</a></li>
+  {{/if}}
+  </ul>
+</div>

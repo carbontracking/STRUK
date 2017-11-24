@@ -1,0 +1,33 @@
+<div class="container">
+  {{#if messages.error}}
+    <div class="text-danger">sl
+      {{#each messages.error}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <h4 class="3" type="Titre de la page">Créer un compte</h4>
+
+  <form method="POST">
+    <label for="name" type="text" class="4">Nom</label>
+    <input type="text" name="name" class="4" id="name" placeholder="Nom">
+    <label for="email" type="text" class="5">Email</label>
+    <input type="email" name="email" id="email" class="5" placeholder="Email" autofocus>
+    <label for="password" type="text" class="6">Mot de passe</label>
+    <input type="password" name="password" class="6" id="password" placeholder="Password">
+    <p>En vous inscrivant vous accepter les <a href="/">règles mise en place</a>.</p>
+    <button type="submit" class="7">Créer un compte</button>
+  </form>
+
+  <hr>
+
+  <a href="/auth/facebook" class="8" type="lien vers page">S'inscrire avec Facebook</a>
+  <br>
+  <a href="/auth/twitter" class="9" type="lien vers page">S'inscrire avec Twitter</a>
+  <br>
+  <a href="/auth/google" class="10" type="lien vers page">S'inscrire avec Google</a>
+  <br>
+
+  <p>Déjà un compte ? <a href="/login" class="11" type="lien vers page">Se connecter</a></p>
+</div>

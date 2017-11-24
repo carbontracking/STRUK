@@ -1,0 +1,222 @@
+.box
+{
+  background-color: #c0c0c0;
+}
+
+form
+{
+  display: inline-table;
+}
+
+.selected
+{
+  background-color: #c0c0c0;
+  color: #ff0000;
+}
+
+#supp
+{
+  height: 32px;
+  width: 32px;
+  background-image: url(supp.png);
+  color: transparent;
+}
+
+.ocr_c
+{
+  text-align: center;
+}
+
+#edit
+
+
+{
+  height: 32px;
+  width: 32px;
+  background-image: url(poulet.png);
+  color: transparent;
+}
+
+#brows
+{
+  height: 32px;
+  width: 32px;
+  background-image: url(br.png);
+  color: transparent;
+}
+
+#ocr
+{
+  height: 32px;
+  width: 32px;
+  background-image: url(ocr.png);
+  color: transparent;
+}
+
+#headset
+{
+  height: 32px;
+  width: 32px;
+  background-image:url(edit.png);
+  color: transparent;
+}
+
+#accept
+{
+  height: 32px;
+  width: 32px;
+  background-image:url(ok.png);
+}
+
+td.myActions
+{
+  width: 200px;
+}
+
+td
+{
+  padding: 10px;
+  border: 1px solid black;
+  
+  overflow-wrap: break-word;
+  width: 125px;
+}
+
+input.inputEdit
+{
+  width: 95%;
+}
+
+table
+{
+  border-collapse: collapse;
+  
+  table-layout: fixed;
+  width: 782px;
+}
+
+html {
+  position: relative;
+/*  min-height: 100%;*/
+}
+
+body {
+  margin-bottom: 44px;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+footer {
+  position: absolute;
+  height: 44px;
+  bottom: 0;
+  padding: 0 30px;
+}
+
+label {
+  display: block;
+  line-height: 1.8;
+}
+
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+form button[type="submit"] {
+  margin-top: 1em;
+}
+
+.list-inline {
+  display: inline-block;
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline > li {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.container {
+/*  padding-right: 2rem;*/
+/*  padding-left: 2rem;*/
+}
+
+.text-success {
+  color: #29b35b;
+}
+
+.text-danger {
+  color: #b61b17;
+}
+
+.text-info {
+  color: #31708f;
+}
+
+.upload 
+{
+  left: 50%;
+}
+
+.avatar {
+  margin-right: 5px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+
+
+
+ /* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

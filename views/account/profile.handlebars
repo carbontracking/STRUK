@@ -1,0 +1,130 @@
+<div class="container">
+  {{#if messages.success}}
+    <div class="text-success">
+      {{#each messages.success}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  {{#if messages.error}}
+    <div class="text-danger">
+      {{#each messages.error}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+  <h2 class="4" type="titre de la page">Profile Information</h2>
+
+  <form method="POST" action="/account?_method=PUT">
+    <label for="email" class="5" type="text">Email</label>
+    <input type="email" name="email" class="5" id="email" value="{{user.email}}">
+    <label for="name" class="6" type="text">Nom</label>
+    <input type="text" name="name" class="6" id="name" value="{{user.name}}">
+    <label for="background" class="7">Fond</label>
+    <select type="text" name="background" id="background" class="7">
+        <option value={{user.background}}>changez ici le fond de votre interface</option>
+        <option value="#FFFFFF" style="background: #FFFFFF">fond blanc</option>
+        <option value="#E0CDA9" style="background: #E0CDA9">fond sépia</option>
+        <option value="#D2CAEC" style="background: #D2CAEC">fond lavande</option>
+        <option value="#000000" style="background: #000000">fond noir</option>
+      </select>
+      <label for="police_form" class="8">Police</label>
+      <select type="text" name="police_form" id="police_form" class="8">
+        <option value="{{user.police_form}}">{{user.police_form}}</option>
+        <option value="verdana">verdana</option>
+        <option value="aphont">aphont</option>
+        <option value="comic sans ms">Comic Sans MS</option>
+        <option value="Arial">Arial</option>
+        <option value="Arial black">Arial black</option>
+        <option value="Times New Roman">Times New Roman</option>
+      </select>
+      <label for="police" class="9">Taille</label>
+      <select type="text" name="police" id="police" class="9">
+        <option value={{user.police}}>{{user.police}}</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+      </select>
+      <label for="P_couleur" class="10">Couleur de la police</label>
+      <select type="text" name="P_couleur" id="P_couleur" class="10">
+        <option value={{user.P_couleur}}>changez ici la couleur de la police</option>
+        <option value="black">noir</option>
+        <option value="red">rouge</option>
+        <option value="blue">bleu</option>
+        <option value="white">blanc</option>
+      </select>
+    <label>Image de profil</label>
+    <img srcset="{{user.picture}}, {{user.gravatar}}" class="gravatar" width="100" height="100">
+    <h3 class="11" type="titre">Information sur la scolarité</h3>
+    <label for="location" type="text" class="12">Ecole</label>
+    <input type="text" name="location" class="12" id="location" value="{{user.location}}">
+    <label for="website" class="13">Année</label>
+    <select type="text" name="website" id="website" class="13">
+      <option value="{{user.website}}"> vous êtes {{user.website}}</option>
+      <option value="en primaire"> primaire</option>
+      <option value="en 6eme"> 6eme</option>
+      <option value="en 5eme"> 5eme</option>
+      <option value="en 4eme"> 4eme</option>
+      <option value="en 3eme"> 3eme</option>
+      <option value="en 2nd"> 2nd</option>
+      <option value="en 1ere"> 1ere</option>
+      <option value="en terminale"> terminale</option>
+      <option value="en Etude superieur"> Etude supérieur</option>
+      <option value="un professeur"> professeur</option>
+      </select>
+    <br>
+    <button type="submit" class="14">sauvegarder</button>
+  </form>
+
+  <h3 class="15" type="titre">Changer le mot de passe</h3>
+
+  <form method="POST" action="/account?_method=PUT">
+    <label for="password" type="text" class="16">Nouveau mot de passe</label>
+    <input type="password" name="password" class="16" id="password">
+    <label for="confirm" type="text" class="17">Confirmer le mot de passe</label>
+    <input type="password" name="confirm" id="confirm" class="17">
+    <br>
+    <button type="submit" class="18">Changer le mot de passe</button>
+  </form>
+
+  <h3 class="19" type="titre">Lier le compte</h3>
+
+{{#if user.facebook}}
+  <p><a href="/unlink/facebook" class="20" class="text-danger" type="lien vers page">Retirer Facebook</a></p>
+{{else}}
+  <p><a href="/auth/facebook" class="20" type="lien vers page">Facebook</a></p>
+{{/if}}
+{{#if user.twitter}}
+  <p><a href="/unlink/twitter" class="21" class="text-danger" type="lien vers page">Retirer Twitter</a></p>
+{{else}}
+  <p><a href="/auth/twitter" class="21" type="lien vers page">Twitter</a></p>
+{{/if}}
+{{#if user.google}}
+  <p><a href="/unlink/google" class="22" class="text-danger" type="lien vers page">Retirer Google</a></p>
+{{else}}
+  <p><a href="/auth/google" class="22" type="lien vers page">Google</a></p>
+{{/if}}
+
+  <h3 class="23" type="titre">Supprimer le compte</h3>
+
+  <form method="POST" action="/account?_method=DELETE">
+    <p class="24" type="information">Vous pouvez supprimer votre compte mais cette action est irréversible.</p>
+    <button type="submit" class="25">Supprimer mon compte</button>
+  </form>
+</div>

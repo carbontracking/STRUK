@@ -1,0 +1,41 @@
+<div class="container">
+  {{#if messages.success}}
+    <div class="text-success">
+      {{#each messages.success}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  {{#if messages.error}}
+    <div class="text-danger">
+      {{#each messages.error}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  {{#if user}}
+    <h3 class="4" type="Titre de la page">Nous contacter</h3>
+    <form method="POST">
+      <label for="name" type="text" class="5">Nom</label>
+      <input type="text" name="name" class="5" id="name" autofocus>
+      <label for="email" type="text" class="6">Email</label>
+      <input type="email" name="email" class="6" id="email">
+      <label for="message" type="text" class="7">Votre message</label>
+      <textarea type="text" name="message" id="message" class="7" rows="7"></textarea>
+      <br>
+      <button type="submit" class="8">Envoyer</button>
+    </form>
+  {{else}}
+    <h3 class="3" type="Titre de la page">Nous contacter</h3>
+    <form method="POST">
+        <label for="name" type="text" class="4">Nom</label>
+        <input type="text" name="name" class="4" id="name" autofocus>
+        <label for="email" type="text" class="5">Email</label>
+        <input type="email" name="email" class="5" id="email">
+        <label for="message" type="text" class="6">Votre message</label>
+        <textarea type="text" name="message" id="message" class="6" rows="7"></textarea>
+        <br>
+        <button type="submit" class="7">Envoyer</button>
+      </form>
+  {{/if}}
+</div>

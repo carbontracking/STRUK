@@ -1,0 +1,155 @@
+<div class="container">
+  {{#if messages.success}}
+    <div class="text-success">
+      {{#each messages.success}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  {{#if messages.error}}
+    <div class="text-danger">
+      {{#each messages.error}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  {{#if messages.info}}
+    <div class="text-info">
+      {{#each messages.info}}
+        <div>{{msg}}</div>
+      {{/each}}
+    </div>
+  {{/if}}
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <h2 class="4" type="Titre de la page">Bienvenue {{user.name}}</h2>
+      <br>
+      <!--<h4>Rechercher d'autre utilisateurs</h4>
+      <input type="text"><button type="submit"> Rechercher</button>
+      <br>-->
+      <!-- UPLOAD D'IMAGE -->
+      <form action="/home?_method=POST" enctype="multipart/form-data" method="POST">
+        <br><h2 class="5" type="titre">Stocker vos fichiers </h2>
+        <label for="Upload" class="6" type="bouton">Selectionnez votre fichier</label>
+        <input type="file" name="upload" id="Upload" class="6" class="upload"><br><br>
+        <label for="titre" type="text" class="7">Titre :</label>
+        <input type="text" name="titre" class="7" id="titre" placeholder="Titre"><br>
+        <label for="commentaire" type="text" class="8">Commentaire :</label>
+        <input type="text" name="commentaire" class="8" id="commentaire" placeholder="Votre commentaire ici">
+        <label for="Public" class="9">Public :</label>
+        <input type="radio" class="9" name="Public" value="Non" checked> Non<br>
+        <input type="radio" class="9" name="Public" value="Oui"> Oui<br><br>
+        <label for="upload" class="10"> Télécharger le fichier</label>
+        <input type="submit" value="Upload" class="10" class="upload">
+      </form>
+        <br><br>
+        <form action="/aws" method="GET"><input type="submit" value="AWS test"></form>
+        <h2 class="11" type="titre du tableau">Vos Fichiers</h2>
+        <table id="tableau">
+          <thead>
+            <tr>
+              <td><h3>TITRE</h3></td>
+              <td>NOM</td>
+              <td>DATE</td>
+              <td>COMMENTAIRE</td>
+              <td>PUBLIQUE OUI / NON</td>
+              <td class="myActions">ACTION</td>
+            </tr>
+          </thead>
+          {{#if data_file}}
+
+          <tbody>
+            {{#each data_file}}
+            <tr id="line_cell_{{@index}}">
+              <td><h3 class="{{selectValueTitre}}" type="titre">{{this.name}}</h3></td>
+              <td> 
+<!--                <form action="{{this.link}}" enctype="application/x-www-form-urlencoded" method="GET">
+-->                  <p class="{{selectValueNom}}" type="nom">{{this.title}}</p>
+<!--                </form>
+-->              </td>
+              <td> <p class="{{selectValueDate}}" type="date">{{this.displayDate}}</p></td>
+              <td> <p class="{{selectValueDescription}}" type="commentaire">{{this.description}}</p></td>
+              <td> <p class="{{selectValuePublic}}" type="public ou privé">
+                {{#if this.public_access}}
+                  oui
+                {{else}}
+                  non
+                {{/if}}
+                </p>
+              </td>
+              <td class="myActions">
+                <label for="brows" class="{{selectValueBrows}}" style="display: none">Upbrowser</label>
+                <form method="GET" action="/upbrowser" target="_blank">
+                  <input type="submit" id="brows" class="{{selectValueBrows}}" name="id" value="{{this.id}}">
+                </form>
+                
+                <label for="ocr" class="{{selectValueOCR}}" style="display: none">OCR</label>
+                <form method="GET" action="/OCR">
+                  <input type="submit" id="ocr" class="{{selectValueOCR}}" name="id" value="{{this.id}}">
+                </form>
+
+                <label for="edit" class="{{selectValueEdit}}" style="display: none">UpEdit</label>
+                <form method="GET" action="/upedit">
+                  <input type="submit" id="edit" class="{{selectValueEdit}}" name="id" value="{{this.id}}">
+                </form>
+
+                <label for="editTable" class ="{{selectValueHeadset}}" style="display: none">Modifier les informations du fichiers</label>
+                <input type="button" id="headset" class ="{{selectValueHeadset}}" name="editTable" value="{{this.id}}" onclick="showEdit(line_cell_{{@index}}, {{this.id}})">
+
+                <label for="supp" class ="{{selectValueDelete}}" style="display: none">Supprimer</label>
+                <input type="button" id="supp" class ="{{selectValueDelete}}" name="deleteLine" value="{{this.id}}" onClick="deleteLine(line_cell_{{@index}}, {{this.id}})">
+              </td>
+            </tr>
+
+
+            <tr id="line_cell_{{@index}}_edit" style="display: none">
+              <td>
+                <h3>
+                  <label for="titre" style="display: none">Modifier le titre :</label>
+                  <input type="text" name="titre" value="{{this.name}}" style="width: 95%">
+                </h3>
+              </td>
+              <td><p type="nom">{{this.title}}</p></td>
+              <td><p type="date">{{this.displayDate}}</p></td>
+              <td>
+                <label for="commentaire" style="display: none">Modifier le commentaire :</label>
+                <input type="text" name="commentaire" value="{{this.description}}" style="width: 95%">
+              </td>
+              <td>
+                <form>
+                  <label for="Public_edit_{{@index}}" style="display: none">Fichier public ou privé ?</label>
+                  <input type="radio" name="Public_edit_{{@index}}" value="Public"> Public<br>
+                  <input type="radio" name="Public_edit_{{@index}}" value="Privé"> Privé<br>
+                </form>
+              </td>
+              <td class="myActions">
+                <label for="validation" style="display: none">Valider la modification</label>
+                <input type="button" id="accept" name="validation" onClick="editLine({{@index}}, line_cell_{{@index}}, {{this.id}})">
+                
+                <label for="return" style="display: none">Annuler la modification</label>
+                <input type="button" id="supp" name="return" onClick="returnLine(line_cell_{{@index}})">
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+          {{/if}}
+          <tfoot>
+            <tr>
+              <td><h3>TITRE</h3></td>
+              <td>NOM</td>
+              <td>DATE</td>
+              <td>COMMENTAIRE</td>
+              <td>PUBLIQUE OUI / NON</td>
+              <td class="myActions">ACTION</td>
+            </tr>
+          </tfoot>
+        </table>
+            </div>
+            <div class="col-sm">
+            </div>
+  </div>
+</div>
+
+<script src="/js/AJAXhome.js"></script>

@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="js/jcrop/demos/demo_files/main.css">
+<link rel="stylesheet" href="js/jcrop/demos/demo_files/demos.css">
+<link rel="stylesheet" href="js/jcrop/css/Jcrop.css">
+<style>
+      #text-inputs { margin: 10px 8px 0; }
+      .input-group { margin-right: 1.5em; }
+      .nav-box { width: 748px; padding: 0 !important; margin: 4px 0; background-color: #f8f8f7; }
+    </style>
+<body>
+  <table style="text-align: left; width: 100%">
+    <td style="width: 60%; border: 1px solid black; padding-left: 5%;">
+      <img src="test.png" id="target">
+    </td>
+    <td id="result" ondragover="dragover(event)" ondrop="drop_div(event);" style="width: 40%; border: 1px solid black; text-align: left; vertical-align: baseline; padding-right: 0px;padding-left: 2%;">
+      <button id="ocr_button" onclick="htmlc(0)">OCR</button><br><br>
+    </td>
+  </table>
+  <div id="store"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/ocr.js"></script>
+<script src="js/jcrop/js/Jcrop.js"></script>
+<script type="text/javascript" src="js/html2canvas/dist/html2canvas.js"></script>
+<script>
+/*global jQuery*/jQuery(function($){
+  $('#target').Jcrop({
+    bgOpacity: .35,
+    linked: false,
+    multi: true
+  },function(){
+    this.container.addClass('jcrop-dark jcrop-hl-active');
+  });
+});
+
+function htmlc(other_crop)
+{
+    var img = document.createElement("IMG");
+    img.src = document.getElementById("target").src;
+    img.pos = document.getElementsByClassName("jcrop-selection")[other_crop].style.cssText;
+    var i = 0;
+    var mem = 0;
+    var tmp = "";
+    // parsing des coordonée du cadre de jcrop
+    while (i < img.pos.length)
+    {
+      if (img.pos[i] === ':')
+      {
+        i = i + 2;
+        while (img.pos[i] != 'p')
+        {
+          tmp += img.pos[i];
+          i++;
+        }
+        if (mem == 0)
+           var top = parseInt(tmp, 10);
+        else if (mem == 1)
+          var left = parseInt(tmp, 10);
+        else if (mem == 2)
+          var largeur = parseInt(tmp, 10) + left;
+        else if (mem == 3)
+          var hauteur = parseInt(tmp, 10) + top;
+        mem++;
+        tmp = "";
+      }
+      i++;
+    }
+    top = (top / 877);
+    left = (left / 620);
+    largeur = (largeur / 620);
+    hauteur = (hauteur / 877);
+    document.getElementById("store").innerHTML = " <br><img id=\"store_img\" src=\""+img.src+"\" >";
+    top = parseInt(top  * document.getElementById("store_img").height, 10);
+    left = parseInt(left * document.getElementById("store_img").width, 10);
+    largeur = parseInt(largeur * document.getElementById("store_img").width, 10);
+    hauteur = parseInt(hauteur * document.getElementById("store_img").height, 10);
+    document.getElementById("store").innerHTML = " <br><img id=\"store_img\" src=\""+img.src+"\" style=\"position: absolute; clip: rect("+top+"px "+largeur+"px "+hauteur+"px "+left+"px);\">";
+    html2canvas(document.getElementById("store_img")).then(function(canvas)
+    {
+      document.body.appendChild(canvas);
+      document.getElementById("store").innerHTML = "";
+      /*if (document.getElementsByClassName(other_crop)[2])
+      {
+        if (document.getElementsByClassName(other_crop)[2].value == "IMG")
+          write_img(other_crop);
+      }
+      else if (document.getElementsByClassName(other_crop)[1].value == "IMG")
+        write_img(other_crop);
+      else*/
+        ocr(other_crop);
+      var test = 0;
+      while (document.body.childNodes[test])
+        test++;
+      document.body.childNodes[test-1].outerHTML = "";
+      if (other_crop == 0 && !document.getElementById("save"))
+        document.getElementById("ocr_button").outerHTML = "<button id=\"ocr_button\" onclick=\"htmlc(0)\">OCR</button> <button id =\"save\">SAUVEGARDE</button";
+      other_crop++;
+      if (other_crop < document.getElementsByClassName("jcrop-selection").length)
+      {
+        htmlc(other_crop);
+      }
+    });
+  }
+</script>
+</body>
