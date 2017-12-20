@@ -47,6 +47,7 @@
 - GOOGLE_SECRET='SyXmZcdT6vPFeqcs0jaPhdVP'
 - TWITTER_KEY='6NNBDyJ2TavL407A3lWxPFKBI'
 - TWITTER_SECRET='ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa'
+  - See the configuration of these API keys : https://github.com/sahat/megaboilerplate#obtaining-api-keys
 
 ## Setup MySQL
 
