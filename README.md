@@ -33,6 +33,7 @@
 - BUCKET='' //nom du bucket amazon
   - See the value retrieved from step ...
 - DB_HOST=''
+  - host of the database. localhost as exemple
 - DB_USER=''
   - username choose when mysql was installed
 - DB_PASSWORD=''
