@@ -178,18 +178,12 @@ function deleteLine(line, id) {
     xhttp.open("DELETE", "/home?_method=DELETE", true);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.send('id=' + id);
-}
-
-/************* AWS *************/
-function aws_deleteLine(line, id) {
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            line.outerHTML = "";
-        }
-    };
-    xhttp.open("DELETE", "/aws?_method=DELETE", true);
-    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhttp.send('id=' + id);
+    size = size - 10;
+    if (!document.getElementsByClassName("selected")[0])
+    {
+        elem = size - 1;
+        document.getElementsByClassName(size-1)[0].className = "selected";
+        try{document.getElementsByClassName("selected")[1].focus();}
+        catch (ex){}
+    }
 }

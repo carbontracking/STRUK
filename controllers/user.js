@@ -4,22 +4,6 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
 
-
-// API
-/*
-var S3FS = require('s3fs');
-var s3fsImpl = new S3FS('upstore', {
-  accessKeyId: 'AKIAJONNWK3PUFIF2JFQ',
-  secretAccessKey: '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'
-});
-
-s3fsImpl.create();
-
-var multiparty = require('connect-multiparty'),
-    multipartyMiddleware = multiparty();
-*/
-
-
 /**
  * Login required middleware
  */
@@ -136,30 +120,11 @@ exports.accountGet = function(req, res) {
 };
 
 
-/************* API ***************
-    var file = req.files.file;
-    var stream = fs.creatReadStream(file.path);
-    return s3fsImpl.writeFile(file.originalFilename, stream).then(function() {
-      fs.unlink(file.path, function(err) {
-        if (err)
-          console.error(err);
-      }) 
-      res.redirect('/');
-      });
- };*/
-
-/**
- * DELETE /home
- * Supprime un fichier dans l'espace de stockage
- */
-
 /**
  * PUT /account
  * Update profile information OR change password.
  */
-
 exports.accountPut = function(req, res, next) {
-  console.log(req.body);
     if ("password" in req.body) {
 	req
 	    .assert("password", "Password must be at least 4 characters long")

@@ -3,7 +3,7 @@ var dotenv = require('dotenv');
 dotenv.load();
 
 // Local connection
-/*
+
 module.exports = {
   client: 'mysql',
   connection: process.env.DATABASE_URL || {
@@ -13,9 +13,10 @@ module.exports = {
     database: process.env.DB_NAME
   }
 };
-*/
+
 
 // Website connection
+/*
 module.exports = {
   client: 'mysql',
   connection: {
@@ -25,4 +26,4 @@ module.exports = {
     password: process.env.RDS_PASSWORD,
     database: process.env.DB_NAME
   }
-};
+};*/

@@ -259,10 +259,12 @@ $.extend(CanvasStage.prototype,{
     this.canvas.width = w;
     this.canvas.height = h;
     this.canvas.id = "canvas_de_base";
-    this.$canvas = $(this.canvas).width('620px').height('877px');
+    //this.$canvas = $(this.canvas).width('620px').height('877px');
+    this.$canvas = $(this.canvas).width('100%').height('100%');
     this.context = this.canvas.getContext('2d');
     this.fillstyle = "rgb(0,0,0)";
-    this.element = this.$canvas.wrap('<div />').parent().width(620).height(877);
+    //this.element = this.$canvas.wrap('<div />').parent().width(620).height(877);
+    this.element = this.$canvas.wrap('<div />').parent().width("100%").height("100%");
   },
   triggerEvent: function(ev){
     this.$canvas.trigger(ev);
@@ -588,7 +590,7 @@ Jcrop.registerStageType('Canvas',CanvasStage);
    */
   var ShadeFilter = function(opacity,color){
     this.color = color || 'black';
-    this.opacity = opacity || 0.5;
+    this.opacity = opacity || 0;
     this.core = null;
     this.shades = {};
   };
@@ -638,7 +640,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     },
     setOpacity: function(opacity,instant){
       var t = this;
-
       if (opacity == t.opacity) return t;
 
       t.opacity = opacity;
@@ -868,6 +869,31 @@ Jcrop.registerStageType('Canvas',CanvasStage);
 
     t.selection = selection;
     t.eventTarget = selection.core.opt.dragEventTarget;
+    var cible = selection.element[0].id;
+    if (document.getElementsByClassName(cible).length == 3)
+    {
+      if (document.getElementsByClassName(cible)[1].childNodes[1].className == "ok" || document.getElementsByClassName(cible)[1].childNodes[1].className == "danger")
+      {
+        if (document.getElementsByClassName(cible)[1].childNodes[document.getElementsByClassName(cible)[1].childNodes.length-1].tagName == "TEXTAREA")
+          document.getElementsByClassName(cible)[1].childNodes[1].className = "danger";
+        if (document.getElementById("save"))
+          document.getElementById("save").style.display = "none";
+      }
+      else
+        document.getElementsByClassName(cible)[1].childNodes[1].className = "ok";
+    }
+    else
+    {
+      if (document.getElementsByClassName(cible)[0].childNodes[1].className == "ok" || document.getElementsByClassName(cible)[0].childNodes[1].className == "danger")
+      {
+        if (document.getElementsByClassName(cible)[0].childNodes[document.getElementsByClassName(cible)[0].childNodes.length-1].tagName == "TEXTAREA")
+          document.getElementsByClassName(cible)[0].childNodes[1].className = "danger";
+        if (document.getElementById("save"))
+          document.getElementById("save").style.display = "none";
+      }
+      else
+        document.getElementsByClassName(cible)[0].childNodes[1].className = "ok";
+    }
     t.orig = selection.get();
 
     selection.callFilterFunction('refresh');
@@ -1296,7 +1322,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
         var t = this, o = t.core.opt;
         $.extend(t,Selection.defaults);
         t.filter = t.core.getDefaultFilters();
-
         t.element = $('<div />').addClass(o.css_selection).data({ selection: t });
         t.frame = $('<button />').addClass(o.css_button).data('ord','move').attr('type','button');
         t.element.append(t.frame).appendTo(t.core.container);
@@ -1423,7 +1448,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
 
         if ((ord == 'move') && t.element.hasClass(t.core.opt.css_nodrag))
           return false;
-
         this.state = new Jcrop.component.DragState(e,this,ord);
         return false;
       },
@@ -1558,7 +1582,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
         rv.y2 = rv.y + h;
         rv.w = w;
         rv.h = h;
-
         return rv;
       },
       //}}}
@@ -1610,7 +1633,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     // start: function(e){{{
     start: function(e){
       var c = this.core;
-
       // Do nothing if allowSelect is off
       if (!c.opt.allowSelect) return;
 
@@ -1642,7 +1664,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
       var sel = c.newSelection()
         // and position it
         .updateRaw(Jcrop.wrapFromXywh([origx,origy,1,1]));
-
       sel.element.trigger('cropstart',[sel,this.core.unscale(sel.get())]);
       
       return sel.startDrag(e,'se');
@@ -1652,7 +1673,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     end: function(x,y){
       this.drag(x,y);
       var b = this.sel.get();
-
       this.core.container.removeClass('jcrop-dragging');
 
       if ((b.w < this.minsize[0]) || (b.h < this.minsize[1]))
@@ -1694,7 +1714,8 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     startDragHandler: function(){
       var t = this;
       return function(e){
-        if (!e.button || t.core.opt.is_ie_lt9) return t.dragger.start(e);
+        if (!e.button || t.core.opt.is_ie_lt9)
+          return t.dragger.start(e);
       };
     },
     // }}}
@@ -1823,7 +1844,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
           marginLeft: '-' + Math.round(rx * c.x) + 'px',
           marginTop: '-' + Math.round(ry * c.y) + 'px'
         });
-
         this.last = c;
         return this;
       },
@@ -1836,8 +1856,8 @@ Jcrop.registerStageType('Canvas',CanvasStage);
       show: function(){
         if (this._hiding) clearTimeout(this._hiding);
 
-        if (!this.fading) this.element.stop().css({ opacity: 1 });
-        else this.element.stop().animate({ opacity: 1 },{ duration: 80, queue: false });
+        if (!this.fading) this.element.stop().css({ opacity: 0 });
+        else this.element.stop().animate({ opacity: 0 },{ duration: 80, queue: false });
       },
       hide: function(){
         var t = this;
@@ -2009,7 +2029,7 @@ Jcrop.registerStageType('Canvas',CanvasStage);
       fadeDuration: 300,
       fadeEasing: 'swing',
       bgColor: 'black',
-      bgOpacity: .5,
+      bgOpacity: .0,
 
       // Startup options
       applyFilters: [ 'constrain', 'extent', 'backoff', 'ratio', 'shader', 'round' ],
@@ -2169,9 +2189,10 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     setSelection: function(sel){
       var m = this.ui.multi;
       var n = [];
-      for(var i=0;i<m.length;i++) {
+      for(var i=0;i<m.length;i++)
+      {
         if (m[i] !== sel) n.push(m[i]);
-        m[i].toBack();
+          m[i].toBack();
       }
       n.unshift(sel);
       this.ui.multi = n;
@@ -2256,7 +2277,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     addFilter: function(filter){
       for(var i=0,m=this.ui.multi,l=m.length; i<l; i++)
         m[i].addFilter(filter);
-
       return this;
     },
     //}}}
@@ -2264,7 +2284,6 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     removeFilter: function(filter){
       for(var i=0,m=this.ui.multi,l=m.length; i<l; i++)
         m[i].removeFilter(filter);
-
       return this;
     },
     // }}}
@@ -2359,7 +2378,7 @@ Jcrop.registerStageType('Canvas',CanvasStage);
     // }}}
     // requestDelete: function(){{{
     requestDelete: function(){
-      if ((this.ui.multi.length > 1) && (this.ui.selection.canDelete))
+      if ((this.ui.multi.length > 0) && (this.ui.selection.canDelete))
         return this.deleteSelection();
     },
     // }}}

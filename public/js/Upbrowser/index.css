@@ -1,3 +1,10 @@
+.saving
+{
+  position: fixed;
+  right: 40%;
+  top: 40%;
+}
+
 .TOC {
   padding: 2em;
   padding-top: 1em;

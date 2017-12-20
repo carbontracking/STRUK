@@ -45,7 +45,6 @@
         <input type="submit" value="Upload" class="10" class="upload">
       </form>
         <br><br>
-        <form action="/aws" method="GET"><input type="submit" value="AWS test"></form>
         <h2 class="11" type="titre du tableau">Vos Fichiers</h2>
         <table id="tableau">
           <thead>
@@ -63,12 +62,10 @@
           <tbody>
             {{#each data_file}}
             <tr id="line_cell_{{@index}}">
-              <td><h3 class="{{selectValueTitre}}" type="titre">{{this.name}}</h3></td>
+              <td><h3 class="{{selectValueTitre}}" type="titre">{{this.title_name}}</h3></td>
               <td> 
-<!--                <form action="{{this.link}}" enctype="application/x-www-form-urlencoded" method="GET">
--->                  <p class="{{selectValueNom}}" type="nom">{{this.title}}</p>
-<!--                </form>
--->              </td>
+                  <p class="{{selectValueNom}}" type="nom">{{this.file_name}}</p>
+              </td>
               <td> <p class="{{selectValueDate}}" type="date">{{this.displayDate}}</p></td>
               <td> <p class="{{selectValueDescription}}" type="commentaire">{{this.description}}</p></td>
               <td> <p class="{{selectValuePublic}}" type="public ou privé">
@@ -77,41 +74,39 @@
                 {{else}}
                   non
                 {{/if}}
+                </br>
                 </p>
               </td>
               <td class="myActions">
-                <label for="brows" class="{{selectValueBrows}}" style="display: none">Upbrowser</label>
+                <label lab="{{lab1}}" for="brows"  class="{{selectValueBrows}}" style="display: none">Upbrowser</label>
                 <form method="GET" action="/upbrowser" target="_blank">
-                  <input type="submit" id="brows" class="{{selectValueBrows}}" name="id" value="{{this.id}}">
+                  <input title="Upbrowser" type="submit" id="brows" class="{{selectValueBrows}}" name="id" value="{{this.id}}" style="{{isDisplayNoneHTML}}">
                 </form>
-                
-                <label for="ocr" class="{{selectValueOCR}}" style="display: none">OCR</label>
+                <label lab="{{lab2}}" for="ocr" class="{{selectValueOCR}}" style="display: none">OCR</label>
                 <form method="GET" action="/OCR">
-                  <input type="submit" id="ocr" class="{{selectValueOCR}}" name="id" value="{{this.id}}">
+                  <input title="UpOCR" type="submit" id="ocr" class="{{selectValueOCR}}" name="id" value="{{this.id}}" style="{{isDisplayNoneIMG}}">
                 </form>
 
-                <label for="edit" class="{{selectValueEdit}}" style="display: none">UpEdit</label>
+                <label lab="{{lab1}}" for="edit" class="{{selectValueEdit}}" style="display: none">UpEdit</label>
                 <form method="GET" action="/upedit">
-                  <input type="submit" id="edit" class="{{selectValueEdit}}" name="id" value="{{this.id}}">
+                  <input title="UpEditor" type="submit" id="edit" class="{{selectValueEdit}}" name="id" value="{{this.id}}" style="{{isDisplayNoneHTML}}">
                 </form>
 
                 <label for="editTable" class ="{{selectValueHeadset}}" style="display: none">Modifier les informations du fichiers</label>
-                <input type="button" id="headset" class ="{{selectValueHeadset}}" name="editTable" value="{{this.id}}" onclick="showEdit(line_cell_{{@index}}, {{this.id}})">
+                <input title="Modifier les informations" type="button" id="headset" class ="{{selectValueHeadset}}" name="editTable" value="{{this.id}}" onclick="showEdit(line_cell_{{@index}}, {{this.id}})">
 
                 <label for="supp" class ="{{selectValueDelete}}" style="display: none">Supprimer</label>
-                <input type="button" id="supp" class ="{{selectValueDelete}}" name="deleteLine" value="{{this.id}}" onClick="deleteLine(line_cell_{{@index}}, {{this.id}})">
+                <input title="Supprimer" type="button" id="supp" class ="{{selectValueDelete}}" name="deleteLine" value="{{this.id}}" onClick="deleteLine(line_cell_{{@index}}, {{this.id}})">
               </td>
             </tr>
-
-
             <tr id="line_cell_{{@index}}_edit" style="display: none">
               <td>
                 <h3>
                   <label for="titre" style="display: none">Modifier le titre :</label>
-                  <input type="text" name="titre" value="{{this.name}}" style="width: 95%">
+                  <input type="text" name="titre" value="{{this.title_name}}" style="width: 95%">
                 </h3>
               </td>
-              <td><p type="nom">{{this.title}}</p></td>
+              <td><p type="nom">{{this.file_name}}</p></td>
               <td><p type="date">{{this.displayDate}}</p></td>
               <td>
                 <label for="commentaire" style="display: none">Modifier le commentaire :</label>
@@ -127,7 +122,6 @@
               <td class="myActions">
                 <label for="validation" style="display: none">Valider la modification</label>
                 <input type="button" id="accept" name="validation" onClick="editLine({{@index}}, line_cell_{{@index}}, {{this.id}})">
-                
                 <label for="return" style="display: none">Annuler la modification</label>
                 <input type="button" id="supp" name="return" onClick="returnLine(line_cell_{{@index}})">
               </td>
@@ -151,5 +145,4 @@
             </div>
   </div>
 </div>
-
 <script src="/js/AJAXhome.js"></script>

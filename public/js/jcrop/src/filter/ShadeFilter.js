@@ -7,7 +7,7 @@
    */
   var ShadeFilter = function(opacity,color){
     this.color = color || 'black';
-    this.opacity = opacity || 0.5;
+    this.opacity = opacity || 0;
     this.core = null;
     this.shades = {};
   };

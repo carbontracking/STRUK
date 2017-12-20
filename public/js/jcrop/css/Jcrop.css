@@ -343,7 +343,6 @@
       opacity:.35!important;
     }
     */
-
 }
 .jcrop-hl-active .jcrop-selection:hover .jcrop-border {
   background-color: #ccc;
@@ -371,4 +370,15 @@
 /* Prevent background on button element */
 button.jcrop-box {
   background: none;
+}
+
+.jcrop-selection
+{
+  background-color: #c0c0c0;
+  opacity: 0.5;
+}
+.jcrop-current
+{
+  background-color: #E0CDA9;
+  opacity: 0.5;
 }
