@@ -289,13 +289,19 @@ function applyKey (_event_)
 	
     		else if (intKeyCode == KEY_RIGHT)
     		{
-    		if(document.activeElement)
-    			document.activeElement.blur();
     		if (elem < size-1)
     		{
+    			if(document.activeElement)
+    				document.activeElement.blur();
     			elem++;
+    			var new_class = 1;
+    			while (elem < size-1 && document.getElementsByClassName(elem)[0].attributes[0].value == "ok")
+    			{
+    				elem++;
+    				new_class++;
+    			}
     			if (document.getElementsByClassName("selected")[0])
-    				document.getElementsByClassName("selected")[0].className = elem-1;
+    				document.getElementsByClassName("selected")[0].className = elem-new_class;
     			document.getElementsByClassName(elem)[0].className = "selected";
     			if (document.getElementsByClassName(elem)[0])
     				read_selected();
@@ -317,9 +323,15 @@ function applyKey (_event_)
     		{
     			if (document.activeElement)
     				document.activeElement.blur();
+    			var num = 1;
     			elem--;
+    			while (elem > 0 && document.getElementsByClassName(elem)[0].attributes[0].value == "ok")
+    			{
+    				elem--;
+    				num++;
+    			}
     			if (document.getElementsByClassName("selected")[0])
-    				document.getElementsByClassName("selected")[0].className = elem+1;
+    				document.getElementsByClassName("selected")[0].className = elem+num;
     			document.getElementsByClassName(elem)[0].className = "selected";
     			if (document.getElementsByClassName(elem)[0])
     				read_selected();
@@ -417,7 +429,6 @@ function applyKey (_event_)
 		return false;
 	}
 		}
-	
 		else if (document.getElementsByClassName(elem)[0])
 		{
 		if (document.getElementsByClassName(elem)[0].tagName == "INPUT" || document.getElementsByClassName(elem)[0].tagName == "TEXTAREA")

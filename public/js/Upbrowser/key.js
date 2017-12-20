@@ -63,6 +63,7 @@ var g_pos = 1;
 var memory_node = 0;
 var phrase = 0;
 var length = 0;
+var write = 0;
 
 while (document.getElementById(length))
 	length++;
@@ -113,9 +114,12 @@ function applyKey (_event_)
     // initialisation en fonction du navigateur
     var winObj = checkEventObj(_event_);
     var intKeyCode = winObj.keyCode;
+    var intCtrlKey = winObj.ctrlKey;
+    var intShiftKey = winObj.shiftKey;
     var childNode = document.body.childNodes;
     }
-    
+    if (write == 0)
+    {
 	//differente touches pour controller l'appli
 	{
 	//modifier la taille --
@@ -247,7 +251,6 @@ function applyKey (_event_)
     			{
     				if (selection.parentElement.id == test_id)
     				{
-    					console.log(selection.parentElement.id);
     					found_p = true;
     					break;
     				}
@@ -807,5 +810,104 @@ function applyKey (_event_)
 		return false;
 	}
 	
+	if (intKeyCode == KEY_E && intCtrlKey == true && intShiftKey == true)
+    {
+    	var after_parse;
+    	if (document.getElementsByClassName("selected2")[0])
+    	{
+    		after_parse = epurstr(document.getElementsByClassName("selected2")[0].innerHTML);
+    		document.getElementsByClassName("selected2")[0].innerHTML = "<p id=\"retour_a_la_ligne\"><br></p><textarea id=\"modif\" style=\"width:100%;\">" + after_parse + "</textarea>";
+    		write = 1;
+    		document.getElementById("modif").focus();
+    	}
+    	winObj.keyCode = intKeyCode = REMAP_KEY_T;
+		winObj.returnValue = false;
+		return false;
+    }
+	
 	}
+    }
+    else
+    {
+    	if (intKeyCode == KEY_E && intCtrlKey == true && intShiftKey == true)
+    	{
+    		document.getElementById("retour_a_la_ligne").outerHTML = "";
+    		document.getElementsByClassName("selected2")[0].innerHTML = document.getElementById("modif").value;
+    		id_span_change();
+    		write = 0;
+    		var save = get_save();
+    		upbrowserSave(save);
+    		winObj.keyCode = intKeyCode = REMAP_KEY_T;
+			winObj.returnValue = false;
+			return false;
+    	}
+    	else
+    		speakPhrase(winObj.key);
+    }
+}
+
+function epurstr(src)
+{
+	var txt = "";
+	var i = 0;
+	while (i < src.length)
+	{
+		while (src[i] == ' ' || src[i] == '\n')
+			i++;
+		if (src[i-1] == ' ')
+			txt += src[i-1];
+		if (i < src.length)
+			txt += src[i];
+		i++;
+	}
+	return (txt)
+}
+
+function id_span_change()
+{
+	document.body.outerHTML = "<div class=\"saving\"><img style=\"width: 200px; height: 200px;\" src=\"css/saving.gif\"></div>" + document.body.outerHTML;
+	var i = 0;
+	var tmp = document.getElementsByClassName("selected2")[0].innerHTML;
+	var txt = "";
+	var test = 0;
+	var id = parseInt(document.getElementsByClassName("selected2")[0].id, 10);
+	var id_to_move = parseInt(document.getElementsByClassName("selected2")[0].id, 10);
+	id_to_move++;
+	txt = "<span id=\""+id+"\" class=\"selected2\">";
+	id++;
+	while (i < tmp.length)
+	{
+		if (tmp[i] == "." || tmp[i] == "?" || tmp[i] == "!")
+		{
+			txt += tmp[i]+"</span>";
+			test = i + 1;
+			while (test < tmp.length && (tmp[test] == ' ' || tmp[test] == '\n'))
+				test++;
+			if (test != tmp.length)
+			{
+				txt += "<span id=\""+id+"\">";
+				id++;
+			}
+			else
+				break;
+		}
+		else
+			txt += tmp[i];
+		i++;
+	}
+	if (txt[txt.length - 1] != '>' && txt[txt.length - 1] != 'n')
+		txt += "</span>";
+	var nbr_phrase = id_to_move-1;
+	i = id_to_move;
+	while (document.getElementById(i))
+	{
+		document.getElementById(i).id = "a";
+		i++;
+	}
+	while (document.getElementById("a"))
+	{
+		document.getElementById("a").id = id;
+		id++;
+	}
+	document.getElementsByClassName("selected2")[0].outerHTML = txt;
 }
