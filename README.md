@@ -2,7 +2,7 @@
 
 ## Prereqs
 - Install MySQL
-- Create Microsoft AZURE account for OCR
+- Create Microsoft AZURE account and select your OCR
   - https://azure.microsoft.com/fr-fr/free/
 - create AWS S3 bucket & account
 - MAILGUN account
