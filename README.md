@@ -25,3 +25,68 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+# UPSCRIBERS
+
+A web application that makes life better for print-challenged kids (and all the others too). 
+By print-challenged we mean those who are unable to read, or have difficulty reading, printed materials
+* Low-vision
+* Learning disabilities (dyslexia etc.)
+* Neuro-motor diseases
+
+See [the wiki](https://github.com/carbontracking/upscribers/wiki) for further details
+
+
+Today students receive learning material in  multiple formats (printed/hand-written/pdf/docx/odt).
+
+This project/webapp will provide the following
+* Rapid access to what the student needs
+  * Grouping/Filtering of Date/Subject/Topic using meta-data (tagging)
+  * A simplified process for conversion to web-native formats (html5/jpeg)
+* Simple WYSIWYG transcription (saved as html)
+  * Crowd-sourced transcription :  With enough eyes, every kid can read
+  * V1.0 : text-entry limited to (h1/h2/h3/lists/bod/italic/underlined) 
+  * V2.0 : Integrated OCR to kick-start the transcription process
+
+Accessibility enhancements are
+* V1.0 : Font size/color, background color adapted per student
+* V2.0 : Text-highlighting as student moves through text
+* V2.0 : Text-To-Speech with highlighting
+
+Platform/Tool agnostic : A pure web solution, no plugins, no installation
+
+
+Utilisation:
+
+faire npm install
+
+creer un fichier .env
+avec dedant 
+
+
+SESSION_SECRET='xxx'
+
+BUCKET='' //nom du bucket amazon
+
+DB_HOST='' hote de la db
+DB_USER='' user login de la db
+DB_PASSWORD='' mot de passe user de la db
+DB_NAME='' nom de la db
+
+AWS_ACCESS_KEY_ID='' clef d'accès du compt root de AWS
+AWS_SECRET_ACCESS_KEY=''clef d'accès secret du compt root de AWS
+
+//valeur par default qui proviennent du MegaBoilerplate.
+
+MAILGUN_USERNAME='postmaster@sandbox67c118365e564798a8864434e4b2a3cb.mailgun.org'
+MAILGUN_PASSWORD='ed49d942fd9e6c11208ee3aacb29df9d'
+
+FACEBOOK_ID='980220002068787'
+FACEBOOK_SECRET='fb9416c436edd2690c6f6adbd94374d1'
+
+GOOGLE_ID='814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com'
+GOOGLE_SECRET='SyXmZcdT6vPFeqcs0jaPhdVP'
+
+TWITTER_KEY='6NNBDyJ2TavL407A3lWxPFKBI'
+TWITTER_SECRET='ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa'
