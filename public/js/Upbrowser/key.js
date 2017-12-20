@@ -3,33 +3,35 @@ document.onkeydown = applyKey;
 
 //clavier
 {
-var KEY_PDOWN	= 34;
-var KEY_PUP		= 33;
-var KEY_DOWN	= 40;
-var KEY_UP		= 38;
-var KEY_LEFT	= 37;
-var KEY_RIGHT	= 39;
-var KEY_END		= 35;
-var KEY_BEGIN	= 36;
-var KEY_ENTER	= 13;
-var KEY_SPACE	= 32;
+	// lien vers les valeurs des touches clavier https://connaissances.fournier38.fr/entry/Touches%20clavier%20pour%20%28event.keyCode%29
+	
+var KEY_PDOWN	= 34; // selection du prochain titre de meme niveau
+var KEY_PUP		= 33; // selection du titre precedant de meme niveau
+var KEY_DOWN	= 40; // selection du titre suivant
+var KEY_UP		= 38; // selection du titre precedant
+var KEY_LEFT	= 37; // selection de la phrase precedante
+var KEY_RIGHT	= 39; // selection de la phrase suivante
+var KEY_END		= 35; // reduit la taille
+var KEY_BEGIN	= 36; // agrandit la taille
+var KEY_ENTER	= 13; // ouvrir la page correspondate au lien selectioné
+var KEY_SPACE	= 32; // selection de la phrase visée par un clique ou par un control-f
+var KEY_C		= 67; // changer la couleur de fond et celle de la police
+var KEY_BACK_TAB = 8;  // selection du titre precedant de niveau inferieur
+var KEY_ESC		= 27; // fermer la page
+var KEY_E		= 69; // control+mal+e entrer/sortir du mode edition
+var KEY_S		= 83; //arreter la voix de synthese
+var KEY_L		= 76; // changer la langue anglais francais espagnol 
 var KEY_K		= 75;
-var KEY_L		= 76;
 var KEY_M		= 77;
-var KEY_C		= 67;
 var KEY_J		= 74;
-var KEY_S		= 83;
 var KEY_H		= 72;
 var KEY_D		= 68;
 var KEY_DEL		= 46;
 var REMAP_KEY_T	= 5019;
-var KEY_BACK_TAB 	= 8;
 var KEY_TAB		= 9;
 var KEY_SH_TAB  	= 16;
-var KEY_ESC		= 27;
 var KEY_A		= 65;
 var KEY_B		= 66;
-var KEY_E		= 69;
 var KEY_F		= 70;
 var KEY_G		= 71;
 var KEY_I		= 73;
