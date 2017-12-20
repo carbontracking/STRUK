@@ -1,10 +1,22 @@
-#Utilisation:
+# Utilisation:
 
-faire npm install
+## Prereqs
+- Install MySQL
+- Create Microsoft AZURE account for OCR
+- create AWS S3 bucket & account
+- install node.js
+- install npm.js
+- install git
+- sudo apt-get update
+- sudo apt-get install mysql-server
+  - Create the user that will be used by upscribers (to be used in configuring variables later)
+## Installation
+- git clone https://github.com/carbontracking/upscribers.git
+- npm install
 
 ##Preparation de l'environement
 
-creer un fichier .env" avec :
+creer un fichier .env
 
 SESSION_SECRET='xxx'
 
