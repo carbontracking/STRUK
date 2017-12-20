@@ -4,6 +4,8 @@
 - Install MySQL
 - Create Microsoft AZURE account for OCR
 - create AWS S3 bucket & account
+- MAILGUN account
+  - If you want to set up a "Nous Contacter" feature then you will need a MAILGUN account
 - install node.js
 - install npm.js
 - install git
@@ -19,22 +21,21 @@
 
 - creer un fichier .env à la racine de l'installation
 
-SESSION_SECRET='xxx'
-
-BUCKET='' //nom du bucket amazon
-
-DB_HOST='' hote de la db
-DB_USER='' user login de la db
-DB_PASSWORD='' mot de passe user de la db
-DB_NAME='' nom de la db
-
-AWS_ACCESS_KEY_ID='' clef d'accès du compt root de AWS
-AWS_SECRET_ACCESS_KEY=''clef d'accès secret du compt root de AWS
+- SESSION_SECRET='xxx'
+  - This secret key is used .... as a session key... this can be absolutely anything
+- BUCKET='' //nom du bucket amazon
+  - See the value retrieved from step ...
+- DB_HOST='' hote de la db
+- DB_USER='' user login de la db
+- DB_PASSWORD='' mot de passe user de la db
+- DB_NAME='' nom de la db
+- AWS_ACCESS_KEY_ID='' clef d'accès du compt root de AWS
+- AWS_SECRET_ACCESS_KEY=''clef d'accès secret du compt root de AWS
 
 //valeur par default qui proviennent du MegaBoilerplate.
-
-MAILGUN_USERNAME='postmaster@sandbox67c118365e564798a8864434e4b2a3cb.mailgun.org'
-MAILGUN_PASSWORD='ed49d942fd9e6c11208ee3aacb29df9d'
+- MAILGUN_USERNAME='postmaster@sandbox67c118365e564798a8864434e4b2a3cb.mailgun.org'
+  - Used for "Nous Contacter"
+- MAILGUN_PASSWORD='ed49d942fd9e6c11208ee3aacb29df9d'
 
 FACEBOOK_ID='980220002068787'
 FACEBOOK_SECRET='fb9416c436edd2690c6f6adbd94374d1'
