@@ -29,10 +29,14 @@
   - This secret key is used .... as a session key... this can be absolutely anything
 - BUCKET='' //nom du bucket amazon
   - See the value retrieved from step ...
-- DB_HOST='' hote de la db
-- DB_USER='' user login de la db
-- DB_PASSWORD='' mot de passe user de la db
-- DB_NAME='' nom de la db
+- DB_HOST=''
+- DB_USER=''
+  - nom d'utilisateur rentré lors de l'installation de mysql-server
+- DB_PASSWORD=''
+  - mot de passe rentré lors de l'installation de mysql-server
+- DB_NAME=''
+  - nom de la base de donnée que vous allez utiliser
+    - pour la creer connectez vous a mysql (mysql -u DB_USER -p) puis CREATE DATABASE DB_NAME;
 - AWS_ACCESS_KEY_ID='' clef d'accès du compt root de AWS
 - AWS_SECRET_ACCESS_KEY=''clef d'accès secret du compt root de AWS
 
