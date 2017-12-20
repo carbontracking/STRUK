@@ -1,4 +1,4 @@
-# Utilisation:
+# USE:
 
 ## Prereqs
 - Install MySQL
@@ -21,9 +21,9 @@
 - git clone https://github.com/carbontracking/upscribers.git
 - npm install
 
-## Preparation de l'environement
+## Preparation of the env
 
-- creer un fichier .env à la racine de l'installation
+- create .env file at the root
 
 - SESSION_SECRET='xxx'
   - This secret key is used .... as a session key... this can be absolutely anything
@@ -31,14 +31,15 @@
   - See the value retrieved from step ...
 - DB_HOST=''
 - DB_USER=''
-  - nom d'utilisateur rentré lors de l'installation de mysql-server
+  - username choose when mysql was installed
 - DB_PASSWORD=''
-  - mot de passe rentré lors de l'installation de mysql-server
+  - password choose when mysql was installed
 - DB_NAME=''
-  - nom de la base de donnée que vous allez utiliser
-    - pour la creer connectez vous a mysql (mysql -u DB_USER -p) puis CREATE DATABASE DB_NAME;
-- AWS_ACCESS_KEY_ID='' clef d'accès du compt root de AWS
-- AWS_SECRET_ACCESS_KEY=''clef d'accès secret du compt root de AWS
+  - database's name you're gonna use (see Setup Mysql)
+- AWS_ACCESS_KEY_ID=''
+  - access key to AWS'root account
+- AWS_SECRET_ACCESS_KEY=''
+  - secret access key to AWS'root account
 
 //valeur par default qui proviennent du MegaBoilerplate.
 - MAILGUN_USERNAME='postmaster@sandbox67c118365e564798a8864434e4b2a3cb.mailgun.org'
