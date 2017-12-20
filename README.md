@@ -4,7 +4,7 @@ faire npm install
 
 ##Preparation de l'environement
 
-creer un fichier .env
+creer un fichier .env" avec :
 
 SESSION_SECRET='xxx'
 

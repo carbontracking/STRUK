@@ -272,5 +272,9 @@ function get_save()
 		txt.getElementsByTagName("A")[nb++].id = "";
 	for (let i= 0; i < txt.getElementsByTagName("SCRIPT").length; i++)
 		txt.getElementsByTagName("SCRIPT")[i].outerHTML = "";
+	if (txt.getElementsByClassName("selected")[0])
+		txt.getElementsByClassName("selected")[0].className = "";
+	else if (txt.getElementsByClassName("selected2")[0])
+		txt.getElementsByClassName("selected2")[0].className = "";
 	return (txt.innerHTML);
 }
