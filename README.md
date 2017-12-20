@@ -9,6 +9,10 @@
 - install node.js
 - install npm.js
 - install git
+- Create OAUTH accounts for Facebook / Google / Twitter etc. if you wish to use them
+  - Facebook
+  - Google
+  - Twitter
 - sudo apt-get update
 - sudo apt-get install mysql-server
   - Create the user that will be used by upscribers (to be used in configuring variables later)
@@ -37,20 +41,21 @@
   - Used for "Nous Contacter"
 - MAILGUN_PASSWORD='ed49d942fd9e6c11208ee3aacb29df9d'
 
-FACEBOOK_ID='980220002068787'
-FACEBOOK_SECRET='fb9416c436edd2690c6f6adbd94374d1'
-
-GOOGLE_ID='814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com'
-GOOGLE_SECRET='SyXmZcdT6vPFeqcs0jaPhdVP'
-
-TWITTER_KEY='6NNBDyJ2TavL407A3lWxPFKBI'
-TWITTER_SECRET='ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa'
+- FACEBOOK_ID='980220002068787'
+- FACEBOOK_SECRET='fb9416c436edd2690c6f6adbd94374d1'
+- GOOGLE_ID='814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com'
+- GOOGLE_SECRET='SyXmZcdT6vPFeqcs0jaPhdVP'
+- TWITTER_KEY='6NNBDyJ2TavL407A3lWxPFKBI'
+- TWITTER_SECRET='ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa'
 
 ## Setup MySQL
 
 - from the command line
   - mysql -u user -p (the user is from the variable DB_USER then enter password from DB_PASSWORD in the .env file )
   - create database Upstore; (note: this is the DB_NAME defined in the .env file)
+
+## Run the app
+- node server.js (from the root of the installation)
 
 ## Mega Boilerplate App (Node.js)
 
