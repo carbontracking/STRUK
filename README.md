@@ -3,6 +3,7 @@
 ## Prereqs
 - Install MySQL
 - Create Microsoft AZURE account for OCR
+  - https://azure.microsoft.com/fr-fr/free/
 - create AWS S3 bucket & account
 - MAILGUN account
   - If you want to set up a "Nous Contacter" feature then you will need a MAILGUN account
@@ -25,6 +26,8 @@
 
 - create .env file at the root
 
+- OCR_KEY=''
+  - key you get when you select an OCR on the Azur's services
 - SESSION_SECRET='xxx'
   - This secret key is used .... as a session key... this can be absolutely anything
 - BUCKET='' //nom du bucket amazon
