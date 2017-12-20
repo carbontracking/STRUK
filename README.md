@@ -48,7 +48,8 @@ TWITTER_SECRET='ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa'
 ## Setup MySQL
 
 - from the command line
-  - mysql -u user -p (then enter password
+  - mysql -u user -p (the user is from the variable DB_USER then enter password from DB_PASSWORD in the .env file )
+  - create database Upstore; (note: this is the DB_NAME defined in the .env file)
 
 ## Mega Boilerplate App (Node.js)
 
