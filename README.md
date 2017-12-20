@@ -10,13 +10,14 @@
 - sudo apt-get update
 - sudo apt-get install mysql-server
   - Create the user that will be used by upscribers (to be used in configuring variables later)
+
 ## Installation
 - git clone https://github.com/carbontracking/upscribers.git
 - npm install
 
-##Preparation de l'environement
+## Preparation de l'environement
 
-creer un fichier .env
+- creer un fichier .env à la racine de l'installation
 
 SESSION_SECRET='xxx'
 
@@ -44,6 +45,10 @@ GOOGLE_SECRET='SyXmZcdT6vPFeqcs0jaPhdVP'
 TWITTER_KEY='6NNBDyJ2TavL407A3lWxPFKBI'
 TWITTER_SECRET='ZHaYyK3DQCqv49Z9ofsYdqiUgeoICyh6uoBgFfu7OeYC7wTQKa'
 
+## Setup MySQL
+
+- from the command line
+  - mysql -u user -p (then enter password
 
 ## Mega Boilerplate App (Node.js)
 
