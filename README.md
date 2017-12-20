@@ -30,8 +30,8 @@
   - key you get when you select an OCR on the Azur's services
 - SESSION_SECRET='xxx'
   - This secret key is used .... as a session key... this can be absolutely anything
-- BUCKET='' //nom du bucket amazon
-  - See the value retrieved from step ...
+- BUCKET=''
+  - Name of the Bucket on your AWS's account. See the value retrieved from step ...
 - DB_HOST=''
   - host of the database. localhost as exemple
 - DB_USER=''
@@ -45,7 +45,8 @@
 - AWS_SECRET_ACCESS_KEY=''
   - secret access key to AWS'root account
 
-//valeur par default qui proviennent du MegaBoilerplate.
+default value of the Megaboilerplate
+
 - MAILGUN_USERNAME='postmaster@sandbox67c118365e564798a8864434e4b2a3cb.mailgun.org'
   - Used for "Nous Contacter"
 - MAILGUN_PASSWORD='ed49d942fd9e6c11208ee3aacb29df9d'
