@@ -26,8 +26,6 @@
 
 - create .env file at the root
 
-- OCR_KEY=''
-  - key you get when you select an OCR on the Azur's services
 - SESSION_SECRET='xxx'
   - This secret key is used .... as a session key... this can be absolutely anything
 - BUCKET=''
