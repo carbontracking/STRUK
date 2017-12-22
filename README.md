@@ -4,6 +4,7 @@
 - Install MySQL
 - Create Microsoft AZURE account and select your OCR
   - https://azure.microsoft.com/fr-fr/free/
+  - You can select the ocr you want https://azure.microsoft.com/fr-fr/services/cognitive-services/computer-vision/
 - create AWS S3 bucket & account
 - MAILGUN account
   - If you want to set up a "Nous Contacter" feature then you will need a MAILGUN account
