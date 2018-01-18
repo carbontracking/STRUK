@@ -65,6 +65,8 @@ default value of the Megaboilerplate
   - create database Upstore; (note: this is the DB_NAME defined in the .env file)
 
 ## Run the app
+- first create a temp folder at the same level as the server.js file
+  - ``mkdir temp``
 - node server.js (from the root of the installation)
 
 ## Mega Boilerplate App (Node.js)
